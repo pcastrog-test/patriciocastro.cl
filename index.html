@@ -236,6 +236,12 @@
     .research-card p { font-size: .88rem; color: var(--text-muted); line-height: 1.75; }
     .research-card .collab { display: inline-flex; align-items: center; gap: .4rem; margin-top: 1rem; font-size: .72rem; color: var(--gold); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
 
+    /* FOTOS DE SECCIÓN */
+    .section-photo { width: 100%; height: 300px; border-radius: 8px; overflow: hidden; margin-bottom: 3rem; position: relative; }
+    .section-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: brightness(.82); }
+    .section-photo-caption { position: absolute; bottom: 1rem; left: 1.25rem; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    @media (max-width: 900px) { .section-photo { height: 200px; } }
+
     /* ARTÍCULOS */
     .articles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
     .article-card { display: flex; flex-direction: column; gap: .6rem; padding: 1.5rem 1.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); transition: border-color .25s, transform .2s; text-decoration: none; }
@@ -405,6 +411,10 @@
       <section id="cursos">
         <div class="section-label">Docencia</div>
         <h2>Cursos & <em>Programas</em></h2>
+        <div class="section-photo reveal">
+          <img src="foto-docencia.jpg" alt="Patricio Castro con estudiantes UAI" />
+          <span class="section-photo-caption">UAI · Actividad con estudiantes</span>
+        </div>
         <div class="courses-grid">
           <div class="course-card reveal">
             <div class="course-code">MKT299</div>
@@ -450,6 +460,10 @@
     <section id="investigacion">
       <div class="section-label">Investigación & Práctica</div>
       <h2>Conectando academia<br><em>con industria</em></h2>
+      <div class="section-photo reveal">
+        <img src="foto-investigacion.jpg" alt="Patricio Castro presentando CMO Survey Chile con Deloitte" style="object-position: center 20%;" />
+        <span class="section-photo-caption">CMO Survey Chile · Deloitte Digital</span>
+      </div>
       <div class="research-grid">
         <div class="research-card reveal">
           <div class="icon">📊</div>
