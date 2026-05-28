@@ -11,6 +11,39 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 3] 2026-05-28 — Blog: segundo artículo IA aplicada al marketing
+
+### Rama Git
+`feat/blog-ia-aplicada-al-marketing`
+
+### Objetivo
+Publicar el segundo artículo del blog sobre IA aplicada al marketing, con estructura GEO, roadmap en 90 días, FAQ schema y casos de uso en empresas chilenas.
+
+### Archivos creados / modificados
+- `blog/ia-aplicada-al-marketing.html` — nuevo: artículo completo (~1.500 palabras reales)
+- `blog/index.html` — card "Próximamente" de IA convertida en link activo al nuevo artículo
+- `sitemap.xml` — añadida URL del nuevo artículo
+
+### Cambios realizados
+- **blog/ia-aplicada-al-marketing.html** — estructura idéntica al artículo anterior: hero h1, GEO opener (≤60 palabras), TOC con anclas, 6 secciones de contenido, FAQ accordion + Schema FAQPage en `<head>`, Schema Article JSON-LD, author box con foto y credenciales, CTA "Taller de IA para equipos de marketing", sidebar sticky, barra de progreso de lectura
+- Secciones de contenido: 5 aplicaciones concretas de IA (cards 2×3), automatización de contenido con herramientas y advertencias, análisis predictivo y segmentación (mención del Marketing AI-Voice Lab UAI), IA para medición de campañas, 3 casos de uso empresas chilenas, roadmap en 90 días (3 fases visuales)
+- Keywords principales: "inteligencia artificial marketing Chile" e "IA aplicada al marketing"
+- Herramientas cubiertas: ChatGPT, Claude, Gemini, Midjourney, Adobe Firefly, Klaviyo AI, HubSpot Breeze, Meta Advantage+, Google Performance Max, GA4 data-driven attribution, Meta Meridian, Prophet
+- Casos de uso: retail personalización e-commerce (+34% apertura), banca predicción churn (-15-20%), medios GEO y generación asistida
+- Mención del Marketing AI-Voice Lab de la UAI en sección de segmentación predictiva
+- **blog/index.html** — reemplazada card "próximamente" de IA generativa por link activo con extracto actualizado
+- **sitemap.xml** — añadida entrada `blog/ia-aplicada-al-marketing.html` con priority 0.85
+
+### Pendiente / notas
+- Actualizar sitemap en Google Search Console tras el deploy
+- Validar Schema Article y FAQPage en Rich Results Test
+- Próximo artículo sugerido: "RFM en la práctica: cómo segmentar tus clientes con datos reales"
+
+### Commit message
+`feat(blog): agregar artículo IA aplicada al marketing`
+
+---
+
 ## [Sesión 2] 2026-05-28 — Sección Blog: índice + primer artículo
 
 ### Rama Git
