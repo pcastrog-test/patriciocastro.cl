@@ -11,6 +11,36 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 1] 2026-05-28 — Schema JSON-LD extendido + robots.txt + sitemap.xml
+
+### Rama Git
+`feat/schema-robots-sitemap`
+
+### Objetivo
+Ampliar la cobertura de structured data para SEO semántico y GEO (Generative Engine Optimization), y añadir los archivos técnicos de rastreo que faltaban.
+
+### Archivos modificados
+- `index.html` — tres bloques de schema JSON-LD añadidos/ampliados en el `<head>`
+- `robots.txt` — archivo nuevo creado en la raíz
+- `sitemap.xml` — archivo nuevo creado en la raíz
+
+### Cambios realizados
+- **Person schema** — `knowsAbout` ampliado de 7 a 8 items (añadida "Estrategia de Contenidos")
+- **FAQPage schema** — nuevo bloque JSON-LD con 5 preguntas y respuestas (~60 palabras c/u) orientadas a búsquedas informacionales y consultas de IA
+- **Course schema** — nuevo bloque JSON-LD para MKT299 Marketing Analytics UAI, con `teaches`, `instructor`, `hasCourseInstance` y `educationalLevel`
+- **robots.txt** — Allow explícito para Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot; regla wildcard Allow /; línea Sitemap
+- **sitemap.xml** — 8 URLs (raíz + 7 anclas internas) con `lastmod`, `changefreq` y `priority` diferenciados por tipo de sección
+
+### Pendiente / notas
+- Validar los schemas en [Google Rich Results Test](https://search.google.com/test/rich-results) tras el deploy
+- Registrar sitemap en Google Search Console y Bing Webmaster Tools
+- Considerar agregar `WebPage` o `ProfilePage` schema en próxima sesión
+
+### Commit message
+`feat(seo): add FAQPage + Course schemas, robots.txt, sitemap.xml`
+
+---
+
 ## [Base] 2026-05-28 — Estado inicial documentado
 
 ### Archivos existentes

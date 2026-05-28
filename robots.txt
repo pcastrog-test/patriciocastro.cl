@@ -1,0 +1,26 @@
+# robots.txt · patriciocastro.cl
+# Actualizado: 2026-05-28
+
+# ── Bots de búsqueda tradicional ──────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# ── Bots de IA / LLM ─────────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# ── Regla general para el resto ──────────────────────────
+User-agent: *
+Allow: /
+
+# ── Sitemap ──────────────────────────────────────────────
+Sitemap: https://patriciocastro.cl/sitemap.xml
