@@ -65,4 +65,20 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog: Índice -->
+  <url>
+    <loc>https://patriciocastro.cl/blog/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog: Artículo 1 -->
+  <url>
+    <loc>https://patriciocastro.cl/blog/que-es-marketing-analytics.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
 </urlset>

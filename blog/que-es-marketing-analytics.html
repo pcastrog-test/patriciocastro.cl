@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══ SEO PRIMARIO ═══ -->
+  <title>Marketing Analytics: qué es, para qué sirve y cómo aplicarlo | Patricio Castro</title>
+  <meta name="description" content="Marketing Analytics es la disciplina que transforma datos de marketing en decisiones concretas. Aprende RFM, CLV, Forecasting y Marketing Mix Modeling aplicados a empresas chilenas." />
+  <meta name="author" content="Patricio Castro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://patriciocastro.cl/blog/que-es-marketing-analytics.html" />
+
+  <!-- ═══ OPEN GRAPH ═══ -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Marketing Analytics: qué es, para qué sirve y cómo aplicarlo en tu empresa" />
+  <meta property="og:description" content="Guía completa sobre marketing analytics Chile: RFM, CLV, Forecasting y Marketing Mix Modeling con casos de uso para empresas chilenas." />
+  <meta property="og:url" content="https://patriciocastro.cl/blog/que-es-marketing-analytics.html" />
+  <meta property="og:image" content="https://patriciocastro.cl/og-image.jpg" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Patricio Castro" />
+  <meta property="article:author" content="Patricio Castro" />
+  <meta property="article:published_time" content="2026-05-28" />
+  <meta property="article:section" content="Marketing Analytics" />
+  <meta property="article:tag" content="marketing analytics Chile" />
+  <meta property="article:tag" content="qué es marketing analytics" />
+  <meta property="article:tag" content="RFM" />
+  <meta property="article:tag" content="CLV" />
+
+  <!-- ═══ TWITTER CARD ═══ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Marketing Analytics: qué es y cómo aplicarlo en Chile" />
+  <meta name="twitter:description" content="RFM, CLV, Forecasting y Marketing Mix Modeling para empresas chilenas. Por Patricio Castro, Profesor UAI." />
+  <meta name="twitter:image" content="https://patriciocastro.cl/og-image.jpg" />
+
+  <!-- ═══ SCHEMA: Article ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Marketing Analytics: qué es, para qué sirve y cómo aplicarlo en tu empresa",
+    "description": "Guía completa sobre marketing analytics en Chile: definición, métricas clave (RFM, CLV, Forecasting, Marketing Mix Modeling), casos de uso para empresas chilenas y herramientas recomendadas.",
+    "author": {
+      "@type": "Person",
+      "name": "Patricio Castro",
+      "url": "https://patriciocastro.cl/",
+      "jobTitle": "Profesor de Marketing Analytics",
+      "affiliation": {
+        "@type": "EducationalOrganization",
+        "name": "Universidad Adolfo Ibáñez",
+        "url": "https://www.uai.cl"
+      }
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Patricio Castro",
+      "url": "https://patriciocastro.cl/"
+    },
+    "datePublished": "2026-05-28",
+    "dateModified": "2026-05-28",
+    "inLanguage": "es-CL",
+    "url": "https://patriciocastro.cl/blog/que-es-marketing-analytics.html",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://patriciocastro.cl/blog/que-es-marketing-analytics.html"
+    },
+    "keywords": ["marketing analytics Chile", "qué es marketing analytics", "RFM", "Customer Lifetime Value", "Marketing Mix Modeling", "Forecasting marketing"]
+  }
+  </script>
+
+  <!-- ═══ SCHEMA: FAQPage ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué es el marketing analytics y para qué sirve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El marketing analytics es la disciplina que aplica métodos estadísticos y ciencia de datos al análisis de información de marketing para tomar mejores decisiones comerciales. Sirve para segmentar clientes con mayor precisión, proyectar ventas, optimizar la inversión en medios y medir el retorno de cada acción de marketing. En Chile, su adopción ha crecido sostenidamente, siendo una de las prioridades de inversión de los directores de marketing según el CMO Survey Chile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la diferencia entre marketing analytics y business intelligence?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El Business Intelligence (BI) se enfoca en reportar qué ocurrió en el negocio —dashboards históricos, KPIs agregados— mientras que el marketing analytics va un paso más allá: busca entender por qué ocurrió y predecir qué va a ocurrir. El marketing analytics incluye modelamiento estadístico, segmentación predictiva y experimentos controlados que el BI tradicional no abarca. Dicho de forma simple: el BI describe el pasado, el analytics orienta el futuro."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué herramientas necesito para hacer marketing analytics en Chile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El stack básico para marketing analytics en una empresa chilena incluye Google Analytics 4 para datos web y comportamiento de usuarios, Python (con las librerías pandas y scikit-learn) para modelos predictivos y segmentación RFM, y Power BI para visualización y distribución de reportes al equipo directivo. Para empresas más avanzadas se añaden herramientas de Marketing Mix Modeling y plataformas de Customer Data Platform (CDP). No es necesario implementar todo a la vez: el enfoque gradual, partiendo por la medición básica, produce mejores resultados."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo empezar con marketing analytics si mi empresa no tiene datos históricos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Todas las empresas tienen datos, aunque no siempre en la forma ideal. El primer paso es hacer un inventario de fuentes disponibles: transacciones del sistema de ventas, datos de CRM, registros de campañas de email, Google Analytics. Con 3 a 6 meses de datos transaccionales ya es posible construir un análisis RFM básico y comenzar a segmentar la base de clientes. Lo más importante es empezar a capturar datos con estructura desde hoy, incluso si el análisis avanzado llega después."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ═══ FONTS ═══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --surface2: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim: rgba(201,168,76,0.15);
+      --text: #e8e4dc;
+      --text-muted: #888;
+      --text-dim: #555;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --radius: 4px;
+      --max: 1100px;
+      --content: 720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--gold); text-decoration: none; transition: opacity .2s; }
+    a:hover { opacity: .75; }
+    img { display: block; max-width: 100%; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,.85);
+      backdrop-filter: blur(16px);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: .04em; color: var(--text); }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .8rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); opacity: 1; }
+    .nav-links a.active { color: var(--gold); }
+
+    /* ═══ ARTICLE LAYOUT ═══ */
+    .article-wrap {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 4rem;
+      align-items: start;
+    }
+    .article-main { min-width: 0; }
+    .article-sidebar { padding-top: 2rem; position: sticky; top: 6rem; }
+
+    /* ═══ ARTICLE HERO ═══ */
+    .article-hero {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 9rem 2.5rem 3rem;
+    }
+    .breadcrumb {
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .breadcrumb a { color: var(--text-dim); }
+    .breadcrumb a:hover { color: var(--gold); opacity: 1; }
+    .article-tag-hero {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .article-tag-hero::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--gold); }
+    .article-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 1.5rem; color: var(--text);
+      max-width: 22ch;
+    }
+    .article-hero h1 em { font-style: italic; color: var(--gold-light); }
+
+    .article-meta-bar {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .meta-item { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: var(--text-dim); }
+    .meta-item strong { color: var(--text-muted); font-weight: 500; }
+    .meta-sep { color: var(--text-dim); }
+
+    /* ═══ PROSE ═══ */
+    .prose { max-width: var(--content); }
+    .prose p { color: var(--text-muted); margin-bottom: 1.4rem; font-size: 1rem; line-height: 1.85; }
+    .prose p strong { color: var(--text); font-weight: 500; }
+    .prose h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300; line-height: 1.2; color: var(--text);
+      margin-top: 3.5rem; margin-bottom: 1.25rem;
+      padding-top: 3.5rem; border-top: 1px solid var(--border);
+    }
+    .prose h2 em { font-style: italic; color: var(--gold-light); }
+    .prose h3 {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 600;
+      color: var(--text); margin-top: 2.25rem; margin-bottom: .75rem;
+    }
+    .prose h3 em { font-style: italic; color: var(--gold); }
+    .prose ul { margin-bottom: 1.4rem; padding-left: 1.25rem; }
+    .prose ul li { color: var(--text-muted); margin-bottom: .5rem; font-size: .97rem; line-height: 1.8; }
+    .prose ul li strong { color: var(--text); font-weight: 500; }
+    .prose ol { margin-bottom: 1.4rem; padding-left: 1.5rem; }
+    .prose ol li { color: var(--text-muted); margin-bottom: .65rem; font-size: .97rem; line-height: 1.8; }
+    .prose ol li strong { color: var(--text); font-weight: 500; }
+    .prose a { color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
+    .prose a:hover { border-bottom-color: var(--gold); opacity: 1; }
+    .prose blockquote {
+      border-left: 2px solid var(--gold);
+      margin: 2rem 0; padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+    }
+    .prose blockquote p { color: var(--text); font-size: 1.05rem; margin-bottom: 0; font-style: italic; }
+    .prose blockquote cite { display: block; margin-top: .75rem; font-size: .78rem; color: var(--gold); font-style: normal; font-family: var(--font-mono); letter-spacing: .08em; }
+
+    /* ═══ GEO OPENER ═══ */
+    .geo-opener {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .geo-opener::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    }
+    .geo-opener p {
+      color: var(--text) !important;
+      font-size: 1.08rem !important;
+      line-height: 1.75 !important;
+      margin-bottom: 0 !important;
+    }
+    .geo-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .6rem;
+    }
+
+    /* ═══ TABLE OF CONTENTS ═══ */
+    .toc-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .toc-title {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: .5rem; }
+    .toc-list a {
+      font-size: .85rem; color: var(--text-muted); border-bottom: none;
+      display: flex; align-items: baseline; gap: .5rem;
+      transition: color .2s;
+    }
+    .toc-list a:hover { color: var(--gold); opacity: 1; }
+    .toc-list a::before {
+      content: attr(data-num);
+      font-family: var(--font-mono); font-size: .65rem; color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ═══ METRIC CARDS ═══ */
+    .metric-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative; overflow: hidden;
+      transition: border-color .25s;
+    }
+    .metric-card:hover { border-color: rgba(201,168,76,.3); }
+    .metric-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .metric-acronym {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 600;
+      color: var(--gold-light); line-height: 1; margin-bottom: .4rem;
+    }
+    .metric-name {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: .75rem;
+    }
+    .metric-desc { font-size: .86rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ═══ CASE STUDY CARDS ═══ -->
+    .case-list { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 1.25rem; align-items: start;
+    }
+    .case-num {
+      font-family: var(--font-display); font-size: 2.2rem; font-weight: 600;
+      color: var(--gold-dim); line-height: 1; flex-shrink: 0;
+      padding-top: .1rem;
+    }
+    .case-industry {
+      font-family: var(--font-mono); font-size: .63rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .35rem;
+    }
+    .case-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
+    .case-desc { font-size: .87rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* ═══ TOOL PILLS ═══ */
+    .tool-list { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+    .tool-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .tool-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; padding-top: .1rem; }
+    .tool-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+    .tool-desc { font-size: .86rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ═══ FAQ SECTION ═══ */
+    .faq-list { margin: 1.5rem 0; display: flex; flex-direction: column; gap: .75rem; }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; gap: 1rem;
+    }
+    .faq-q-text {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+      color: var(--text); line-height: 1.25;
+    }
+    .faq-icon { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; transition: transform .25s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease, padding .25s;
+    }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: .92rem; color: var(--text-muted); line-height: 1.8;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    /* ═══ STAT HIGHLIGHT ═══ */
+    .stat-highlight {
+      display: flex; align-items: center; gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 10px; padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .stat-highlight .stat-num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 600;
+      color: var(--gold-light); line-height: 1; flex-shrink: 0;
+    }
+    .stat-highlight .stat-text {
+      font-size: .9rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .stat-highlight .stat-text strong { color: var(--text); font-weight: 500; }
+    .stat-highlight .stat-source {
+      display: block; margin-top: .4rem;
+      font-family: var(--font-mono); font-size: .63rem; letter-spacing: .08em;
+      color: var(--text-dim);
+    }
+
+    /* ═══ AUTHOR BOX ═══ */
+    .author-box {
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      margin: 3rem 0;
+      position: relative; overflow: hidden;
+    }
+    .author-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    }
+    .author-photo {
+      width: 72px; height: 72px; border-radius: 50%;
+      overflow: hidden; border: 2px solid var(--gold-dim); flex-shrink: 0;
+    }
+    .author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .author-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .35rem;
+    }
+    .author-name {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+      color: var(--text); margin-bottom: .25rem;
+    }
+    .author-bio { font-size: .86rem; color: var(--text-muted); line-height: 1.75; }
+    .author-creds {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem;
+    }
+    .author-cred {
+      display: inline-block; padding: .2rem .65rem;
+      border: 1px solid var(--border); border-radius: 2rem;
+      font-size: .7rem; color: var(--text-dim); letter-spacing: .04em;
+    }
+
+    /* ═══ CTA FINAL ═══ */
+    .cta-final {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 14px;
+      padding: 3rem;
+      margin: 3rem 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), transparent);
+    }
+    .cta-final .cta-label {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
+    }
+    .cta-final h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300; color: var(--text); line-height: 1.2;
+      margin-bottom: 1rem; border: none; padding: 0; margin-top: 0;
+    }
+    .cta-final h2 em { font-style: italic; color: var(--gold-light); }
+    .cta-final p { font-size: .95rem; color: var(--text-muted); max-width: 46ch; margin: 0 auto 2rem; line-height: 1.8; }
+    .btn-primary {
+      display: inline-block; padding: .85rem 2rem;
+      background: var(--gold); color: #0d0d0d;
+      font-weight: 500; font-size: .88rem; letter-spacing: .06em;
+      border-radius: var(--radius); transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--gold-light); opacity: 1; transform: translateY(-1px); }
+
+    /* ═══ SIDEBAR ═══ -->
+    .sidebar-toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-toc-title {
+      font-family: var(--font-mono); font-size: .63rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .sidebar-toc-list { list-style: none; padding: 0; }
+    .sidebar-toc-list li { margin-bottom: .5rem; }
+    .sidebar-toc-list a {
+      font-size: .82rem; color: var(--text-muted); display: block;
+      border-bottom: none; padding: .2rem 0;
+      border-left: 2px solid transparent; padding-left: .65rem;
+      transition: color .2s, border-color .2s;
+    }
+    .sidebar-toc-list a:hover { color: var(--gold); border-left-color: var(--gold); opacity: 1; }
+    .sidebar-author {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem; text-align: center;
+    }
+    .sidebar-author img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto .75rem; border: 1px solid var(--gold-dim); }
+    .sidebar-author .sa-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .sidebar-author .sa-role { font-size: .75rem; color: var(--text-dim); line-height: 1.5; }
+    .sidebar-author .sa-link { display: inline-block; margin-top: .75rem; font-size: .75rem; color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
+
+    /* ═══ PROGRESS BAR ═══ */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 0; transition: width .1s;
+    }
+
+    /* ═══ DIVIDER ═══ */
+    .divider { border: none; border-top: 1px solid var(--border); max-width: var(--max); margin: 0 auto; }
+
+    /* ═══ BACK LINK ═══ */
+    .back-link-wrap {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 2.5rem 2rem;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .78rem; color: var(--text-dim);
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: var(--font-mono);
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--gold); opacity: 1; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem; max-width: var(--max); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: .75rem; color: var(--text-dim); font-family: var(--font-mono); }
+    .footer-copy a { color: var(--text-dim); }
+    .footer-copy a:hover { color: var(--gold); opacity: 1; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .75rem; color: var(--text-dim); letter-spacing: .06em; text-transform: uppercase; }
+    .footer-links a:hover { color: var(--gold); opacity: 1; }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 1000px) {
+      .article-wrap { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-hero { padding: 7rem 1.5rem 2rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .back-link-wrap { padding: 0 1.5rem 2rem; }
+      .metric-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; }
+      .cta-final { padding: 2rem; }
+      .author-box { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ READING PROGRESS ═══ -->
+  <div class="reading-progress" id="progress"></div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <a href="/" class="nav-logo">Patricio <span>Castro</span></a>
+    <ul class="nav-links">
+      <li><a href="/#sobre-mi">Sobre mí</a></li>
+      <li><a href="/#proyectos">Proyectos</a></li>
+      <li><a href="/#cursos">Cursos</a></li>
+      <li><a href="/#investigacion">Investigación</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ ARTICLE HERO ═══ -->
+  <header class="article-hero">
+    <div class="breadcrumb">
+      <a href="/">patriciocastro.cl</a>
+      <span>/</span>
+      <a href="/blog/">blog</a>
+      <span>/</span>
+      <span>marketing analytics</span>
+    </div>
+    <div class="article-tag-hero">Marketing Analytics</div>
+    <h1>Marketing Analytics: qué es, para qué sirve y <em>cómo aplicarlo</em> en tu empresa</h1>
+    <div class="article-meta-bar">
+      <div class="meta-item"><strong>Patricio Castro</strong></div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">Mayo 2026</div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">8 min lectura</div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">Actualizado 2026</div>
+    </div>
+  </header>
+
+  <!-- ═══ ARTICLE CONTENT ═══ -->
+  <div class="article-wrap">
+    <main class="article-main" id="article-content">
+      <div class="prose">
+
+        <!-- ═══ GEO OPENER ═══ -->
+        <div class="geo-opener">
+          <div class="geo-label">Respuesta directa</div>
+          <p><strong>Marketing Analytics</strong> es la disciplina que aplica métodos estadísticos y ciencia de datos a las decisiones de marketing. Permite segmentar clientes, proyectar ventas y medir el retorno de la inversión en medios. En Chile, el 68% de las empresas encuestadas en el CMO Survey 2024 la identifica como prioridad estratégica. Su aplicación abarca desde análisis RFM hasta Marketing Mix Modeling.</p>
+        </div>
+
+        <!-- ═══ TABLE OF CONTENTS ═══ -->
+        <div class="toc-box">
+          <div class="toc-title">Tabla de contenidos</div>
+          <ol class="toc-list">
+            <li><a href="#que-es" data-num="01">¿Qué es Marketing Analytics?</a></li>
+            <li><a href="#metricas-clave" data-num="02">Métricas clave: RFM, CLV, Forecasting y MMM</a></li>
+            <li><a href="#casos-chile" data-num="03">Cómo aplicarlo en empresas chilenas</a></li>
+            <li><a href="#herramientas" data-num="04">Herramientas recomendadas</a></li>
+            <li><a href="#faq" data-num="05">Preguntas frecuentes</a></li>
+          </ol>
+        </div>
+
+        <!-- ═══ SECCIÓN 1: QUÉ ES ═══ -->
+        <h2 id="que-es" class="reveal">¿Qué es <em>Marketing Analytics?</em></h2>
+
+        <p>El <strong>marketing analytics</strong> es la disciplina que aplica métodos cuantitativos —estadística, econometría, aprendizaje automático— al análisis de datos generados por las actividades de marketing, con el objetivo de tomar mejores decisiones comerciales. Va mucho más allá de los reportes tradicionales: no solo describe qué ocurrió, sino que busca entender <em>por qué</em> ocurrió y, crucialmente, <em>qué va a ocurrir</em>.</p>
+
+        <p>La definición más precisa la ofrece la American Marketing Association (AMA): "el proceso de medir, gestionar y analizar los datos de desempeño de marketing para maximizar su efectividad y optimizar el retorno de la inversión". Dicho de forma más directa: es la capa analítica que convierte datos en estrategias.</p>
+
+        <blockquote>
+          <p>"Sin datos eres una persona más con una opinión." — W. Edwards Deming</p>
+          <cite>— Estadístico y padre de la gestión de calidad moderna</cite>
+        </blockquote>
+
+        <p>En la práctica, el marketing analytics integra datos de múltiples fuentes: sistemas de ventas (ERP/CRM), plataformas de medios digitales (Google Ads, Meta, email), datos propios de comportamiento web y, en las organizaciones más maduras, datos externos del mercado y de la competencia. La capacidad de cruzar estas fuentes es lo que genera valor.</p>
+
+        <div class="stat-highlight reveal">
+          <div class="stat-num">68%</div>
+          <div class="stat-text">
+            <strong>de las empresas chilenas</strong> encuestadas en el CMO Survey Chile 2024 señalaron el marketing analytics como su principal área de inversión en los próximos 12 meses. Sin embargo, solo el 32% declara tener capacidades analíticas avanzadas implementadas, lo que revela una brecha significativa entre intención y capacidad.
+            <span class="stat-source">Fuente: CMO Survey Chile 2024 — Investigación con Deloitte Digital</span>
+          </div>
+        </div>
+
+        <p>Esta brecha entre intención y capacidad es, precisamente, la oportunidad. Las empresas que invierten hoy en construir capacidades analíticas sólidas obtendrán ventajas competitivas difíciles de replicar, ya que los datos propios —a diferencia de la tecnología o los presupuestos publicitarios— son un activo que se acumula con el tiempo y que no se puede comprar ni copiar de forma inmediata.</p>
+
+        <p>Es importante distinguir marketing analytics de conceptos adyacentes. <strong>Business Intelligence (BI)</strong> se enfoca en reportar el pasado mediante dashboards históricos. <strong>Marketing analytics</strong> añade modelamiento estadístico y predicción. <strong>Marketing Science</strong> —término usado por empresas como Meta o Netflix— va aún más lejos, incorporando experimentos controlados y diseño causal. En la práctica chilena, la mayoría de las organizaciones opera en el espectro BI-analytics, con la analítica predictiva como el siguiente paso natural.</p>
+
+        <!-- ═══ SECCIÓN 2: MÉTRICAS ═══ -->
+        <h2 id="metricas-clave" class="reveal">Métricas clave:<br><em>RFM, CLV, Forecasting y MMM</em></h2>
+
+        <p>Existe un conjunto de técnicas y métricas que forman el núcleo del marketing analytics moderno. No son las únicas, pero sí las más universalmente aplicables y las que mayor impacto generan en las decisiones estratégicas de marketing. A continuación las cuatro más relevantes para el contexto chileno.</p>
+
+        <div class="metric-grid">
+          <div class="metric-card reveal">
+            <div class="metric-acronym">RFM</div>
+            <div class="metric-name">Recency · Frequency · Monetary</div>
+            <div class="metric-desc">Técnica de segmentación de clientes basada en tres dimensiones: cuándo fue la última compra (recencia), con qué frecuencia compra (frecuencia) y cuánto gasta (valor monetario). Permite identificar a los mejores clientes, los que están en riesgo de abandono y los que tienen potencial de crecimiento, con una implementación relativamente sencilla.</div>
+          </div>
+          <div class="metric-card reveal">
+            <div class="metric-acronym">CLV</div>
+            <div class="metric-name">Customer Lifetime Value</div>
+            <div class="metric-desc">Valor neto presente de todos los flujos de caja atribuibles a un cliente durante su relación con la empresa. El CLV cambia completamente la lógica de inversión en marketing: en lugar de optimizar el costo de adquisición (CPA) de cualquier cliente, se invierte proporcionalmente al valor esperado de cada segmento. Es la métrica que conecta marketing con finanzas.</div>
+          </div>
+          <div class="metric-card reveal">
+            <div class="metric-acronym">FC</div>
+            <div class="metric-name">Forecasting de demanda</div>
+            <div class="metric-desc">Modelos estadísticos —series de tiempo, regresión, machine learning— para proyectar ventas futuras con base en datos históricos y variables externas (estacionalidad, ciclos económicos, acciones de la competencia). El forecasting preciso reduce el sobre y subestocking en retail, optimiza la planificación de campañas y mejora la eficiencia operacional.</div>
+          </div>
+          <div class="metric-card reveal">
+            <div class="metric-acronym">MMM</div>
+            <div class="metric-name">Marketing Mix Modeling</div>
+            <div class="metric-desc">Técnica econométrica que descompone las ventas en función de los distintos factores que las impulsan: inversión publicitaria por canal, variables de precio, distribución y factores externos. Permite conocer el ROI real de cada canal de marketing y optimizar la distribución del presupuesto total. Es el estándar de atribución para empresas con inversión significativa en medios.</div>
+          </div>
+        </div>
+
+        <p>Cada una de estas técnicas puede implementarse con distintos niveles de sofisticación. Una empresa que recién comienza puede hacer RFM en Excel con datos de los últimos 12 meses. Una organización más madura lo implementará en Python o R, con actualización automática y alimentando directamente las campañas de CRM. La clave no es la sofisticación tecnológica sino la consistencia en el uso de los modelos para tomar decisiones.</p>
+
+        <h3>La secuencia lógica de implementación</h3>
+
+        <p>Un error frecuente es intentar implementar todas las técnicas simultáneamente. La secuencia más efectiva, basada en la experiencia con empresas chilenas, es la siguiente:</p>
+
+        <ol>
+          <li><strong>Auditoría de datos disponibles</strong> — Mapear fuentes, calidad y cobertura histórica antes de cualquier modelamiento.</li>
+          <li><strong>RFM básico</strong> — Segmentación inicial de la base de clientes. Resultados rápidos con datos mínimos.</li>
+          <li><strong>CLV simple</strong> — Cálculo del valor esperado por segmento RFM. Conecta marketing con finanzas.</li>
+          <li><strong>Forecasting de ventas</strong> — Modelos de series de tiempo para planificación comercial y de inventario.</li>
+          <li><strong>Marketing Mix Modeling</strong> — Cuando la inversión en medios justifica la inversión en el modelo (típicamente sobre USD 500K anuales en medios).</li>
+        </ol>
+
+        <!-- ═══ SECCIÓN 3: CASOS CHILE ═══ -->
+        <h2 id="casos-chile" class="reveal">Cómo aplicarlo en <em>empresas chilenas</em></h2>
+
+        <p>El marketing analytics no es exclusivo de las grandes corporaciones. Con los datos correctos y el enfoque adecuado, empresas medianas y startups chilenas pueden obtener ventajas competitivas reales. A continuación, tres casos de uso concretos en el contexto chileno.</p>
+
+        <div class="case-list">
+          <div class="case-card reveal">
+            <div class="case-num">01</div>
+            <div class="case-body">
+              <div class="case-industry">Retail · Supermercados y tiendas especializadas</div>
+              <div class="case-title">Segmentación RFM para programas de fidelización</div>
+              <div class="case-desc">Una cadena de retail que opera con tarjeta de fidelidad puede construir un modelo RFM sobre su base de transacciones históricas para identificar los segmentos de mayor valor (clientes "campeones") versus los que están en riesgo de abandono. Con esta segmentación, es posible diseñar campañas diferenciadas: cupones de reactivación para clientes dormidos, programas de upgrade para clientes con alto potencial de gasto y comunicaciones de mantención para los mejores clientes. El resultado habitual es una mejora del 15–25% en la tasa de respuesta a campañas de CRM comparado con envíos masivos no segmentados.</div>
+            </div>
+          </div>
+          <div class="case-card reveal">
+            <div class="case-num">02</div>
+            <div class="case-body">
+              <div class="case-industry">Servicios financieros · Seguros y banca</div>
+              <div class="case-title">CLV para priorización de retención de clientes</div>
+              <div class="case-desc">En servicios financieros chilenos —compañías de seguros, isapres, bancos— la retención es crítica dado que el costo de adquisición es alto y los contratos son recurrentes. Un modelo de CLV permite identificar qué clientes vale la pena retener activamente (y a qué costo) versus cuáles tienen un valor esperado negativo. Combinado con un modelo de predicción de churn, las organizaciones pueden activar acciones preventivas —llamadas de ejecutivo, beneficios adicionales, revisión de coberturas— exactamente cuando la probabilidad de abandono supera un umbral definido, optimizando el gasto de retención.</div>
+            </div>
+          </div>
+          <div class="case-card reveal">
+            <div class="case-num">03</div>
+            <div class="case-body">
+              <div class="case-industry">E-commerce · Retail digital y D2C</div>
+              <div class="case-title">Forecasting para planificación de inventario y campañas</div>
+              <div class="case-desc">Los e-commerce chilenos enfrentan demanda altamente estacional (CyberMonday, Black Friday, Navidad, Día de la Madre) y ciclos de reposición complejos. Un modelo de forecasting bien calibrado permite anticipar los picos de demanda con suficiente antelación para ajustar el inventario, negociar condiciones con proveedores y dimensionar correctamente la inversión publicitaria en las semanas previas. Empresas que implementan forecasting con 6–8 semanas de anticipación reportan reducciones de 20–30% en quiebres de stock durante eventos de alto tráfico.</div>
+            </div>
+          </div>
+        </div>
+
+        <p>Lo que tienen en común estos tres casos es el ciclo completo: <strong>datos → modelo → decisión → acción → medición</strong>. El analytics por sí solo no genera valor; lo genera cuando está integrado en los procesos de decisión de la organización. Por eso, la implementación exitosa de marketing analytics es tanto un desafío técnico como uno organizacional.</p>
+
+        <!-- ═══ SECCIÓN 4: HERRAMIENTAS ═══ -->
+        <h2 id="herramientas" class="reveal"><em>Herramientas</em> para empezar</h2>
+
+        <p>La buena noticia es que el stack tecnológico básico para marketing analytics es accesible incluso para empresas medianas. Las tres herramientas siguientes cubren la mayor parte de los casos de uso descritos anteriormente.</p>
+
+        <div class="tool-list">
+          <div class="tool-item reveal">
+            <div class="tool-icon">📊</div>
+            <div class="tool-body">
+              <div class="tool-name">Google Analytics 4</div>
+              <div class="tool-desc">El estándar para medición de comportamiento digital. GA4 unifica el tracking web y mobile en un modelo de eventos que permite análisis de funnel, análisis de cohortes, modelado de atribución y, en cuentas con suficiente volumen, predicciones de churn y probabilidad de compra mediante Google AI. Es gratuito hasta cierto umbral de datos y se integra directamente con Google Ads y Google BigQuery para análisis más avanzados. Para la mayoría de las empresas chilenas es el punto de partida obligado para cualquier iniciativa de analytics digital.</div>
+            </div>
+          </div>
+          <div class="tool-item reveal">
+            <div class="tool-icon">🐍</div>
+            <div class="tool-body">
+              <div class="tool-name">Python (pandas + scikit-learn)</div>
+              <div class="tool-desc">El lenguaje de referencia para ciencia de datos aplicada a marketing. Con la librería <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.85em;">pandas</code> se procesan y transforman los datos transaccionales; con <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.85em;">scikit-learn</code> se construyen los modelos de segmentación, CLV y forecasting; con <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.85em;">lifetimes</code> se modelan los patrones de compra repetida (modelos BG/NBD y Gamma-Gamma). Python es open source, tiene una comunidad enorme y es el lenguaje que se enseña en los mejores programas de marketing analytics del mundo. La curva de aprendizaje existe, pero el retorno sobre esa inversión es alto.</div>
+            </div>
+          </div>
+          <div class="tool-item reveal">
+            <div class="tool-icon">📈</div>
+            <div class="tool-body">
+              <div class="tool-name">Microsoft Power BI</div>
+              <div class="tool-desc">La herramienta de visualización y distribución de reportes más usada en empresas chilenas medianas y grandes, especialmente aquellas con ecosistema Microsoft. Power BI permite construir dashboards interactivos que democratizan el acceso a los resultados del análisis —sin que cada usuario necesite saber programar— y facilita la integración con fuentes de datos corporativas (SQL Server, Azure, SharePoint, Excel). Para un equipo de marketing que quiere mostrar el impacto del analytics a la gerencia, Power BI es la herramienta de comunicación por excelencia.</div>
+            </div>
+          </div>
+        </div>
+
+        <p>Una nota práctica: más importante que la herramienta es la calidad y consistencia de los datos que la alimentan. He visto proyectos de analytics fallar no por limitaciones tecnológicas, sino porque los datos de ventas tenían errores de digitalización, las campañas de email no estaban correctamente etiquetadas con UTMs, o los sistemas de CRM y ERP no estaban integrados. La gobernanza del dato es el prerequisito de cualquier proyecto de analytics exitoso.</p>
+
+        <!-- ═══ FAQ ═══ -->
+        <h2 id="faq" class="reveal">Preguntas <em>frecuentes</em></h2>
+
+        <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Qué es el marketing analytics y para qué sirve?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">El marketing analytics es la disciplina que aplica métodos estadísticos y ciencia de datos al análisis de información de marketing para tomar mejores decisiones comerciales. Sirve para segmentar clientes con mayor precisión, proyectar ventas, optimizar la inversión en medios y medir el retorno de cada acción de marketing. En Chile, su adopción ha crecido sostenidamente, siendo una de las prioridades de inversión de los directores de marketing según el CMO Survey Chile 2024.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Cuál es la diferencia entre marketing analytics y Business Intelligence?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">El Business Intelligence (BI) se enfoca en reportar qué ocurrió en el negocio —dashboards históricos, KPIs agregados— mientras que el marketing analytics va un paso más allá: busca entender por qué ocurrió y predecir qué va a ocurrir. El marketing analytics incluye modelamiento estadístico, segmentación predictiva y experimentos controlados que el BI tradicional no abarca. En resumen: el BI describe el pasado, el analytics orienta el futuro.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Qué herramientas necesito para hacer marketing analytics en Chile?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">El stack básico incluye Google Analytics 4 para datos web y comportamiento de usuarios, Python (con pandas y scikit-learn) para modelos predictivos y segmentación RFM, y Power BI para visualización y distribución de reportes al equipo directivo. No es necesario implementar todo a la vez: el enfoque gradual, partiendo por la medición básica, produce mejores resultados. La calidad del dato es más importante que la sofisticación de la herramienta.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Cómo empezar con marketing analytics si mi empresa no tiene datos históricos?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">Todas las empresas tienen datos, aunque no siempre en la forma ideal. El primer paso es hacer un inventario de fuentes disponibles: transacciones del sistema de ventas, datos de CRM, registros de campañas de email, Google Analytics. Con 3 a 6 meses de datos transaccionales ya es posible construir un análisis RFM básico y comenzar a segmentar la base de clientes. Lo más importante es empezar a capturar datos con estructura desde hoy, incluso si el análisis avanzado llega después.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ AUTHOR BOX ═══ -->
+        <div class="author-box reveal">
+          <div class="author-photo">
+            <img src="../foto-perfil.jpg" alt="Patricio Castro — Profesor UAI" />
+          </div>
+          <div class="author-info">
+            <div class="author-label">Sobre el autor</div>
+            <div class="author-name">Patricio Castro</div>
+            <p class="author-bio">Docente Asistente en Universidad Adolfo Ibáñez (UAI), donde enseña Marketing Analytics, Métricas de Marketing e IA para Marketing en pregrado y postgrado. Investigador del CMO Survey Chile en colaboración con Deloitte Digital, el estudio de referencia sobre tendencias de marketing en el país. Consultor en estrategia de marketing digital y creador de <a href="https://simmarketing.cl/" target="_blank" rel="noopener">SimMarketing.cl</a>.</p>
+            <div class="author-creds">
+              <span class="author-cred">Profesor UAI · Santiago & Viña del Mar</span>
+              <span class="author-cred">Investigador CMO Survey Chile</span>
+              <span class="author-cred">Colaboración con Deloitte Digital</span>
+              <span class="author-cred">+2.000 estudiantes formados</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CTA FINAL ═══ -->
+        <div class="cta-final reveal">
+          <div class="cta-label">¿Quieres llevar esto a tu equipo?</div>
+          <h2>¿Quieres un taller de<br>Marketing Analytics<br><em>para tu empresa?</em></h2>
+          <p>Formación práctica, con casos del mercado chileno, adaptada al nivel y contexto de tu equipo. Desde fundamentos hasta implementación de modelos RFM, CLV y Forecasting.</p>
+          <a href="/#contacto" class="btn-primary">Conversemos →</a>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="article-sidebar">
+      <div class="sidebar-toc">
+        <div class="sidebar-toc-title">En este artículo</div>
+        <ul class="sidebar-toc-list">
+          <li><a href="#que-es">¿Qué es Marketing Analytics?</a></li>
+          <li><a href="#metricas-clave">Métricas clave</a></li>
+          <li><a href="#casos-chile">Casos en Chile</a></li>
+          <li><a href="#herramientas">Herramientas</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-author">
+        <img src="../foto-perfil.jpg" alt="Patricio Castro" />
+        <div class="sa-name">Patricio Castro</div>
+        <div class="sa-role">Profesor UAI · Investigador CMO Survey Chile con Deloitte</div>
+        <a href="/" class="sa-link">Ver perfil completo →</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══ BACK LINK ═══ -->
+  <div class="back-link-wrap">
+    <a href="/blog/" class="back-link">← Volver al blog</a>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-copy">
+      © 2026 Patricio Castro · <a href="https://patriciocastro.cl">patriciocastro.cl</a>
+      &nbsp;·&nbsp; Desarrollado con <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+    </div>
+    <nav class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#cursos">Cursos</a>
+      <a href="/#contacto">Contacto</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Reading progress bar
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const article = document.getElementById('article-content');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const total = article.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, (scrolled / total) * 100);
+      progress.style.width = pct + '%';
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+    // Open first FAQ by default
+    const firstFaq = document.querySelector('.faq-item');
+    if (firstFaq) firstFaq.classList.add('open');
+  </script>
+
+</body>
+</html>

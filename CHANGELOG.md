@@ -11,6 +11,39 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 2] 2026-05-28 — Sección Blog: índice + primer artículo
+
+### Rama Git
+`feat/blog-marketing-analytics`
+
+### Objetivo
+Crear la sección de blog del sitio con diseño coherente al index principal, y publicar el primer artículo SEO/GEO sobre marketing analytics.
+
+### Archivos creados / modificados
+- `blog/index.html` — nuevo: página de listado de artículos con paleta oscura/dorada, nav, filter bar y CTA
+- `blog/que-es-marketing-analytics.html` — nuevo: artículo completo (~1.500 palabras reales)
+- `index.html` — añadido link "Blog" en nav principal y footer-links
+- `sitemap.xml` — añadidas 2 URLs del blog (índice + artículo)
+
+### Cambios realizados
+- **blog/index.html** — listado de artículos con cards (título, fecha, extracto 2 líneas, link), filter bar de temas, CTA "Taller de Marketing Analytics", breadcrumb, Schema Blog JSON-LD
+- **blog/que-es-marketing-analytics.html** — estructura completa: hero h1, párrafo GEO (≤60 palabras), TOC con anclas, 4 secciones de contenido (definición + dato CMO Survey / métricas clave / casos Chile / herramientas), FAQ accordion con 4 preguntas + Schema FAQPage, author box con foto y credenciales, CTA final taller, sidebar sticky con TOC + mini autor, barra de progreso de lectura, Schema Article JSON-LD
+- Keywords principales: "marketing analytics Chile" y "qué es marketing analytics"
+- Métricas cubiertas: RFM, CLV, Forecasting, Marketing Mix Modeling
+- Herramientas cubiertas: Google Analytics 4, Python (pandas + scikit-learn), Power BI
+- 3 casos de uso para empresas chilenas: retail RFM, servicios financieros CLV, e-commerce forecasting
+
+### Pendiente / notas
+- Actualizar sitemap en Google Search Console tras el deploy
+- Validar Schema Article y FAQPage en Rich Results Test
+- Añadir artículos pendientes: "RFM en la práctica" y "IA generativa para marketing"
+- Considerar agregar og:image específica por artículo en el futuro
+
+### Commit message
+`feat(blog): add blog index + first article "qué es marketing analytics"`
+
+---
+
 ## [Sesión 1] 2026-05-28 — Schema JSON-LD extendido + robots.txt + sitemap.xml
 
 ### Rama Git
