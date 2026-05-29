@@ -11,6 +11,35 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 4] 2026-05-29 — Blog: artículo CMO Survey Chile 2025
+
+### Rama Git
+`feat/blog-cmo-survey-2025`
+
+### Objetivo
+Publicar artículo de investigación sobre los resultados del CMO Survey Chile 2025, con autoridad de primera mano como investigador UAI + Deloitte Digital.
+
+### Archivos creados / modificados
+- `blog/cmo-survey-chile-2025.html` — nuevo: artículo completo basado en datos reales del estudio
+- `blog/index.html` — card del CMO Survey añadida como primer post (más reciente)
+- `sitemap.xml` — añadida URL del nuevo artículo
+
+### Cambios realizados
+- **blog/cmo-survey-chile-2025.html** — estructura completa: hero h1, apertura GEO con contexto UAI+Deloitte, tabla historia editorial 2020–2025, datos metodológicos (n=141, fechas, perfil de encuestados), secciones con datos del PDF (liderazgo, presupuesto, IA, KPIs, desafíos), 4 stat-cards con cifras clave, tablas de datos comparativos 2024 vs 2025, highlight boxes con interpretación estratégica, FAQ accordion (4 preguntas) + Schema FAQPage en `<head>`, Schema Article JSON-LD, author box con mención explícita de rol investigador CMO Survey + Deloitte, CTA charla/taller
+- Datos reales del estudio incluidos: 141 encuestados, 61.8% vs 51.5% influencia estratégica, 59% aumento inversión IA, 71.5% uso GenAI creatividad, 51.2% eficiencia como beneficio IA, 76.4% analítica descriptiva, distribución presupuesto corto/largo plazo, KPIs principales, cambios en hábitos del consumidor (17.9%), presión CEO 73.17%
+- **blog/index.html** — card CMO Survey añadida en primera posición (orden cronológico inverso)
+- **sitemap.xml** — añadida entrada con lastmod 2026-05-29 y priority 0.9
+
+### Pendiente / notas
+- Actualizar sitemap en Google Search Console tras el deploy
+- Validar Schema Article y FAQPage en Rich Results Test
+- Considerar añadir og:image específica para el artículo CMO Survey
+
+### Commit message
+`feat(blog): add CMO Survey Chile 2025 research article`
+
+---
+
 ## [Sesión 3] 2026-05-28 — Blog: segundo artículo IA aplicada al marketing
 
 ### Rama Git
