@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══ SEO PRIMARIO ═══ -->
+  <title>RFM y Customer Lifetime Value: cómo segmentar clientes con datos | Patricio Castro</title>
+  <meta name="description" content="Aprende a calcular el análisis RFM y el Customer Lifetime Value (CLV) con ejemplos numéricos chilenos. Guía paso a paso con Excel, Python y Google Sheets." />
+  <meta name="author" content="Patricio Castro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://patriciocastro.cl/blog/rfm-customer-lifetime-value.html" />
+
+  <!-- ═══ OPEN GRAPH ═══ -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="RFM y Customer Lifetime Value: cómo segmentar clientes con datos en tu empresa" />
+  <meta property="og:description" content="Guía práctica de análisis RFM y CLV con ejemplos chilenos. Fórmulas, caso de retail y errores comunes al calcular el Customer Lifetime Value." />
+  <meta property="og:url" content="https://patriciocastro.cl/blog/rfm-customer-lifetime-value.html" />
+  <meta property="og:image" content="https://patriciocastro.cl/og-image.jpg" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Patricio Castro" />
+  <meta property="article:author" content="Patricio Castro" />
+  <meta property="article:published_time" content="2026-05-29" />
+  <meta property="article:section" content="Marketing Analytics" />
+  <meta property="article:tag" content="RFM análisis Chile" />
+  <meta property="article:tag" content="Customer Lifetime Value" />
+  <meta property="article:tag" content="segmentación de clientes" />
+  <meta property="article:tag" content="marketing analytics" />
+
+  <!-- ═══ TWITTER CARD ═══ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RFM y CLV: cómo segmentar clientes con datos en tu empresa" />
+  <meta name="twitter:description" content="Fórmulas, ejemplo numérico chileno y caso práctico de retail. Por Patricio Castro, Profesor UAI." />
+  <meta name="twitter:image" content="https://patriciocastro.cl/og-image.jpg" />
+
+  <!-- ═══ SCHEMA: Article ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "RFM y Customer Lifetime Value: cómo segmentar clientes con datos en tu empresa",
+    "description": "Guía práctica de análisis RFM y Customer Lifetime Value con ejemplos numéricos chilenos, paso a paso en Excel, Python y Google Sheets.",
+    "author": {
+      "@type": "Person",
+      "name": "Patricio Castro",
+      "url": "https://patriciocastro.cl/",
+      "jobTitle": "Profesor de Marketing Analytics",
+      "affiliation": {
+        "@type": "EducationalOrganization",
+        "name": "Universidad Adolfo Ibáñez",
+        "url": "https://www.uai.cl"
+      }
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Patricio Castro",
+      "url": "https://patriciocastro.cl/"
+    },
+    "datePublished": "2026-05-29",
+    "dateModified": "2026-05-29",
+    "inLanguage": "es-CL",
+    "url": "https://patriciocastro.cl/blog/rfm-customer-lifetime-value.html",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://patriciocastro.cl/blog/rfm-customer-lifetime-value.html"
+    },
+    "keywords": ["análisis RFM", "Customer Lifetime Value", "CLV", "segmentación de clientes", "marketing analytics Chile", "RFM Chile"]
+  }
+  </script>
+
+  <!-- ═══ SCHEMA: FAQPage ═══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué es el análisis RFM y para qué sirve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El análisis RFM es una técnica de segmentación de clientes basada en tres variables: Recencia (cuándo fue la última compra), Frecuencia (cuántas veces ha comprado) y Valor Monetario (cuánto ha gastado). Sirve para identificar a los mejores clientes, detectar los que están en riesgo de abandono y priorizar acciones de marketing con mayor impacto. Es una de las técnicas más utilizadas en retail, e-commerce y servicios financieros."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la diferencia entre RFM y Customer Lifetime Value?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El RFM es una técnica de segmentación descriptiva: clasifica a los clientes según su comportamiento pasado. El Customer Lifetime Value (CLV) es una métrica predictiva: estima el valor económico total que un cliente generará en el futuro. En la práctica, el RFM y el CLV se usan de forma complementaria: el RFM identifica los segmentos y el CLV cuantifica cuánto vale cada uno, lo que permite decidir cuánto invertir en adquirir o retener a cada tipo de cliente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo se calcula el Customer Lifetime Value (CLV) de forma simple?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La fórmula básica del CLV es: CLV = Ticket promedio × Frecuencia de compra anual × Margen bruto × Años de vida del cliente. Por ejemplo, un cliente de una tienda de equipamiento deportivo en Chile que gasta $85.000 en promedio, compra 4 veces al año, con un margen del 40% y una relación esperada de 3 años tiene un CLV = $85.000 × 4 × 0,40 × 3 = $408.000. Esta versión simple no descuenta por el tiempo, pero es suficiente para tomar decisiones de inversión en adquisición y retención."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuántos datos necesito para hacer un análisis RFM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lo mínimo necesario es un historial de transacciones con tres campos: identificador del cliente, fecha de la compra y monto de la compra. Con al menos 6 meses de datos transaccionales ya es posible construir un análisis RFM útil. El análisis mejora con más datos históricos (12 a 24 meses es lo ideal), pero no requiere ninguna herramienta especializada para comenzar: se puede implementar en Excel o Google Sheets en pocas horas si los datos están ordenados."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ═══ FONTS ═══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --surface2: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim: rgba(201,168,76,0.15);
+      --text: #e8e4dc;
+      --text-muted: #888;
+      --text-dim: #555;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --radius: 4px;
+      --max: 1100px;
+      --content: 720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--gold); text-decoration: none; transition: opacity .2s; }
+    a:hover { opacity: .75; }
+    img { display: block; max-width: 100%; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,.85);
+      backdrop-filter: blur(16px);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; letter-spacing: .04em; color: var(--text); }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .8rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); opacity: 1; }
+    .nav-links a.active { color: var(--gold); }
+
+    /* ═══ ARTICLE LAYOUT ═══ */
+    .article-wrap {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 4rem;
+      align-items: start;
+    }
+    .article-main { min-width: 0; }
+    .article-sidebar { padding-top: 2rem; position: sticky; top: 6rem; }
+
+    /* ═══ ARTICLE HERO ═══ */
+    .article-hero {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 9rem 2.5rem 3rem;
+    }
+    .breadcrumb {
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .breadcrumb a { color: var(--text-dim); }
+    .breadcrumb a:hover { color: var(--gold); opacity: 1; }
+    .article-tag-hero {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .article-tag-hero::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--gold); }
+    .article-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 1.5rem; color: var(--text);
+      max-width: 24ch;
+    }
+    .article-hero h1 em { font-style: italic; color: var(--gold-light); }
+
+    .article-meta-bar {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .meta-item { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: var(--text-dim); }
+    .meta-item strong { color: var(--text-muted); font-weight: 500; }
+    .meta-sep { color: var(--text-dim); }
+
+    /* ═══ PROSE ═══ */
+    .prose { max-width: var(--content); }
+    .prose p { color: var(--text-muted); margin-bottom: 1.4rem; font-size: 1rem; line-height: 1.85; }
+    .prose p strong { color: var(--text); font-weight: 500; }
+    .prose h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300; line-height: 1.2; color: var(--text);
+      margin-top: 3.5rem; margin-bottom: 1.25rem;
+      padding-top: 3.5rem; border-top: 1px solid var(--border);
+    }
+    .prose h2 em { font-style: italic; color: var(--gold-light); }
+    .prose h3 {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 600;
+      color: var(--text); margin-top: 2.25rem; margin-bottom: .75rem;
+    }
+    .prose h3 em { font-style: italic; color: var(--gold); }
+    .prose ul { margin-bottom: 1.4rem; padding-left: 1.25rem; }
+    .prose ul li { color: var(--text-muted); margin-bottom: .5rem; font-size: .97rem; line-height: 1.8; }
+    .prose ul li strong { color: var(--text); font-weight: 500; }
+    .prose ol { margin-bottom: 1.4rem; padding-left: 1.5rem; }
+    .prose ol li { color: var(--text-muted); margin-bottom: .65rem; font-size: .97rem; line-height: 1.8; }
+    .prose ol li strong { color: var(--text); font-weight: 500; }
+    .prose a { color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
+    .prose a:hover { border-bottom-color: var(--gold); opacity: 1; }
+    .prose blockquote {
+      border-left: 2px solid var(--gold);
+      margin: 2rem 0; padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+    }
+    .prose blockquote p { color: var(--text); font-size: 1.05rem; margin-bottom: 0; font-style: italic; }
+    .prose blockquote cite { display: block; margin-top: .75rem; font-size: .78rem; color: var(--gold); font-style: normal; font-family: var(--font-mono); letter-spacing: .08em; }
+
+    /* ═══ GEO OPENER ═══ */
+    .geo-opener {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .geo-opener::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    }
+    .geo-opener p {
+      color: var(--text) !important;
+      font-size: 1.08rem !important;
+      line-height: 1.75 !important;
+      margin-bottom: 0 !important;
+    }
+    .geo-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .6rem;
+    }
+
+    /* ═══ TABLE OF CONTENTS ═══ */
+    .toc-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .toc-title {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .toc-list { list-style: none; padding: 0; }
+    .toc-list li { margin-bottom: .5rem; }
+    .toc-list a {
+      font-size: .85rem; color: var(--text-muted); border-bottom: none;
+      display: flex; align-items: baseline; gap: .5rem;
+      transition: color .2s;
+    }
+    .toc-list a:hover { color: var(--gold); opacity: 1; }
+    .toc-list a::before {
+      content: attr(data-num);
+      font-family: var(--font-mono); font-size: .65rem; color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ═══ RFM DIMENSION CARDS ═══ */
+    .rfm-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin: 2rem 0;
+    }
+    .rfm-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.25rem;
+      position: relative; overflow: hidden;
+      transition: border-color .25s;
+    }
+    .rfm-card:hover { border-color: rgba(201,168,76,.3); }
+    .rfm-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .rfm-letter {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 600;
+      color: var(--gold-light); line-height: 1; margin-bottom: .25rem;
+    }
+    .rfm-word {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: .75rem;
+    }
+    .rfm-question {
+      font-size: .82rem; color: var(--gold); font-style: italic;
+      margin-bottom: .6rem;
+    }
+    .rfm-desc { font-size: .84rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ═══ FORMULA BOX ═══ */
+    .formula-box {
+      background: var(--surface2);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .formula-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .formula-expr {
+      font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 600; color: var(--text); line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
+    .formula-expr span { color: var(--gold-light); }
+    .formula-vars {
+      display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center;
+      border-top: 1px solid var(--border); padding-top: 1.25rem;
+    }
+    .formula-var {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .8rem; color: var(--text-muted);
+    }
+    .formula-var b { color: var(--gold); font-family: var(--font-mono); font-weight: 500; font-size: .78rem; }
+
+    /* ═══ EXAMPLE NUMERIC ═══ */
+    .numeric-example {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+      position: relative; overflow: hidden;
+    }
+    .numeric-example::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+    .numeric-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .numeric-rows { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.25rem; }
+    .numeric-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .5rem .75rem;
+      background: var(--surface2); border-radius: 4px;
+    }
+    .numeric-row-label { font-size: .84rem; color: var(--text-muted); }
+    .numeric-row-value { font-family: var(--font-mono); font-size: .9rem; color: var(--text); font-weight: 500; }
+    .numeric-result {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .75rem 1rem;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 6px;
+    }
+    .numeric-result-label { font-size: .9rem; color: var(--text); font-weight: 500; }
+    .numeric-result-value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--gold-light); }
+
+    /* ═══ STEP LIST ═══ */
+    .step-list { display: flex; flex-direction: column; gap: 1.25rem; margin: 2rem 0; }
+    .step-item {
+      display: grid; grid-template-columns: 2.75rem 1fr;
+      gap: 1.25rem; align-items: start;
+    }
+    .step-num {
+      width: 2.75rem; height: 2.75rem;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 50%;
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+      color: var(--gold-light); flex-shrink: 0;
+    }
+    .step-content { padding-top: .35rem; }
+    .step-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: .35rem; }
+    .step-desc { font-size: .87rem; color: var(--text-muted); line-height: 1.75; }
+    .step-desc code {
+      background: var(--surface2); padding: .1em .4em;
+      border-radius: 3px; font-family: var(--font-mono); font-size: .82em;
+      color: var(--gold-light);
+    }
+
+    /* ═══ TOOL PILLS ═══ */
+    .tool-list { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+    .tool-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .tool-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; padding-top: .1rem; }
+    .tool-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+    .tool-desc { font-size: .86rem; color: var(--text-muted); line-height: 1.7; }
+    .tool-tag {
+      display: inline-block; margin-top: .6rem;
+      padding: .15rem .6rem;
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 2rem; font-size: .68rem; color: var(--gold);
+      font-family: var(--font-mono); letter-spacing: .06em;
+    }
+
+    /* ═══ DATA TABLE ═══ */
+    .data-table-wrap { overflow-x: auto; margin: 2rem 0; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: .86rem;
+    }
+    thead tr {
+      background: var(--surface2);
+      border-bottom: 1px solid rgba(201,168,76,.25);
+    }
+    thead th {
+      padding: .75rem 1rem; text-align: left;
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold); font-weight: 500;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    tbody tr:hover { background: var(--surface); }
+    tbody td { padding: .65rem 1rem; color: var(--text-muted); }
+    tbody td strong { color: var(--text); font-weight: 500; }
+    .badge {
+      display: inline-block; padding: .15rem .65rem;
+      border-radius: 2rem; font-size: .7rem; font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .badge-green { background: rgba(80,200,120,.12); color: #50c878; border: 1px solid rgba(80,200,120,.2); }
+    .badge-yellow { background: rgba(201,168,76,.12); color: var(--gold); border: 1px solid rgba(201,168,76,.2); }
+    .badge-red { background: rgba(220,80,80,.12); color: #e06060; border: 1px solid rgba(220,80,80,.2); }
+    .badge-blue { background: rgba(80,150,220,.12); color: #70aaee; border: 1px solid rgba(80,150,220,.2); }
+
+    /* ═══ ERROR LIST ═══ */
+    .error-list { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
+    .error-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid rgba(220,80,80,.4);
+      border-radius: 0 8px 8px 0;
+    }
+    .error-num {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+      color: rgba(220,80,80,.5); line-height: 1; flex-shrink: 0;
+      padding-top: .1rem;
+    }
+    .error-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+    .error-desc { font-size: .86rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* ═══ FAQ SECTION ═══ */
+    .faq-list { margin: 1.5rem 0; display: flex; flex-direction: column; gap: .75rem; }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; gap: 1rem;
+    }
+    .faq-q-text {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+      color: var(--text); line-height: 1.25;
+    }
+    .faq-icon { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; transition: transform .25s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease, padding .25s;
+    }
+    .faq-item.open .faq-a { max-height: 500px; }
+    .faq-a-inner {
+      padding: 0 1.5rem 1.25rem;
+      font-size: .92rem; color: var(--text-muted); line-height: 1.8;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    /* ═══ AUTHOR BOX ═══ */
+    .author-box {
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      margin: 3rem 0;
+      position: relative; overflow: hidden;
+    }
+    .author-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
+    }
+    .author-photo {
+      width: 72px; height: 72px; border-radius: 50%;
+      overflow: hidden; border: 2px solid var(--gold-dim); flex-shrink: 0;
+    }
+    .author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .author-label {
+      font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .35rem;
+    }
+    .author-name {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+      color: var(--text); margin-bottom: .25rem;
+    }
+    .author-bio { font-size: .86rem; color: var(--text-muted); line-height: 1.75; }
+    .author-creds {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem;
+    }
+    .author-cred {
+      display: inline-block; padding: .2rem .65rem;
+      border: 1px solid var(--border); border-radius: 2rem;
+      font-size: .7rem; color: var(--text-dim); letter-spacing: .04em;
+    }
+
+    /* ═══ CTA FINAL ═══ */
+    .cta-final {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 14px;
+      padding: 3rem;
+      margin: 3rem 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), transparent);
+    }
+    .cta-final .cta-label {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
+    }
+    .cta-final h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 300; color: var(--text); line-height: 1.2;
+      margin-bottom: 1rem; border: none; padding: 0; margin-top: 0;
+    }
+    .cta-final h2 em { font-style: italic; color: var(--gold-light); }
+    .cta-final p { font-size: .95rem; color: var(--text-muted); max-width: 46ch; margin: 0 auto 2rem; line-height: 1.8; }
+    .btn-primary {
+      display: inline-block; padding: .85rem 2rem;
+      background: var(--gold); color: #0d0d0d;
+      font-weight: 500; font-size: .88rem; letter-spacing: .06em;
+      border-radius: var(--radius); transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--gold-light); opacity: 1; transform: translateY(-1px); }
+
+    /* ═══ SIDEBAR ═══ */
+    .sidebar-toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-toc-title {
+      font-family: var(--font-mono); font-size: .63rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .sidebar-toc-list { list-style: none; padding: 0; }
+    .sidebar-toc-list li { margin-bottom: .5rem; }
+    .sidebar-toc-list a {
+      font-size: .82rem; color: var(--text-muted); display: block;
+      border-bottom: none; padding: .2rem 0;
+      border-left: 2px solid transparent; padding-left: .65rem;
+      transition: color .2s, border-color .2s;
+    }
+    .sidebar-toc-list a:hover { color: var(--gold); border-left-color: var(--gold); opacity: 1; }
+    .sidebar-author {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.5rem; text-align: center;
+    }
+    .sidebar-author img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center top; margin: 0 auto .75rem; border: 1px solid var(--gold-dim); }
+    .sidebar-author .sa-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .sidebar-author .sa-role { font-size: .75rem; color: var(--text-dim); line-height: 1.5; }
+    .sidebar-author .sa-link { display: inline-block; margin-top: .75rem; font-size: .75rem; color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
+
+    /* ═══ READING PROGRESS ═══ */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 0; transition: width .1s;
+    }
+
+    /* ═══ DIVIDER ═══ */
+    .divider { border: none; border-top: 1px solid var(--border); max-width: var(--max); margin: 0 auto; }
+
+    /* ═══ BACK LINK ═══ */
+    .back-link-wrap {
+      position: relative; z-index: 1;
+      max-width: var(--max); margin: 0 auto;
+      padding: 0 2.5rem 2rem;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .78rem; color: var(--text-dim);
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: var(--font-mono);
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--gold); opacity: 1; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem; max-width: var(--max); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: .75rem; color: var(--text-dim); font-family: var(--font-mono); }
+    .footer-copy a { color: var(--text-dim); }
+    .footer-copy a:hover { color: var(--gold); opacity: 1; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .75rem; color: var(--text-dim); letter-spacing: .06em; text-transform: uppercase; }
+    .footer-links a:hover { color: var(--gold); opacity: 1; }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 1000px) {
+      .article-wrap { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-hero { padding: 7rem 1.5rem 2rem; }
+      .article-wrap { padding: 0 1.5rem; }
+      .back-link-wrap { padding: 0 1.5rem 2rem; }
+      .rfm-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; }
+      .cta-final { padding: 2rem; }
+      .author-box { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ READING PROGRESS ═══ -->
+  <div class="reading-progress" id="progress"></div>
+
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <a href="/" class="nav-logo">Patricio <span>Castro</span></a>
+    <ul class="nav-links">
+      <li><a href="/#sobre-mi">Sobre mí</a></li>
+      <li><a href="/#proyectos">Proyectos</a></li>
+      <li><a href="/#cursos">Cursos</a></li>
+      <li><a href="/#investigacion">Investigación</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ ARTICLE HERO ═══ -->
+  <header class="article-hero">
+    <div class="breadcrumb">
+      <a href="/">patriciocastro.cl</a>
+      <span>/</span>
+      <a href="/blog/">blog</a>
+      <span>/</span>
+      <span>RFM y CLV</span>
+    </div>
+    <div class="article-tag-hero">Marketing Analytics</div>
+    <h1>RFM y Customer Lifetime Value: cómo <em>segmentar clientes</em> con datos en tu empresa</h1>
+    <div class="article-meta-bar">
+      <div class="meta-item"><strong>Patricio Castro</strong></div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">Mayo 2026</div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">10 min lectura</div>
+      <span class="meta-sep">·</span>
+      <div class="meta-item">Actualizado 2026</div>
+    </div>
+  </header>
+
+  <!-- ═══ ARTICLE CONTENT ═══ -->
+  <div class="article-wrap">
+    <main class="article-main" id="article-content">
+      <div class="prose">
+
+        <!-- ═══ GEO OPENER ═══ -->
+        <div class="geo-opener">
+          <div class="geo-label">Respuesta directa</div>
+          <p>El <strong>análisis RFM</strong> (Recencia, Frecuencia, Valor Monetario) es una técnica que segmenta clientes según su comportamiento de compra pasado. El <strong>Customer Lifetime Value (CLV)</strong> estima el valor económico total que un cliente generará durante su relación con la empresa. Usados juntos, permiten decidir en quién invertir, cuánto gastar en retención y cómo priorizar las campañas de marketing.</p>
+        </div>
+
+        <!-- ═══ TABLE OF CONTENTS ═══ -->
+        <div class="toc-box">
+          <div class="toc-title">Tabla de contenidos</div>
+          <ol class="toc-list">
+            <li><a href="#que-es-rfm" data-num="01">¿Qué es el análisis RFM?</a></li>
+            <li><a href="#calcular-clv" data-num="02">Cómo calcular el CLV</a></li>
+            <li><a href="#paso-a-paso" data-num="03">Paso a paso: cómo hacer un análisis RFM</a></li>
+            <li><a href="#herramientas" data-num="04">Herramientas para implementarlo</a></li>
+            <li><a href="#caso-practico" data-num="05">Caso práctico: retail chileno</a></li>
+            <li><a href="#errores" data-num="06">Errores comunes al calcular el CLV</a></li>
+            <li><a href="#faq" data-num="07">Preguntas frecuentes</a></li>
+          </ol>
+        </div>
+
+        <!-- ═══ SECCIÓN 1: QUÉ ES RFM ═══ -->
+        <h2 id="que-es-rfm" class="reveal">¿Qué es el <em>análisis RFM?</em></h2>
+
+        <p>El análisis RFM es una de las técnicas de segmentación de clientes más utilizadas en marketing porque combina tres cosas que toda empresa debería saber de sus compradores: cuándo fue la última vez que compraron, con qué frecuencia lo hacen y cuánto dinero gastan. La sigla resume exactamente eso:</p>
+
+        <div class="rfm-grid">
+          <div class="rfm-card reveal">
+            <div class="rfm-letter">R</div>
+            <div class="rfm-word">Recencia</div>
+            <div class="rfm-question">¿Cuándo fue la última compra?</div>
+            <div class="rfm-desc">Días transcurridos desde la última transacción del cliente. Un cliente que compró ayer es mucho más probable que vuelva a comprar que uno que no lo hace desde hace un año. La recencia es el predictor más fuerte de comportamiento futuro.</div>
+          </div>
+          <div class="rfm-card reveal">
+            <div class="rfm-letter">F</div>
+            <div class="rfm-word">Frecuencia</div>
+            <div class="rfm-question">¿Cuántas veces ha comprado?</div>
+            <div class="rfm-desc">Número total de transacciones en un período definido (generalmente 12 a 24 meses). Los clientes frecuentes tienen mayor afinidad con la marca, menor sensibilidad al precio y mayor probabilidad de responder a campañas de up-selling o cross-selling.</div>
+          </div>
+          <div class="rfm-card reveal">
+            <div class="rfm-letter">M</div>
+            <div class="rfm-word">Valor Monetario</div>
+            <div class="rfm-question">¿Cuánto ha gastado en total?</div>
+            <div class="rfm-desc">Suma acumulada de compras en el período de análisis. Permite distinguir clientes de alto valor de los de ticket bajo, incluso si ambos compran con frecuencia similar. Es la dimensión que conecta más directamente el análisis con el impacto financiero.</div>
+          </div>
+        </div>
+
+        <p>El origen del análisis RFM se atribuye a los trabajos de <strong>Bult y Wansbeek (1995)</strong> y fue popularizado en el campo del marketing directo por <strong>Arthur Hughes</strong> en la misma década. Hoy es estándar en retail, e-commerce, servicios financieros y cualquier negocio con transacciones repetidas y base de clientes identificable.</p>
+
+        <blockquote>
+          <p>"No todos tus clientes valen lo mismo. La pregunta no es cuántos tienes, sino cuánto valen y cuánto puedes hacer para que valgan más."</p>
+          <cite>— Arthur Hughes, pionero del Database Marketing y creador de la metodología RFM moderna</cite>
+        </blockquote>
+
+        <p>Lo que hace poderoso al RFM no es cada dimensión por separado, sino la <strong>combinación de las tres</strong>. Un cliente que compró hace 30 días, ha realizado 8 compras en el año y acumula $1.200.000 en transacciones es un perfil completamente distinto a uno que compró hace 400 días, solo una vez, por $50.000. El RFM permite sistematizar esa distinción a escala, con miles o millones de clientes, de forma reproducible y sin depender de la intuición del analista.</p>
+
+        <!-- ═══ SECCIÓN 2: CALCULAR CLV ═══ -->
+        <h2 id="calcular-clv" class="reveal">Cómo calcular el <em>Customer Lifetime Value</em></h2>
+
+        <p>El <strong>Customer Lifetime Value (CLV)</strong>, también llamado LTV (Lifetime Value), es el valor económico total que una empresa puede esperar recibir de un cliente durante toda su relación comercial. No se trata de lo que ya gastó, sino de lo que <em>gastará</em>: es una estimación prospectiva.</p>
+
+        <p>Existen versiones muy simples y versiones complejas del cálculo. La versión avanzada usa modelos probabilísticos como el BG/NBD (Buy till you Die) de Fader y Hardie (2005), implementables en Python con la librería <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.85em;">lifetimes</code>. Pero para tomar decisiones concretas en la mayoría de las empresas, la fórmula simple es suficiente:</p>
+
+        <div class="formula-box reveal">
+          <div class="formula-label">Fórmula del CLV simplificado</div>
+          <div class="formula-expr">
+            CLV = <span>T</span> × <span>F</span> × <span>M</span> × <span>V</span>
+          </div>
+          <div class="formula-vars">
+            <span class="formula-var"><b>T</b> = Ticket promedio</span>
+            <span class="formula-var"><b>F</b> = Frecuencia de compra anual</span>
+            <span class="formula-var"><b>M</b> = Margen bruto (%)</span>
+            <span class="formula-var"><b>V</b> = Vida esperada del cliente (años)</span>
+          </div>
+        </div>
+
+        <h3>Ejemplo numérico: tienda de equipamiento deportivo en Chile</h3>
+
+        <p>Imaginemos una tienda online de equipamiento deportivo en Santiago. Revisando los datos del último año, el equipo de marketing identifica los siguientes promedios para su segmento de clientes activos:</p>
+
+        <div class="numeric-example reveal">
+          <div class="numeric-label">Cálculo paso a paso — Cliente tipo "Deportista Activo"</div>
+          <div class="numeric-rows">
+            <div class="numeric-row">
+              <div class="numeric-row-label">Ticket promedio por compra</div>
+              <div class="numeric-row-value">$78.500 CLP</div>
+            </div>
+            <div class="numeric-row">
+              <div class="numeric-row-label">Frecuencia de compra anual</div>
+              <div class="numeric-row-value">4,2 compras/año</div>
+            </div>
+            <div class="numeric-row">
+              <div class="numeric-row-label">Margen bruto promedio</div>
+              <div class="numeric-row-value">38%</div>
+            </div>
+            <div class="numeric-row">
+              <div class="numeric-row-label">Vida esperada del cliente</div>
+              <div class="numeric-row-value">3,5 años</div>
+            </div>
+            <div class="numeric-row">
+              <div class="numeric-row-label">Cálculo: $78.500 × 4,2 × 0,38 × 3,5</div>
+              <div class="numeric-row-value">= ?</div>
+            </div>
+          </div>
+          <div class="numeric-result">
+            <div class="numeric-result-label">CLV del segmento "Deportista Activo"</div>
+            <div class="numeric-result-value">$438.417 CLP</div>
+          </div>
+        </div>
+
+        <p>¿Qué nos dice este número? Que cada cliente de ese segmento tiene un valor esperado de aproximadamente $438.000 para el negocio. Esto permite tomar decisiones más inteligentes: si el costo de adquirir un cliente vía Google Ads es $25.000, la inversión se justifica ampliamente. Si se puede retener a un cliente "en riesgo" con un cupón de $8.000, la ecuación es rentable. <strong>El CLV transforma el marketing de un gasto a una inversión con retorno calculable.</strong></p>
+
+        <p>Una nota metodológica importante: esta fórmula no descuenta los flujos futuros por el tiempo (sin tasa de descuento). Para mayor precisión, especialmente en empresas con ciclos de compra largos o altas tasas de descuento, se puede añadir un factor de descuento: <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.85em;">CLV = T × F × M × [1 / (1 + d - r)]</code>, donde <em>d</em> es la tasa de descuento y <em>r</em> es la tasa de retención. Para la mayoría de los equipos de marketing, la versión simplificada es el punto de partida correcto.</p>
+
+        <!-- ═══ SECCIÓN 3: PASO A PASO ═══ -->
+        <h2 id="paso-a-paso" class="reveal">Paso a paso: cómo hacer un <em>análisis RFM</em></h2>
+
+        <p>El análisis RFM no requiere herramientas sofisticadas para comenzar. Lo que sí requiere es un historial de transacciones con al menos tres campos: identificador del cliente, fecha de la compra y monto. A continuación, el proceso completo.</p>
+
+        <div class="step-list">
+          <div class="step-item reveal">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-title">Preparar y limpiar los datos de transacciones</div>
+              <div class="step-desc">Extrae del ERP, CRM o sistema de ventas las transacciones del período de análisis (recomendado: 12 a 24 meses). Asegúrate de tener tres columnas: <code>id_cliente</code>, <code>fecha_compra</code> y <code>monto</code>. Elimina devoluciones, registros duplicados y transacciones con montos negativos o nulos. Esta etapa suele tomar el 60% del tiempo total del análisis.</div>
+            </div>
+          </div>
+          <div class="step-item reveal">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-title">Calcular los valores R, F y M por cliente</div>
+              <div class="step-desc">Con una tabla dinámica (Excel/Sheets) o un <code>groupby</code> (Python/pandas), calcula para cada cliente: <code>Recencia</code> = días desde su última compra hasta hoy, <code>Frecuencia</code> = número total de transacciones, <code>Monetario</code> = suma de todos los montos. El resultado es una tabla con un cliente por fila y sus tres valores RFM como columnas.</div>
+            </div>
+          </div>
+          <div class="step-item reveal">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-title">Asignar puntajes del 1 al 5 a cada dimensión</div>
+              <div class="step-desc">Divide cada dimensión en 5 grupos iguales (quintiles). Para Recencia, el puntaje 5 va al 20% de clientes que compraron más recientemente (menor número de días). Para Frecuencia y Monetario, el puntaje 5 va al 20% superior. Usa <code>PERCENTILE</code> en Excel o <code>pd.qcut()</code> en Python para calcular los quintiles automáticamente y evitar el sesgo de categorías manuales.</div>
+            </div>
+          </div>
+          <div class="step-item reveal">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-title">Combinar los puntajes en segmentos con nombre</div>
+              <div class="step-desc">Concatena los tres puntajes para obtener un "código RFM" (ej. 5-5-5 = cliente campeón; 1-1-1 = cliente perdido). Define entre 5 y 8 segmentos con nombres descriptivos: <strong>Campeones</strong> (5-5-5 a 4-4-4), <strong>Leales</strong> (4-3-x), <strong>Prometedores</strong> (5-1-x), <strong>En riesgo</strong> (2-3-x), <strong>Dormidos</strong> (1-2-x), <strong>Perdidos</strong> (1-1-1). Los nombres facilitan la comunicación con equipos no técnicos.</div>
+            </div>
+          </div>
+          <div class="step-item reveal">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="step-title">Diseñar acciones específicas para cada segmento</div>
+              <div class="step-desc">El análisis sin acción no genera valor. Define para cada segmento una táctica de marketing diferenciada: <strong>Campeones</strong> → programa de referidos o acceso anticipado a novedades; <strong>En riesgo</strong> → campaña de reactivación con incentivo personalizado; <strong>Dormidos</strong> → email de "te echamos de menos" con oferta de win-back. La segmentación RFM cobra sentido cuando orienta decisiones concretas de comunicación y oferta.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ SECCIÓN 4: HERRAMIENTAS ═══ -->
+        <h2 id="herramientas" class="reveal"><em>Herramientas</em> para implementarlo</h2>
+
+        <p>La buena noticia es que no necesitas un equipo de data science ni software especializado para comenzar. Estas tres herramientas cubren el 95% de los casos de análisis RFM y CLV en empresas chilenas.</p>
+
+        <div class="tool-list">
+          <div class="tool-item reveal">
+            <div class="tool-icon">📊</div>
+            <div class="tool-body">
+              <div class="tool-name">Microsoft Excel o Google Sheets</div>
+              <div class="tool-desc">La opción ideal para comenzar y para equipos sin experiencia en programación. Con tablas dinámicas calculas los valores R, F y M; con la función <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.82em;">PERCENTIL()</code> y <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.82em;">SI.CONJUNTO()</code> asignas los puntajes; con formato condicional visualizas los segmentos. Un analista con buen manejo de Excel puede tener un RFM operativo en 3 a 4 horas si los datos están limpios. Google Sheets añade la ventaja de colaboración en tiempo real y compatibilidad con Google Analytics 4 vía Looker Studio.</div>
+              <span class="tool-tag">Nivel de entrada</span>
+            </div>
+          </div>
+          <div class="tool-item reveal">
+            <div class="tool-icon">🐍</div>
+            <div class="tool-body">
+              <div class="tool-name">Python (pandas + lifetimes)</div>
+              <div class="tool-desc">La solución más potente y escalable. Con <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.82em;">pandas</code> procesas y transformas millones de transacciones en segundos; con <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.82em;">pd.qcut()</code> calculas quintiles automáticamente sin sesgos; con la librería <code style="background:var(--surface2);padding:.1em .4em;border-radius:3px;font-family:var(--font-mono);font-size:.82em;">lifetimes</code> implementas el modelo probabilístico BG/NBD para una estimación de CLV más precisa que la fórmula simple. Python también permite automatizar el proceso completo para que el análisis se actualice sin intervención manual, lo cual es crítico en organizaciones con bases de datos grandes y análisis frecuentes.</div>
+              <span class="tool-tag">Nivel intermedio-avanzado</span>
+            </div>
+          </div>
+          <div class="tool-item reveal">
+            <div class="tool-icon">☁️</div>
+            <div class="tool-body">
+              <div class="tool-name">Google Sheets + BigQuery + Looker Studio</div>
+              <div class="tool-desc">El stack nativo de Google es especialmente útil si ya usas Google Analytics 4 (GA4) y Google Ads. GA4 exporta datos directamente a BigQuery, donde puedes construir el análisis RFM con SQL estándar. Looker Studio conecta los resultados en un dashboard dinámico que el equipo de marketing puede consultar sin SQL. Este stack es gratuito hasta ciertos límites de volumen y permite cruzar datos de comportamiento web (GA4) con datos transaccionales del ERP, algo que ni Excel ni Python solos facilitan de forma nativa.</div>
+              <span class="tool-tag">Ecosistema Google</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ SECCIÓN 5: CASO PRÁCTICO ═══ -->
+        <h2 id="caso-practico" class="reveal">Caso práctico: <em>segmentación en retail chileno</em></h2>
+
+        <p>El siguiente ejemplo usa datos ficticios pero diseñados para reflejar patrones realistas del retail chileno de moda y accesorios. La empresa, "Almacén Austral" (nombre ficticio), tiene una base de 8.400 clientes activos en los últimos 24 meses y realizó un análisis RFM para orientar su plan de CRM del segundo semestre.</p>
+
+        <div class="data-table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Segmento RFM</th>
+                <th>Clientes</th>
+                <th>% Base</th>
+                <th>Ticket prom.</th>
+                <th>Frec. anual</th>
+                <th>CLV estimado</th>
+                <th>Acción recomendada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Campeones</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R≥4, F≥4, M≥4</span></td>
+                <td>504</td>
+                <td>6%</td>
+                <td>$142.000</td>
+                <td>7,1</td>
+                <td>$960.000</td>
+                <td><span class="badge badge-green">Fidelización premium</span></td>
+              </tr>
+              <tr>
+                <td><strong>Leales</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R≥3, F≥4, M≥3</span></td>
+                <td>1.092</td>
+                <td>13%</td>
+                <td>$95.000</td>
+                <td>5,3</td>
+                <td>$590.000</td>
+                <td><span class="badge badge-green">Up-selling / cross-sell</span></td>
+              </tr>
+              <tr>
+                <td><strong>Prometedores</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R=5, F≤2, M≥3</span></td>
+                <td>756</td>
+                <td>9%</td>
+                <td>$88.000</td>
+                <td>1,8</td>
+                <td>$185.000</td>
+                <td><span class="badge badge-blue">Segunda compra incentivada</span></td>
+              </tr>
+              <tr>
+                <td><strong>Necesitan atención</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R=3, F=3, M=3</span></td>
+                <td>1.344</td>
+                <td>16%</td>
+                <td>$71.000</td>
+                <td>3,2</td>
+                <td>$265.000</td>
+                <td><span class="badge badge-yellow">Reactivación suave</span></td>
+              </tr>
+              <tr>
+                <td><strong>En riesgo</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R≤2, F≥3, M≥3</span></td>
+                <td>1.680</td>
+                <td>20%</td>
+                <td>$82.000</td>
+                <td>4,1</td>
+                <td>$280.000</td>
+                <td><span class="badge badge-red">Win-back urgente</span></td>
+              </tr>
+              <tr>
+                <td><strong>Dormidos</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R≤2, F≤2, M≤2</span></td>
+                <td>2.268</td>
+                <td>27%</td>
+                <td>$43.000</td>
+                <td>1,4</td>
+                <td>$58.000</td>
+                <td><span class="badge badge-red">Campaña económica / no invertir</span></td>
+              </tr>
+              <tr>
+                <td><strong>Perdidos</strong><br><span style="font-size:.75rem;color:var(--text-dim);">R=1, F=1, M=1</span></td>
+                <td>756</td>
+                <td>9%</td>
+                <td>$28.000</td>
+                <td>1,0</td>
+                <td>$18.000</td>
+                <td><span class="badge badge-red">No invertir activamente</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>El análisis revela algo que suele sorprender a los equipos de marketing: el <strong>19% de los clientes</strong> (Campeones + Leales) genera más del 65% del valor total de la base. Diseñar una campaña masiva igual para todos es desperdiciar presupuesto. Con la segmentación RFM, "Almacén Austral" puede enfocar el 70% de su inversión en retención en los segmentos de mayor CLV, y reservar el 30% restante para reactivar a los clientes "En riesgo" antes de que se vuelvan "Dormidos".</p>
+
+        <p>La acción concreta: para los <strong>504 clientes Campeones</strong>, acceso anticipado a la colección de invierno más un descuento de fidelidad del 12%, entregado por WhatsApp personalizad. Para los <strong>1.680 clientes En riesgo</strong>, un email automatizado con asunto "Te echamos de menos" más un beneficio de $10.000 de descuento en su próxima compra. Para los <strong>2.268 Dormidos</strong>, ninguna inversión adicional de retención: el CLV esperado no justifica el costo de comunicación personalizada.</p>
+
+        <!-- ═══ SECCIÓN 6: ERRORES ═══ -->
+        <h2 id="errores" class="reveal"><em>Errores comunes</em> al calcular el CLV</h2>
+
+        <p>El CLV es una métrica poderosa, pero también una de las más malinterpretadas en los equipos de marketing. Estos son los cinco errores que aparecen con más frecuencia, tanto en empresas chilenas como en la literatura académica (Gupta et al., 2006; Fader & Hardie, 2009).</p>
+
+        <div class="error-list">
+          <div class="error-item reveal">
+            <div class="error-num">01</div>
+            <div class="error-body">
+              <div class="error-title">Confundir ingresos con margen</div>
+              <div class="error-desc">El error más frecuente: calcular el CLV sobre el ticket bruto sin descontar el costo del producto. Si un cliente gasta $100.000 pero el margen es 30%, el CLV real es sobre $30.000, no $100.000. Usar ingresos en lugar de margen sobreestima el CLV entre 2 y 5 veces dependiendo del negocio, lo que lleva a invertir más en adquisición de lo que resulta rentable.</div>
+            </div>
+          </div>
+          <div class="error-item reveal">
+            <div class="error-num">02</div>
+            <div class="error-body">
+              <div class="error-title">Aplicar un CLV promedio a toda la base</div>
+              <div class="error-desc">Un CLV calculado sobre el promedio de todos los clientes oculta la heterogeneidad real de la base. En la mayoría de los negocios, el CLV sigue una distribución altamente asimétrica: el 20% superior puede tener un CLV 10 a 20 veces mayor que el 20% inferior. El CLV solo tiene valor para la toma de decisiones cuando se calcula por segmento o, idealmente, a nivel de cliente individual.</div>
+            </div>
+          </div>
+          <div class="error-item reveal">
+            <div class="error-num">03</div>
+            <div class="error-body">
+              <div class="error-title">Ignorar la tasa de deserción (churn)</div>
+              <div class="error-desc">La fórmula simplificada asume que los clientes permanecen activos durante toda la "vida esperada". En la realidad, cada año un porcentaje de la base abandona. Si la tasa de retención anual es 60%, el período efectivo de vida del cliente es mucho menor de lo que el cálculo supone. No incluir la probabilidad de churn lleva sistemáticamente a sobreestimar el CLV, especialmente en mercados con alta competencia como el retail chileno.</div>
+            </div>
+          </div>
+          <div class="error-item reveal">
+            <div class="error-num">04</div>
+            <div class="error-body">
+              <div class="error-title">Usar el CLV histórico como si fuera predictivo</div>
+              <div class="error-desc">El CLV histórico (lo que el cliente ya gastó) y el CLV predictivo (lo que se espera que gaste en el futuro) son métricas distintas con usos distintos. El primero es útil para evaluar campañas pasadas; el segundo, para decidir cuánto invertir en adquisición o retención hoy. Confundirlos lleva a decisiones incorrectas: un cliente que gastó mucho hace tres años pero está inactivo tiene un CLV histórico alto y un CLV futuro cercano a cero.</div>
+            </div>
+          </div>
+          <div class="error-item reveal">
+            <div class="error-num">05</div>
+            <div class="error-body">
+              <div class="error-title">Calcular el CLV una sola vez y no actualizarlo</div>
+              <div class="error-desc">El CLV es una estimación dinámica que debe recalcularse periódicamente —al menos trimestralmente— porque el comportamiento de los clientes cambia: un cliente prometedor puede volverse campeón, uno leal puede entrar en riesgo. Mantener un CLV estático por más de seis meses en un negocio activo es como navegar con un mapa desactualizado: las decisiones que toma se basan en una realidad que ya no existe.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ FAQ ═══ -->
+        <h2 id="faq" class="reveal">Preguntas <em>frecuentes</em></h2>
+
+        <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Qué es el análisis RFM y para qué sirve?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">El análisis RFM es una técnica de segmentación de clientes basada en tres variables: Recencia (cuándo fue la última compra), Frecuencia (cuántas veces ha comprado) y Valor Monetario (cuánto ha gastado). Sirve para identificar a los mejores clientes, detectar los que están en riesgo de abandono y priorizar acciones de marketing con mayor impacto. Es una de las técnicas más utilizadas en retail, e-commerce y servicios financieros precisamente porque produce resultados concretos con datos que cualquier empresa con sistema de ventas ya tiene.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Cuál es la diferencia entre RFM y Customer Lifetime Value?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">El RFM es una técnica de segmentación descriptiva: clasifica a los clientes según su comportamiento pasado usando tres dimensiones. El Customer Lifetime Value (CLV) es una métrica predictiva: estima el valor económico total que un cliente generará en el futuro. En la práctica, se usan de forma complementaria. El RFM identifica los segmentos y el CLV cuantifica cuánto vale cada uno, lo que permite decidir con datos cuánto invertir en adquirir o retener a cada tipo de cliente.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Cómo se calcula el CLV de forma simple?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">La fórmula básica del CLV es: CLV = Ticket promedio × Frecuencia de compra anual × Margen bruto × Años de vida del cliente. Por ejemplo, un cliente de una tienda de equipamiento deportivo en Chile que gasta $78.500 en promedio, compra 4,2 veces al año, con un margen del 38% y una relación esperada de 3,5 años tiene un CLV ≈ $438.000. Esta versión simple no descuenta por el tiempo, pero es suficiente para tomar decisiones de inversión en adquisición y retención en la mayoría de los casos.</div>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span class="faq-q-text" itemprop="name">¿Cuántos datos necesito para hacer un análisis RFM?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <div class="faq-a-inner" itemprop="text">Lo mínimo necesario es un historial de transacciones con tres campos: identificador del cliente, fecha de la compra y monto de la compra. Con al menos 6 meses de datos transaccionales ya es posible construir un análisis RFM útil. El análisis mejora con más datos históricos (12 a 24 meses es lo ideal), pero no requiere ninguna herramienta especializada para comenzar: se puede implementar en Excel o Google Sheets en pocas horas si los datos están ordenados.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ AUTHOR BOX ═══ -->
+        <div class="author-box reveal">
+          <div class="author-photo">
+            <img src="../foto-perfil.jpg" alt="Patricio Castro — Profesor UAI" />
+          </div>
+          <div class="author-info">
+            <div class="author-label">Sobre el autor</div>
+            <div class="author-name">Patricio Castro</div>
+            <p class="author-bio">Docente Asistente en Universidad Adolfo Ibáñez (UAI), donde enseña Marketing Analytics, Métricas de Marketing e IA para Marketing en pregrado y postgrado. Investigador del CMO Survey Chile en colaboración con Deloitte Digital. Ha aplicado modelos RFM y CLV en proyectos de consultoría para empresas de retail, servicios financieros y e-commerce en Chile. Creador de <a href="https://simmarketing.cl/" target="_blank" rel="noopener">SimMarketing.cl</a>.</p>
+            <div class="author-creds">
+              <span class="author-cred">Profesor UAI · Santiago & Viña del Mar</span>
+              <span class="author-cred">Investigador CMO Survey Chile</span>
+              <span class="author-cred">Colaboración con Deloitte Digital</span>
+              <span class="author-cred">+2.000 estudiantes formados</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CTA FINAL ═══ -->
+        <div class="cta-final reveal">
+          <div class="cta-label">¿Quieres aplicar esto en tu empresa?</div>
+          <h2>Taller de Marketing Analytics<br><em>con casos reales</em></h2>
+          <p>Formación práctica aplicada a tu industria: análisis RFM, cálculo de CLV y segmentación de clientes con datos reales. Adaptado al nivel y contexto de tu equipo.</p>
+          <a href="/#contacto" class="btn-primary">Conversemos sobre el taller →</a>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="article-sidebar">
+      <div class="sidebar-toc">
+        <div class="sidebar-toc-title">En este artículo</div>
+        <ul class="sidebar-toc-list">
+          <li><a href="#que-es-rfm">¿Qué es el análisis RFM?</a></li>
+          <li><a href="#calcular-clv">Cómo calcular el CLV</a></li>
+          <li><a href="#paso-a-paso">Paso a paso: RFM</a></li>
+          <li><a href="#herramientas">Herramientas</a></li>
+          <li><a href="#caso-practico">Caso práctico Chile</a></li>
+          <li><a href="#errores">Errores comunes</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-author">
+        <img src="../foto-perfil.jpg" alt="Patricio Castro" />
+        <div class="sa-name">Patricio Castro</div>
+        <div class="sa-role">Profesor UAI · Investigador CMO Survey Chile con Deloitte</div>
+        <a href="/" class="sa-link">Ver perfil completo →</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══ BACK LINK ═══ -->
+  <div class="back-link-wrap">
+    <a href="/blog/" class="back-link">← Volver al blog</a>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-copy">
+      © 2026 Patricio Castro · <a href="https://patriciocastro.cl">patriciocastro.cl</a>
+      &nbsp;·&nbsp; Desarrollado con <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+    </div>
+    <nav class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#cursos">Cursos</a>
+      <a href="/#contacto">Contacto</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Reading progress bar
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const article = document.getElementById('article-content');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const total = article.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, (scrolled / total) * 100);
+      progress.style.width = pct + '%';
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+    // Open first FAQ by default
+    const firstFaq = document.querySelector('.faq-item');
+    if (firstFaq) firstFaq.classList.add('open');
+  </script>
+
+</body>
+</html>
