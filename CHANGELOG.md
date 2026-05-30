@@ -11,6 +11,37 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 5] 2026-05-30 — Blog: artículo métricas de marketing para gerentes
+
+### Rama Git
+`feat/blog-metricas-marketing-gerentes`
+
+### Objetivo
+Publicar artículo orientado a directivos y gerentes sobre las 10 métricas de marketing esenciales en 2026, con tabla completa, dashboard recomendado, sección de métricas de IA y FAQ estructurado.
+
+### Archivos creados / modificados
+- `blog/metricas-marketing-gerentes.html` — nuevo: artículo completo (~2.000 palabras)
+- `blog/index.html` — card del nuevo artículo añadida en primera posición
+- `sitemap.xml` — añadida URL del nuevo artículo
+
+### Cambios realizados
+- **blog/metricas-marketing-gerentes.html** — estructura completa: hero h1, apertura GEO con listado de 10 métricas en grid 2 columnas, TOC con anclas, 5 secciones de contenido, FAQ accordion (4 preguntas) + Schema FAQPage en `<head>`, Schema Article JSON-LD, author box, CTA "Taller de Métricas para equipos directivos", sidebar sticky, barra de progreso de lectura
+- Secciones de contenido: por qué los gerentes necesitan métricas (stat CMO Survey 61%), tabla HTML completa de 10 métricas (ROAS/CPA/CAC/LTV/NPS/CTR/Tasa conversión/SoV/MQLs/Churn) con fórmulas y benchmarks, dashboard de métricas en 3 paneles (semanal/mensual/trimestral), error actividad vs resultado con comparación visual bad/good, 4 métricas de IA (Content Velocity, DDA, Lift personalización, AI Search Visibility)
+- Keywords principales: "métricas de marketing gerentes", "KPIs marketing 2026", "ROAS CAC LTV"
+- Stat destacada: LTV/CAC ≥ 3× como ratio clave para directivos
+- **blog/index.html** — card nueva en primera posición (orden cronológico inverso)
+- **sitemap.xml** — añadida entrada con lastmod 2026-05-30 y priority 0.9
+
+### Pendiente / notas
+- Actualizar sitemap en Google Search Console tras el deploy
+- Validar Schema Article y FAQPage en Rich Results Test
+- Próximo artículo sugerido: "Cómo hacer un plan de marketing digital con presupuesto limitado"
+
+### Commit message
+`feat(blog): add artículo métricas de marketing para gerentes 2026`
+
+---
+
 ## [Sesión 4] 2026-05-29 — Blog: artículo CMO Survey Chile 2025
 
 ### Rama Git
