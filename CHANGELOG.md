@@ -11,9 +11,10 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
-## [Sesión 6b] 2026-07-10 — Prensa: cuarta aparición
+## [Sesión 6b] 2026-07-10 — Prensa: apariciones adicionales
 
 - Agregada nota de LUN sobre el caso Tim Payne, con cita sobre colaboraciones con marcas (02-06-2026, sección Deportes), en orden cronológico dentro de `#prensa`.
+- Agregadas dos notas de LUN sección Economía: campaña de bencina gratis de Copec (12-02-2026) y choque Turbus vs FlixBus por palabras clave en Google (04-02-2026). Total: 6 apariciones en la sección.
 
 ---
 
