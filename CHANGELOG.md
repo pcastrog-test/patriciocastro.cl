@@ -11,6 +11,12 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 6b] 2026-07-10 — Prensa: cuarta aparición
+
+- Agregada nota de LUN sobre el caso Tim Payne, con cita sobre colaboraciones con marcas (02-06-2026, sección Deportes), en orden cronológico dentro de `#prensa`.
+
+---
+
 ## [Sesión 6] 2026-07-10 — Rebrand SimulaMkt, proyecto Kimeltun, favicon y sección Prensa
 
 ### Rama Git
