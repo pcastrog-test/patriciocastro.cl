@@ -11,6 +11,23 @@ Ver `plan-sesiones-seo-geo.md` para el detalle completo.
 
 ---
 
+## [Sesión 6] 2026-07-10 — Rebrand SimulaMkt, proyecto Kimeltun, favicon y sección Prensa
+
+### Rama Git
+`feat/simulamkt-kimeltun-favicon-prensa`
+
+### Cambios
+- **Rebrand SimMarketing.cl → SimulaMkt** (nueva URL `https://simulamkt.cl/`): actualizado en meta keywords, Open Graph, Twitter Card, Schema JSON-LD Person, sección "Sobre mí", proyecto destacado, contacto y bios de autor de los 5 posts del blog.
+- **Nuevo proyecto Kimeltun** (`https://kimeltun.app/`): agregado como segunda tarjeta en `#proyectos` (plataforma de quizzes en vivo con PIN/QR, históricos por curso, carga desde Excel), en "Sobre mí", en contacto y en metadatos. Sección renombrada a "Proyectos destacados".
+- **Favicon**: creados `favicon.svg`, `favicon.ico`, `favicon-32.png` y `apple-touch-icon.png` (monograma "PC" dorado sobre fondo oscuro, paleta del sitio). Etiquetas `<link rel="icon">` agregadas a index.html y a las 6 páginas del blog.
+- **Nueva sección "En los medios"** (`#prensa`) entre Artículos y Asociaciones, con estilos `.press-card` y plantilla comentada para futuras apariciones. Enlaces "Prensa" agregados a nav y footer. Primeras tres entradas: columna en ANDA sobre BTS/ARMY y comunidades de fans (03-07-2026), nota en Las Últimas Noticias sobre Speed y Messi (08-07-2026) y nota en LUN sobre trolls en internet con cita como académico de marketing digital (31-05-2026).
+- `sitemap.xml`: lastmod actualizado a 2026-07-10.
+
+### Verificación
+- 3 bloques JSON-LD válidos, tags HTML balanceados, 0 referencias restantes a simmarketing.cl.
+
+---
+
 ## [Sesión 5] 2026-05-30 — Blog: artículo métricas de marketing para gerentes
 
 ### Rama Git

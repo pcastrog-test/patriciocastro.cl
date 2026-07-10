@@ -9,17 +9,24 @@
   ════════════════════════════════════════════ -->
   <title>Patricio Castro | Profesor de Marketing Analytics · UAI Chile</title>
   <meta name="description" content="Especialista en Marketing Analytics, IA y métricas de marketing. Profesor UAI, investigador CMO Survey con Deloitte. Talleres y consultoría para equipos de marketing en Santiago, Chile." />
-  <meta name="keywords" content="Patricio Castro, Marketing Analytics, Universidad Adolfo Ibáñez, UAI, profesor marketing, analítica marketing Chile, CMO Survey, marketing digital, IA marketing, Growth Marketing, Santiago, Viña del Mar, SimMarketing" />
+  <meta name="keywords" content="Patricio Castro, Marketing Analytics, Universidad Adolfo Ibáñez, UAI, profesor marketing, analítica marketing Chile, CMO Survey, marketing digital, IA marketing, Growth Marketing, Santiago, Viña del Mar, SimulaMkt, Kimeltun" />
   <meta name="author" content="Patricio Castro" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://patriciocastro.cl/" />
+
+  <!-- ═══════════════════════════════════════════
+       FAVICON
+  ════════════════════════════════════════════ -->
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- ═══════════════════════════════════════════
        OPEN GRAPH (Facebook, LinkedIn, WhatsApp)
   ════════════════════════════════════════════ -->
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Patricio Castro — Profesor de Marketing Analytics · UAI" />
-  <meta property="og:description" content="Especialista en Marketing Analytics, IA aplicada al marketing y estrategia digital. Docente en Universidad Adolfo Ibáñez, investigador del CMO Survey con Deloitte. Creador de SimMarketing.cl." />
+  <meta property="og:description" content="Especialista en Marketing Analytics, IA aplicada al marketing y estrategia digital. Docente en Universidad Adolfo Ibáñez, investigador del CMO Survey con Deloitte. Creador de SimulaMkt y Kimeltun." />
   <meta property="og:url" content="https://patriciocastro.cl/" />
   <meta property="og:image" content="https://patriciocastro.cl/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -34,7 +41,7 @@
   ════════════════════════════════════════════ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Patricio Castro — Profesor Marketing Analytics · UAI" />
-  <meta name="twitter:description" content="Especialista en Marketing Analytics, IA y estrategia digital. Docente UAI · Investigador CMO Survey · Creador de SimMarketing.cl." />
+  <meta name="twitter:description" content="Especialista en Marketing Analytics, IA y estrategia digital. Docente UAI · Investigador CMO Survey · Creador de SimulaMkt y Kimeltun." />
   <meta name="twitter:image" content="https://patriciocastro.cl/og-image.jpg" />
 
   <!-- ═══════════════════════════════════════════
@@ -46,7 +53,7 @@
     "@type": "Person",
     "name": "Patricio Castro",
     "jobTitle": "Profesor de Marketing Analytics",
-    "description": "Docente Asistente en Universidad Adolfo Ibáñez especializado en Marketing Analytics, IA aplicada al marketing, métricas de marketing y estrategia digital. Creador de SimMarketing.cl.",
+    "description": "Docente Asistente en Universidad Adolfo Ibáñez especializado en Marketing Analytics, IA aplicada al marketing, métricas de marketing y estrategia digital. Creador de SimulaMkt y Kimeltun.",
     "url": "https://patriciocastro.cl/",
     "email": "pcastrog@gmail.com",
     "knowsAbout": ["Marketing Analytics", "Inteligencia Artificial en Marketing", "CMO Survey", "Growth Marketing", "Marketing Digital", "Métricas de Marketing", "Simulación de Marketing", "Estrategia de Contenidos"],
@@ -360,6 +367,15 @@
     .article-arrow { font-size: .85rem; color: var(--gold); margin-top: auto; }
     @media (max-width: 900px) { .articles-grid { grid-template-columns: 1fr; } }
 
+    /* PRENSA */
+    .press-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .press-card { display: flex; flex-direction: column; gap: .5rem; padding: 1.5rem 1.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); transition: border-color .25s, transform .2s; text-decoration: none; }
+    .press-card:hover { border-color: rgba(201,168,76,.35); transform: translateY(-2px); opacity: 1; }
+    .press-outlet { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+    .press-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.35; flex: 1; }
+    .press-date { font-size: .72rem; color: var(--text-dim); }
+    @media (max-width: 900px) { .press-grid { grid-template-columns: 1fr; } }
+
     /* ASOCIACIONES */
     .assoc-section-note { font-size: .82rem; color: var(--text-dim); margin-bottom: 1.75rem; font-style: italic; }
     .assoc-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
@@ -420,6 +436,7 @@
       <li><a href="#cursos">Cursos</a></li>
       <li><a href="#investigacion">Investigación</a></li>
       <li><a href="#articulos">Artículos</a></li>
+      <li><a href="#prensa">Prensa</a></li>
       <li><a href="/blog/">Blog</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -455,7 +472,7 @@
           <h2>Puente entre <em>datos</em><br>y decisiones de marketing</h2>
           <p>Soy <strong>Docente Asistente</strong> en Universidad Adolfo Ibáñez, donde enseño en la <strong>Escuela de Negocios, la Facultad de Ingeniería y Ciencias y la Escuela de Comunicaciones</strong>, tanto en pregrado como en postgrado, en los campus de Santiago y Viña del Mar.</p>
           <p>Mi enfoque está en conectar la analítica de datos con la estrategia de marketing real, usando casos de empresas chilenas y herramientas del estado del arte. Soy <strong>investigador de analytics y métricas</strong> del <strong>CMO Survey Chile</strong> en colaboración con Deloitte, uno de los estudios de referencia sobre tendencias de marketing en el país.</p>
-          <p>En el ámbito de la consultoría, cuento con experiencia de paso por <strong>Accenture, Metriplica y Multiplica</strong>, y trabajo junto a <strong><a href="https://sergedeoliveira.com/" target="_blank" rel="noopener">Serge De Oliveira</a></strong> en proyectos de estrategia de marketing digital para <strong>empresas y organizaciones</strong>. Además soy creador de <strong><a href="https://simmarketing.cl/" target="_blank" rel="noopener">SimMarketing.cl</a></strong>, simulador pedagógico de marketing digital para educación superior.</p>
+          <p>En el ámbito de la consultoría, cuento con experiencia de paso por <strong>Accenture, Metriplica y Multiplica</strong>, y trabajo junto a <strong><a href="https://sergedeoliveira.com/" target="_blank" rel="noopener">Serge De Oliveira</a></strong> en proyectos de estrategia de marketing digital para <strong>empresas y organizaciones</strong>. Además soy creador de <strong><a href="https://simulamkt.cl/" target="_blank" rel="noopener">SimulaMkt</a></strong>, simulador pedagógico de marketing digital para educación superior, y de <strong><a href="https://kimeltun.app/" target="_blank" rel="noopener">Kimeltun</a></strong>, plataforma de quizzes en vivo para la sala de clases.</p>
           <div class="tag-cloud">
             <span class="tag">Marketing Analytics</span>
             <span class="tag">IA en Marketing</span>
@@ -528,15 +545,15 @@
     <!-- PROYECTO DESTACADO -->
     <hr class="divider" />
     <section id="proyectos">
-      <div class="section-label">Proyecto destacado</div>
+      <div class="section-label">Proyectos destacados</div>
       <h2>De la sala de clases<br><em>a la práctica</em></h2>
       <div class="project-highlight reveal">
         <div class="project-icon">🎮</div>
         <div class="project-body">
           <div class="project-label">Herramienta pedagógica · UAI · 2026</div>
-          <div class="project-name">SimMarketing.cl</div>
+          <div class="project-name">SimulaMkt</div>
           <div class="project-desc">
-            Simulador de marketing digital diseñado para educación superior. Permite a los estudiantes configurar campañas reales (Google Ads, Meta Ads), gestionar presupuestos virtuales y analizar KPIs en tiempo real — todo sin arriesgar plata real. Disponible para cursos de pregrado y postgrado en marketing, negocios y comunicación.
+            Simulador de marketing digital diseñado para educación superior. Permite a los estudiantes configurar campañas reales (Google Ads, Meta Ads), gestionar presupuestos virtuales y analizar KPIs en tiempo real — todo sin arriesgar plata real. Incluye cinco escenarios de negocio (startup, e-commerce, fintech, retail y app), panel para docentes y ranking en vivo por clase. Disponible para cursos de pregrado y postgrado en marketing, negocios y comunicación.
           </div>
           <div class="project-meta">
             <span class="badge">Paid Media</span>
@@ -546,7 +563,27 @@
             <span class="badge">5 escenarios de negocio</span>
           </div>
           <div style="margin-top:1.25rem;">
-            <a href="https://simmarketing.cl/" target="_blank" rel="noopener" class="project-link">Visitar SimMarketing.cl →</a>
+            <a href="https://simulamkt.cl/" target="_blank" rel="noopener" class="project-link">Visitar SimulaMkt.cl →</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-highlight reveal">
+        <div class="project-icon">🙋</div>
+        <div class="project-body">
+          <div class="project-label">Herramienta pedagógica · Pregrado & Postgrado · 2026</div>
+          <div class="project-name">Kimeltun</div>
+          <div class="project-desc">
+            Plataforma de quizzes y actividades interactivas en vivo para la sala de clases. El profesor proyecta la pregunta con un PIN y código QR, los alumnos responden desde su celular — sin instalar apps ni crear cuentas — y los resultados quedan guardados por curso. Incluye carga de preguntas desde Excel, encuestas, nubes de palabras, ranking en vivo y exportación a PDF y Excel. Su nombre viene del mapudungun <em>kimeltun</em>: "enseñar, educar".
+          </div>
+          <div class="project-meta">
+            <span class="badge">Quizzes en vivo</span>
+            <span class="badge">PIN & QR</span>
+            <span class="badge">Históricos por curso</span>
+            <span class="badge">Carga desde Excel</span>
+            <span class="badge">Sin apps ni cuentas</span>
+          </div>
+          <div style="margin-top:1.25rem;">
+            <a href="https://kimeltun.app/" target="_blank" rel="noopener" class="project-link">Visitar Kimeltun.app →</a>
           </div>
         </div>
       </div>
@@ -664,6 +701,37 @@
       </div>
     </section>
 
+    <!-- PRENSA -->
+    <hr class="divider" />
+    <section id="prensa">
+      <div class="section-label">En los medios</div>
+      <h2>Apariciones en <em>prensa</em></h2>
+      <div class="press-grid">
+        <a href="https://anda.cl/el-poder-silencioso-de-bts-y-las-army-por-que-las-instituciones-subestiman-el-impacto-real-de-las-comunidades-de-fans/" target="_blank" rel="noopener" class="press-card reveal">
+          <div class="press-outlet">ANDA · Columna de opinión</div>
+          <div class="press-title">El poder silencioso de BTS y las ARMY: por qué las instituciones subestiman el impacto real de las comunidades de fans</div>
+          <div class="press-date">Julio 2026</div>
+        </a>
+        <a href="https://www.lun.com/Pages/NewsDetail.aspx?dt=2026-07-08&amp;NewsID=564403&amp;BodyID=0&amp;PaginaId=18" target="_blank" rel="noopener" class="press-card reveal">
+          <div class="press-outlet">Las Últimas Noticias</div>
+          <div class="press-title">Speed asegura que distrajo a Messi en penal que perdió contra Egipto</div>
+          <div class="press-date">Julio 2026</div>
+        </a>
+        <a href="https://www.lun.com/Pages/NewsDetail.aspx?dt=2026-05-31&amp;EsAviso=0&amp;PaginaId=20&amp;bodyid=0" target="_blank" rel="noopener" class="press-card reveal">
+          <div class="press-outlet">Las Últimas Noticias</div>
+          <div class="press-title">"Esta clase de trolls por internet son los peores, son como inmortales"</div>
+          <div class="press-date">Mayo 2026</div>
+        </a>
+        <!-- PLANTILLA — duplicar este bloque por cada aparición:
+        <a href="URL_DE_LA_NOTA" target="_blank" rel="noopener" class="press-card reveal">
+          <div class="press-outlet">NOMBRE DEL MEDIO</div>
+          <div class="press-title">Título de la nota o entrevista</div>
+          <div class="press-date">Mes 2026</div>
+        </a>
+        -->
+      </div>
+    </section>
+
     <!-- ASOCIACIONES -->
     <hr class="divider" />
     <section id="asociaciones">
@@ -710,11 +778,18 @@
                 <div class="cl-value">medium.com/@pcastrog</div>
               </div>
             </a>
-            <a href="https://simmarketing.cl/" target="_blank" rel="noopener" class="contact-link">
+            <a href="https://simulamkt.cl/" target="_blank" rel="noopener" class="contact-link">
               <div class="cl-icon">🎮</div>
               <div class="cl-info">
                 <div class="cl-label">Proyecto</div>
-                <div class="cl-value">simmarketing.cl</div>
+                <div class="cl-value">simulamkt.cl</div>
+              </div>
+            </a>
+            <a href="https://kimeltun.app/" target="_blank" rel="noopener" class="contact-link">
+              <div class="cl-icon">🙋</div>
+              <div class="cl-info">
+                <div class="cl-label">Proyecto</div>
+                <div class="cl-value">kimeltun.app</div>
               </div>
             </a>
             <a href="https://www.uai.cl/profesores/negocios/patricio-castro" target="_blank" rel="noopener" class="contact-link">
@@ -743,6 +818,7 @@
       <a href="#cursos">Cursos</a>
       <a href="#investigacion">Investigación</a>
       <a href="#articulos">Artículos</a>
+      <a href="#prensa">Prensa</a>
       <a href="/blog/">Blog</a>
       <a href="#contacto">Contacto</a>
     </nav>
