@@ -12,6 +12,10 @@ Bienvenido al portal de material educativo. Aquí encontrarás el contenido orga
 
 - [[COM123/index|COM123 · Estrategia Digital y Redes Sociales]]
 
+### Facultad de Ingeniería y Ciencias (UAI)
+
+- [[Gestion-Valor-Cliente/index|Gestión del Valor del Cliente]]
+
 ### Escuela de Negocios (UAI)
 
 - MKT299 · Marketing Analytics *(próximamente)*
