@@ -1,0 +1,23 @@
+# Rúbrica — Entregable E4 · Journey y tablero de métricas
+
+**Sesión 4** · Pieza del proyecto: *Recorrido, funnel, KPIs y objetivo SMART.*
+Tomada de `03_Evaluacion_y_Rubricas.md` (rúbrica común de entregables parciales E1–E6), instanciada para E4.
+
+**Contenido mínimo de E4:** customer journey (5–6 etapas) + funnel esperado + **4 métricas accionables** + **1 objetivo SMART** para el negocio.
+
+**Escala 1–7. Los cuatro criterios pesan igual (25% c/u).**
+
+| Criterio | Insuficiente (1–3) | Suficiente (4–5) | Destacado (6–7) |
+|---|---|---|---|
+| **Aplicación del concepto** (journey + funnel AI+MR) | Journey incompleto o sin etapas claras; el funnel no distingue Adquisición/Interacción/Monetización/Retención | Journey de 5–6 etapas coherente con el buyer persona; funnel correctamente mapeado a AI+MR | Journey con emociones y fricciones bien identificadas; el funnel muestra con precisión dónde se angosta y por qué |
+| **Uso de datos / herramienta** (métricas accionables) | Métricas de vanidad o sin relación con las etapas; no usa datos ni herramienta | Las 4 métricas son accionables (ratios, comparables) y cubren etapas clave del funnel | Métricas accionables bien elegidas, justificadas frente a la vanidad que reemplazan; conectadas a los segmentos RFM (E3) |
+| **Decisión y justificación** (objetivo SMART + etapa débil) | No hay objetivo SMART o no es medible; no identifica la etapa a intervenir | Objetivo SMART completo (específico, medible, con plazo) sobre una etapa débil razonada | Objetivo SMART priorizado con lógica de valor; nombra palanca y métrica de éxito; trade-off explícito |
+| **Claridad de la entrega + uso crítico de IA** | Confusa; no declara uso de IA o copia el output sin verificar | Clara y ordenada; declara cómo usó el LLM | Profesional y lista para presentar; **valida críticamente** el output del LLM y explica qué ajustó |
+
+### Nota sobre el uso de IA (transversal del curso)
+Se **permite y se espera** el uso de un LLM. Lo que se evalúa es el **criterio**: pedir siempre que el alumno indique cómo verificó el resultado. Copiar sin entender baja la nota; usar y validar críticamente la sube.
+
+### Formativo de la sesión (no calificado)
+Dinámica **"Caza de métricas de vanidad"**: clasificar 8 métricas y reemplazar las de vanidad. Sirve de ensayo del criterio "Uso de datos" antes de la entrega.
+
+**Formato y plazo:** PDF o planilla, en la plataforma del curso, **antes de la Sesión 5**. Se retroalimenta en la Sesión 5 junto con la entrega de E5.
