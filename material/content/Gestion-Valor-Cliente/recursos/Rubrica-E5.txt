@@ -1,0 +1,45 @@
+# Rúbrica — Entregable E5: Campaña + caso predictivo
+
+**Sesión 5** · Pieza del *Plan de Gestión del Valor del Cliente* · Individual, sobre la empresa propia.
+Escala **1,0 – 7,0**. Cuatro criterios de **igual peso** (25% c/u). Tomada de `03_Evaluacion_y_Rubricas.md` y aterrizada a E5.
+
+**Qué se entrega:** (1) diseño de una **campaña digital** para una etapa del journey y (2) un **brief predictivo** (qué predecir, qué datos, qué decisión, cómo validar). Sube a la plataforma en PDF o documento **antes de la Sesión 6**.
+
+---
+
+## Criterios
+
+| Criterio | Insuficiente (1,0–3,9) | Suficiente (4,0–5,4) | Bueno (5,5–6,4) | Excelente (6,5–7,0) |
+|---|---|---|---|---|
+| **1. Aplicación del concepto** (campaña por etapa del journey + lógica predictiva) | La campaña no se ancla a una etapa del journey o confunde propensión/churn/forecasting | Campaña conectada a una etapa; distingue correctamente el tipo de predicción | Campaña coherente con el journey y con el segmento; la pregunta predictiva es pertinente al negocio | Integra campaña y predicción con precisión; la predicción claramente habilita la campaña |
+| **2. Uso de datos / herramienta** (medición sin cookies + datos del brief) | No define cómo medir, o el brief no lista datos | Define una medición básica y lista los datos que necesita | Prioriza datos propios (*first-party*); distingue datos que tiene de los que le faltan | Diseño de medición robusto ante pérdida de señal; mapa de datos realista y accionable |
+| **3. Decisión y justificación** (qué decisión cambia + A/B test) | No hay decisión asociada, o no se justifica | Indica qué decisión cambia y propone un A/B test simple | Decisión priorizada y justificada; A/B test con hipótesis y métrica clara | Decisión con *trade-offs* explícitos (costo de falso positivo vs. negativo); experimento bien diseñado |
+| **4. Claridad y uso crítico de la IA** | Copia el output del LLM sin ajustarlo ni entenderlo | Usa el LLM y obtiene un resultado válido; entrega ordenada | Ajusta el output del LLM y explica el criterio; entrega clara y profesional | Valida críticamente al LLM (muestra qué corrigió y por qué); entrega lista para presentar |
+
+**Nota E5** = promedio simple de los cuatro criterios.
+
+---
+
+## Contenido mínimo para aprobar (4,0)
+- Una **campaña** ligada a una etapa del journey: objetivo SMART, público, mensaje/oferta, canal y **una** forma de medirla.
+- Un **A/B test** definido: qué se compara y qué métrica decide.
+- Un **brief predictivo** que responde las cuatro preguntas: qué predecir, qué decisión cambia, qué datos, cómo validar.
+- Mención explícita de **cómo se usó el LLM** y qué se verificó.
+
+## Señales de excelencia (6,5–7,0)
+- La predicción y la campaña **conversan**: p. ej., "predigo churn de mi segmento Growth → activo una campaña de retención por email → mido reactivación → pruebo A vs. B en el asunto".
+- El alumno reconoce el **costo del error**: qué pasa si el modelo marca a alguien como "se irá" y no era cierto (falsa alarma) versus si no lo detecta (se escapa).
+- Prioriza **datos propios** y una medición que sobreviva a la pérdida de cookies de terceros.
+- Documenta una corrección concreta al output del LLM.
+
+## Rúbrica transversal de uso de IA (referencia, del documento 03)
+| Nivel | Uso de IA |
+|---|---|
+| Destacado | Usa el LLM y **valida críticamente** el resultado; ajusta y explica por qué |
+| Suficiente | Usa el LLM correctamente y obtiene un resultado válido |
+| Insuficiente | Copia el output sin entenderlo ni verificarlo |
+
+> Recomendación del curso: pedir siempre que el alumno indique **cómo verificó** el resultado del LLM. Alinea con el rigor estadístico de esta sesión (precisión, recall, AUC).
+
+## Retroalimentación de E5
+Se entrega en la **Sesión 6** (según el calendario del documento 03). El formativo de la sesión es la actividad *"El brief predictivo"*: el profesor comenta en voz alta 2–3 briefs antes de cerrar.
