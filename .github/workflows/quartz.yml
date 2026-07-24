@@ -1,0 +1,77 @@
+name: Build and Deploy site (existing + /material Quartz)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # necesario para que Quartz lea fechas desde git
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Quartz dependencies
+        working-directory: ./material
+        run: npm install
+
+      - name: Build Quartz (-> material/public)
+        working-directory: ./material
+        run: npx quartz build
+
+      - name: Assemble full site (sitio actual + /material compilado)
+        run: |
+          set -e
+          mkdir -p _site
+          # 1) Copiar el sitio ACTUAL (index.html, blog/, CNAME, favicons, etc.)
+          #    excluyendo lo que NO debe publicarse: el codigo fuente de material,
+          #    la carpeta git, los workflows y el propio _site.
+          rsync -a ./ _site/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            --exclude 'material'
+          # 2) Copiar el material YA COMPILADO en /material
+          mkdir -p _site/material
+          rsync -a ./material/public/ _site/material/
+          echo "----- Contenido final de _site -----"
+          ls -la _site
+          echo "----- _site/material -----"
+          ls -la _site/material
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
