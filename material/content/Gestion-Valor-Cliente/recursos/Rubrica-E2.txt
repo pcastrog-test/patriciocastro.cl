@@ -1,0 +1,20 @@
+# Rúbrica — Entregable E2
+
+**Entregable:** 3 buyer personas + mapa de empatía del cliente principal + arquetipo justificado.
+**Modalidad:** individual, sobre la empresa del alumno.
+**Formato:** 1–2 páginas. **Ponderación sugerida:** segundo hito del proyecto acumulativo.
+
+> Nota: esta rúbrica es una versión de trabajo derivada del brief de la sesión. Reemplázala por la versión oficial de `03_Evaluacion_y_Rubricas.md` cuando el archivo esté disponible (ver checklist del README).
+
+| Criterio | Excelente (4) | Suficiente (3) | Incipiente (2) | Insuficiente (1) |
+|---|---|---|---|---|
+| **Calidad de las 3 personas** | 3 personas distintas y creíbles, cada una con objetivos y frustraciones claros (no solo demografía). | 3 personas, con algún solape o campo débil. | Personas genéricas o dos casi iguales. | Falta alguna persona o son puros datos demográficos. |
+| **Anclaje en evidencia / escucha** | Cada persona apunta a una fuente real (reseñas, entrevistas, datos); usa citas del cliente. | La mayoría se apoya en evidencia; alguna cita. | Predominan los supuestos sin fuente. | Inventadas, sin escucha detrás. |
+| **Mapa de empatía del cliente principal** | Seis campos completos y coherentes; distingue lo que piensa/siente de lo que dice/hace. | Completa casi todos los campos. | Campos incompletos o confunde categorías. | Ausente o superficial. |
+| **Dolor y ganancia accionables** | De un dolor y una ganancia deriva un mensaje o mejora concreta. | Identifica dolor y ganancia, acción difusa. | Solo enumera sin conectar a acción. | No los identifica. |
+| **Arquetipo justificado** | Elige 1 de los 12 y lo justifica ligándolo a la persona principal y a la promesa. | Elige y justifica parcialmente. | Elige sin justificar bien. | No elige o justificación incoherente. |
+| **Elección del cliente principal (CLV)** | Justifica cuál es el principal usando valor a largo plazo (conexión con S1). | Lo señala, justificación breve. | Lo marca sin criterio. | No lo distingue. |
+
+**Escala:** 21–24 = A · 17–20 = B · 12–16 = C · <12 = rehacer.
+
+**Retroalimentación express (para el profesor):** marca por alumno el criterio más débil y sugiere **una** acción de escucha concreta (leer X reseñas, entrevistar a Y clientes) que reforzaría sus personas. La meta de E2 no es la persona "perfecta", sino instalar el hábito de decidir mirando al cliente real, no al promedio.

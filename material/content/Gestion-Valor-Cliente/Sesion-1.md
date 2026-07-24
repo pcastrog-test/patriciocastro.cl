@@ -10,9 +10,9 @@ Primera sesión del curso. Dos ideas centrales: **el cliente es un activo que va
 
 ## Recursos descargables
 
-- [Dataset de ejemplo (Excel, 8 clientes)](recursos/Dataset_ejemplo_CLV_Sesion1.xlsx)
-- [Guía de lectura previa (Word)](recursos/Guia-lectura-sesion1.docx)
-- [Entregable E1 · instrucciones (Word)](recursos/Entregable-E1.docx)
+- [Dataset de ejemplo (Excel, 8 clientes)](Gestion-Valor-Cliente/recursos/Dataset_ejemplo_CLV_Sesion1.xlsx)
+- [Guía de lectura previa (Word)](Gestion-Valor-Cliente/recursos/Guia-lectura-sesion1.docx)
+- [Entregable E1 · instrucciones (Word)](Gestion-Valor-Cliente/recursos/Entregable-E1.docx)
 
 ---
 
@@ -44,7 +44,7 @@ Dos talleres: **(A) laboratorio** sobre el dataset del curso y **(B) proyecto**,
 
 ### Taller A — Laboratorio: "El primer CLV de tu vida" (≈25 min)
 
-**Material:** [Dataset de ejemplo](recursos/Dataset_ejemplo_CLV_Sesion1.xlsx) (8 clientes).
+**Material:** [Dataset de ejemplo](Gestion-Valor-Cliente/recursos/Dataset_ejemplo_CLV_Sesion1.xlsx) (8 clientes).
 **Meta:** calcular a mano un CLV simple y compararlo con el CAC.
 
 **Fórmula introductoria (sin tasa de descuento, a propósito):**
@@ -116,7 +116,7 @@ Este taller produce el **entregable E1** (individual, sobre la empresa del alumn
 **Herramientas:** Google Sheets o Excel + un asistente de IA (LLM) para verificar tu cálculo de CLV.
 **Consejo:** si no tienes datos exactos, estima con supuestos razonables y explícalos. Lo importante es el razonamiento, no la precisión.
 
-Instrucciones completas: [Entregable E1 (Word)](recursos/Entregable-E1.docx).
+Instrucciones completas: [Entregable E1 (Word)](Gestion-Valor-Cliente/recursos/Entregable-E1.docx).
 
 ---
 
