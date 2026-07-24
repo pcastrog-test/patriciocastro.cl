@@ -12,7 +12,7 @@ title: "Sesión 3 · CLV y Segmentación RFM"
 
 - [Presentación de la sesión (PDF)](Gestion-Valor-Cliente/recursos/Presentacion-Sesion3.pdf)
 - [Dataset del curso · Raíz (Excel, 150 clientes)](Gestion-Valor-Cliente/recursos/Dataset_Raiz_alimentacion.xlsx)
-- [[Gestion-Valor-Cliente/Manual-RFM-CLV|📊 Manual paso a paso · RFM y CLV en Google Sheets + Looker Studio]]
+- [[Gestion-Valor-Cliente/Sesion-3/Manual-RFM-CLV|📊 Manual paso a paso · RFM y CLV en Google Sheets + Looker Studio]]
 
 ## Objetivos de aprendizaje
 
@@ -81,7 +81,7 @@ El análisis **RFM** (Recency, Frequency, Monetary) identifica a los clientes m�
 
 **Dataset:** hoja **Datos** de [Dataset_Raiz_alimentacion.xlsx](Gestion-Valor-Cliente/recursos/Dataset_Raiz_alimentacion.xlsx) — 150 clientes, una fila por cliente. **Fecha de referencia: 2026-07-01.** Los datos ya vienen por cliente (no hay que agregar transacciones).
 
-> 📊 **Guía completa paso a paso:** sigue el [[Gestion-Valor-Cliente/Manual-RFM-CLV|Manual de RFM y CLV en Google Sheets + Looker Studio]] con todas las fórmulas, los cortes de quintiles de este dataset y el armado del dashboard.
+> 📊 **Guía completa paso a paso:** sigue el [[Gestion-Valor-Cliente/Sesion-3/Manual-RFM-CLV|Manual de RFM y CLV en Google Sheets + Looker Studio]] con todas las fórmulas, los cortes de quintiles de este dataset y el armado del dashboard.
 
 ### Parte A — Laboratorio guiado (≈40 min)
 
