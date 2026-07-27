@@ -9,7 +9,7 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "Material Educativo",
     pageTitleSuffix: " · Patricio Castro",
-    enableSPA: true,
+    enableSPA: false,
     enablePopovers: true,
     analytics: {
       provider: "plausible",
