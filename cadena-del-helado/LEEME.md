@@ -8,6 +8,7 @@ No usa servidor ni cuentas y no guarda datos personales.
 
 - Juego (alumnos): `https://patriciocastro.cl/cadena-del-helado/`
 - Facilitador (proyector): `https://patriciocastro.cl/cadena-del-helado/facilitador.html`
+- Para imprimir (profesor): `https://patriciocastro.cl/cadena-del-helado/imprimibles.html`
 
 El sitio se publica solo al hacer push a `main` (workflow `.github/workflows/quartz.yml`).
 Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sitemap.
@@ -18,6 +19,7 @@ Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sit
 | --- | --- |
 | `index.html` | Página del juego: número de cadena, reglas, traspaso, turno con temporizador, dos rondas, resultados y código |
 | `facilitador.html` | Página del proyector: QR, reglas, cuenta regresiva por bloque, ranking por códigos y preguntas de cierre |
+| `imprimibles.html` | Para imprimir en carta: hoja de reglas, tarjetas de puesto y tickets de salida |
 | `motor.js` | Motor de simulación y código de resultado. Sin interfaz; lo usan ambas páginas y las pruebas |
 | `qr.js` | Generador de códigos QR de Kazuhiko Arase (licencia MIT, encabezado incluido) |
 | `pruebas/motor.test.js` | Pruebas del motor |
@@ -31,6 +33,7 @@ Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sit
 - Ronda 2: 8 semanas (se anuncian 10), con las ventas visibles para toda la cadena. El salto ocurre en la semana 3.
 - Turnos de 15 segundos (30 en las dos primeras semanas). Si se acaba el tiempo, vale lo escrito o se repite el último pedido.
 - Gana la cadena con menor costo total entre las dos rondas.
+- Al final de la ronda 1 aparece un código parcial. Si una cadena no alcanza la ronda 2, el ranking la ordena solo por la ronda 1, después de las completas.
 
 Los valores están en `CONFIG_CLASE`, al inicio de `motor.js`.
 

@@ -362,10 +362,13 @@
       return '<div><span>' + ROLES[i].nombre + '</span><b>' + piezas + '</b><span>' + p.inventario + ' cajas</span></div>';
     }).join('');
     var sig = app.config.rondas[app.rondaIdx + 1];
+    var codigoParcial = M.codificar({ cadena: app.cadena, costo1: app.resultados[0].costo, costo2: 0 });
     return '<h1>Fin de la ' + ronda().nombre.toLowerCase() + '</h1><p class="suave">Cadena ' + app.cadena + ' · Ya pueden conversar.</p>' +
       '<div class="tarjeta"><b>Torres LEGO</b><p class="chico suave">Cada puesto arma una torre con su inventario final: 1 pieza por cada ' + PIEZA_CAJAS + ' cajas, máximo ' + PIEZAS_MAX + '.</p>' +
       '<div class="torres">' + torres + '</div></div>' +
       bloqueRonda(app.rondaIdx) +
+      '<div class="tarjeta"><span class="suave chico">Código de esta ronda, solo si el profesor lo pide</span>' +
+      '<div class="codigo" id="codigoParcial" style="font-size:28px">' + codigoParcial + '</div></div>' +
       '<div class="tarjeta"><b>' + sig.nombre + '</b><p class="chico">Ahora toda la cadena ve las ventas a clientes y pueden conversar antes de cada pedido. Dura menos semanas. Esperen la señal del profesor.</p></div>' +
       '<button class="btn" data-a="siguienteRonda">' + (app.confirma === 'ronda' ? 'Toca otra vez para comenzar' : 'Comenzar ' + sig.nombre.toLowerCase()) + '</button>';
   }

@@ -114,6 +114,7 @@
       '<li>Elijan el número de cadena que les asigné.</li>' +
       '<li>Lean las reglas y esperen la señal.</li></ol>' +
       puestosHTML() +
+      '<p class="suave" style="font-size:.7em;margin-top:1.2em">Para el profesor: <a href="imprimibles.html" style="color:inherit">hoja de reglas, tarjetas de puesto y tickets para imprimir</a>.</p>' +
       '</div><div><div class="qr">' + svg + '</div><p class="url">' + url + '</p></div></div>';
   }
 
@@ -171,8 +172,13 @@
     return referencia > 0 ? (Math.round(costo / referencia * 10) / 10).toFixed(1).replace('.', ',') + ' ×' : '–';
   }
 
+  // Una cadena sin ronda 2 trae costo2 = 0: va después de las completas, ordenada por la ronda 1.
+  function incompleta(r) { return dosRondas && !r.costo2; }
   function ordenado() {
-    return ranking.slice().sort(function (a, b) { return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena; });
+    return ranking.slice().sort(function (a, b) {
+      if (incompleta(a) !== incompleta(b)) return incompleta(a) ? 1 : -1;
+      return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena;
+    });
   }
 
   function vRanking() {
@@ -180,18 +186,19 @@
     var cab = '<tr><th>#</th><th>Cadena</th><th>' + config.rondas[0].nombre + '</th>' +
       (dosRondas ? '<th>' + config.rondas[1].nombre + '</th><th>Total</th><th>Ronda 1 vs. referencia</th><th>Ronda 2 vs. referencia</th>' : '') + '<th></th></tr>';
     var filas = ordenado().map(function (r, k) {
-      return '<tr' + (k === 0 ? ' class="primero"' : '') + '><td>' + (k + 1) + '</td><td>Cadena ' + r.cadena + '</td><td>' + M.pesos(r.costo1) + '</td>' +
-        (dosRondas ? '<td>' + M.pesos(r.costo2) + '</td><td>' + M.pesos(r.costo1 + r.costo2) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + veces(r.costo2, ref2) + '</td>' : '') +
+      var sin = incompleta(r);
+      return '<tr' + (k === 0 && !sin ? ' class="primero"' : '') + '><td>' + (k + 1) + '</td><td>Cadena ' + r.cadena + (sin ? ' <span class="suave" style="font-size:.7em">sin ronda 2</span>' : '') + '</td><td>' + M.pesos(r.costo1) + '</td>' +
+        (dosRondas ? '<td>' + (sin ? '–' : M.pesos(r.costo2)) + '</td><td>' + (sin ? '–' : M.pesos(r.costo1 + r.costo2)) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + (sin ? '–' : veces(r.costo2, ref2)) + '</td>' : '') +
         '<td><button class="x" data-a="quitar" data-n="' + r.cadena + '" aria-label="Quitar cadena ' + r.cadena + '">quitar</button></td></tr>';
     }).join('');
     var ref = '<tr class="ref"><td></td><td>Referencia: pedir lo mismo que te piden</td><td>' + M.pesos(ref1) + '</td>' +
       (dosRondas ? '<td>' + M.pesos(ref2) + '</td><td>' + M.pesos(ref1 + ref2) + '</td><td>1,0 ×</td><td>1,0 ×</td>' : '') + '<td></td></tr>';
     var resumen = '';
     if (dosRondas && ranking.length) {
-      var a = 0, b = 0;
-      ranking.forEach(function (r) { a += r.costo1; b += r.costo2; });
-      a /= ranking.length; b /= ranking.length;
-      resumen = '<p>Promedio del curso: <b>' + veces(a, ref1) + '</b> la referencia a ciegas y <b>' + veces(b, ref2) + '</b> con información compartida.</p>' +
+      var a = 0, b = 0, completas = 0;
+      ranking.forEach(function (r) { a += r.costo1; if (!incompleta(r)) { b += r.costo2; completas += 1; } });
+      a /= ranking.length; b = completas ? b / completas : 0;
+      resumen = '<p>Promedio del curso: <b>' + veces(a, ref1) + '</b> la referencia a ciegas' + (completas ? ' y <b>' + veces(b, ref2) + '</b> con información compartida' : '') + '.</p>' +
         '<p class="suave" style="font-size:.75em">Las rondas duran distinto, así que cada una se compara con su propia referencia.</p>';
     }
     return '<h1>Ranking</h1>' +
