@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>La Cadena del Helado · Facilitador</title>
+<style>
+  :root { --fondo: #FBF6EE; --tarjeta: #FFFFFF; --tinta: #1F1B16; --suave: #6B6257; --linea: #E4DACB; --alerta: #B3261E; --ok: #0E7C66; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { background: var(--fondo); color: var(--tinta); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: clamp(18px, 1.55vw, 30px); line-height: 1.35; }
+  nav { display: flex; flex-wrap: wrap; gap: .35em; padding: .6em 1em; border-bottom: 1px solid var(--linea); background: var(--tarjeta); position: sticky; top: 0; }
+  nav button { font: inherit; font-size: .72em; padding: .45em .9em; border-radius: 99px; border: 1.5px solid var(--linea); background: transparent; color: var(--suave); cursor: pointer; }
+  nav button.sel { background: var(--tinta); color: #fff; border-color: var(--tinta); }
+  main { max-width: 1500px; margin: 0 auto; padding: 1.2em 1.6em 2em; }
+  h1 { font-size: 2.1em; line-height: 1.1; margin: .2em 0 .35em; }
+  h2 { font-size: 1.15em; margin: 1em 0 .3em; }
+  p { margin: .4em 0; }
+  .suave { color: var(--suave); }
+  .dos { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2em; align-items: start; }
+  @media (max-width: 800px) { .dos { grid-template-columns: 1fr; } }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: .7em; padding: .8em 1em; }
+  ul, ol { padding-left: 1.1em; margin: .3em 0; }
+  li { margin: .38em 0; }
+  .qr { background: #fff; border: 1px solid var(--linea); border-radius: .7em; padding: .6em; text-align: center; }
+  .qr svg { width: 100%; height: auto; max-width: 420px; }
+  .url { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8em; word-break: break-all; }
+  .reloj { font-size: 6.2em; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -.02em; }
+  .reloj.fin { color: var(--alerta); }
+  .controles { display: flex; flex-wrap: wrap; gap: .4em; margin-top: .6em; }
+  .btn { font: inherit; font-size: .8em; font-weight: 650; padding: .5em 1em; border-radius: .6em; border: 1.5px solid var(--tinta); background: var(--tinta); color: #fff; cursor: pointer; }
+  .btn.claro { background: transparent; color: var(--tinta); }
+  .puestos { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4em; margin-top: .5em; }
+  .puestos div { color: #fff; border-radius: .5em; padding: .45em .3em; text-align: center; font-weight: 650; font-size: .82em; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: .38em .5em; border-bottom: 1px solid var(--linea); }
+  th { font-size: .66em; color: var(--suave); font-weight: 600; }
+  th:nth-child(2), td:nth-child(2) { text-align: left; }
+  tr.primero td { font-weight: 750; background: #FFF3C4; }
+  tr.ref td { color: var(--suave); font-style: italic; }
+  td .x { font: inherit; font-size: .7em; border: 0; background: none; color: var(--suave); cursor: pointer; }
+  .ingreso { display: flex; gap: .5em; align-items: center; flex-wrap: wrap; }
+  .ingreso input { font: inherit; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.2em; padding: .3em .5em; width: 9.5em; border: 2px solid var(--tinta); border-radius: .5em; text-transform: uppercase; letter-spacing: .06em; }
+  .msj { font-size: .8em; min-height: 1.4em; }
+  .msj.mal { color: var(--alerta); }
+  .msj.bien { color: var(--ok); }
+  .ref-libro { font-size: .7em; color: var(--suave); }
+  svg.graf { width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+<main id="app"></main>
+<script src="motor.js"></script>
+<script src="qr.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.Motor;
+  var CLAVE = 'cadena-del-helado-ranking-v1';
+  var q = new URLSearchParams(location.search);
+  var original = q.get('modo') === 'original';
+  var config = M.copiar(original ? M.CONFIG_ORIGINAL : M.CONFIG_CLASE);
+  var dosRondas = config.rondas.length > 1;
+  var COLORES = ['#0E7C66', '#6B4FBB', '#B4530B', '#1D5FA8'];
+  var NOMBRES = ['Heladería', 'Mayorista', 'Distribuidor', 'Fábrica'];
+
+  var pasos = [
+    { id: 'inicio', nombre: 'Inicio' },
+    { id: 'reglas', nombre: 'Reglas' },
+    { id: 'ronda1', nombre: config.rondas[0].nombre, minutos: original ? 45 : 21 }
+  ];
+  if (dosRondas) {
+    pasos.push({ id: 'pausa', nombre: 'Pausa', minutos: 4 });
+    pasos.push({ id: 'ronda2', nombre: config.rondas[1].nombre, minutos: 10 });
+  }
+  pasos.push({ id: 'ranking', nombre: 'Ranking' });
+  pasos.push({ id: 'cierre', nombre: 'Cierre' });
+
+  var actual = 0;
+  var reloj = { id: null, queda: 0, corre: false, hasta: 0 };
+  var ranking = leer();
+  var mensaje = { texto: '', clase: '' };
+
+  function leer() {
+    try { var t = localStorage.getItem(CLAVE); return t ? JSON.parse(t) : []; } catch (e) { return []; }
+  }
+  function grabar() { try { localStorage.setItem(CLAVE, JSON.stringify(ranking)); } catch (e) { /* queda en memoria */ } }
+
+  function urlJuego() {
+    var u = new URL('./', location.href);
+    u.search = original ? '?modo=original' : '';
+    u.hash = '';
+    return u.href;
+  }
+
+  function puestosHTML() {
+    return '<div class="puestos">' + NOMBRES.map(function (n, i) { return '<div style="background:' + COLORES[i] + '">' + n + '</div>'; }).join('') + '</div>';
+  }
+
+  // ---------- Pasos ----------
+  function vInicio() {
+    var url = urlJuego();
+    var svg = '';
+    try { var c = qrcode(0, 'M'); c.addData(url); c.make(); svg = c.createSvgTag({ cellSize: 8, margin: 2, scalable: true }); } catch (e) { svg = ''; }
+    return '<div class="dos"><div>' +
+      '<h1>La Cadena del Helado</h1>' +
+      '<p class="suave">Una cadena de suministro, cuatro puestos y un celular.</p>' +
+      '<h2>Para partir</h2><ol>' +
+      '<li>Formen cadenas de 8: <b>dos personas por puesto</b>, sentadas en fila.</li>' +
+      '<li>Un celular por cadena abre el código QR.</li>' +
+      '<li>Elijan el número de cadena que les asigné.</li>' +
+      '<li>Lean las reglas y esperen la señal.</li></ol>' +
+      puestosHTML() +
+      '</div><div><div class="qr">' + svg + '</div><p class="url">' + url + '</p></div></div>';
+  }
+
+  function vReglas() {
+    var plazo = config.retrasoPedido + config.retrasoDespacho;
+    return '<h1>Reglas</h1><div class="dos"><div><ul>' +
+      '<li>Cada semana, cada puesto decide una sola cosa: <b>cuántas cajas pedir</b>.</li>' +
+      '<li>Guardar una caja cuesta <b>' + M.pesos(config.costoInventario) + '</b> por semana.</li>' +
+      '<li>Deber una caja cuesta <b>' + M.pesos(config.costoDeuda) + '</b> por semana.</li>' +
+      '<li>Lo que piden tarda <b>' + plazo + ' semanas</b> en llegar. La fábrica produce en ' + config.retrasoProduccion + '.</li>' +
+      '</ul></div><div><ul>' +
+      '<li><b>No se habla</b> entre puestos. Nadie mira el turno de otro.</li>' +
+      '<li>Cada turno dura <b>' + config.segundosTurno + ' segundos</b>. Si se acaba, se repite el último pedido.</li>' +
+      '<li>La partida dura ' + config.rondas[0].semanasAnunciadas + ' semanas.</li>' +
+      '<li>Gana la cadena con <b>menor costo total</b>.</li>' +
+      '</ul></div></div>' + puestosHTML();
+  }
+
+  function vReloj(titulo, cuerpo) {
+    return '<div class="dos"><div><h1>' + titulo + '</h1>' + cuerpo + '</div><div class="tarjeta">' +
+      '<div class="reloj" id="reloj"></div>' +
+      '<div class="controles">' +
+      '<button class="btn" data-a="relojIr" id="relojIr"></button>' +
+      '<button class="btn claro" data-a="relojMas">+1 min</button>' +
+      '<button class="btn claro" data-a="relojMenos">−1 min</button>' +
+      '<button class="btn claro" data-a="relojReset">Reiniciar</button>' +
+      '</div></div></div>';
+  }
+
+  function vRonda1() {
+    return vReloj(config.rondas[0].nombre, '<ul>' +
+      '<li><b>En silencio.</b> Solo viajan los pedidos y las cajas.</li>' +
+      '<li>Pasen el celular en orden: heladería, mayorista, distribuidor, fábrica.</li>' +
+      '<li>Si un turno se queda sin tiempo, se repite el último pedido.</li>' +
+      '</ul>' + puestosHTML());
+  }
+
+  function vPausa() {
+    return vReloj('Pausa', '<h2>Torres LEGO</h2><p>Cada puesto arma la torre que indica su celular: 1 pieza por cada 4 cajas de inventario final.</p>' +
+      '<h2>Conversen en la cadena</h2><ul>' +
+      '<li>¿Qué supuso cada uno sobre su vecino al pedir?</li>' +
+      '<li>¿Qué puesto gastó más y por qué?</li>' +
+      '<li>¿Qué harían distinto si pudieran hablar?</li></ul>');
+  }
+
+  function vRonda2() {
+    return vReloj(config.rondas[1].nombre, '<ul>' +
+      '<li>Ahora <b>toda la cadena ve las ventas</b> a clientes.</li>' +
+      '<li><b>Pueden conversar</b> y acordar una política de pedidos.</li>' +
+      '<li>Dura menos semanas. Al final, el celular muestra un código.</li>' +
+      '</ul>' + puestosHTML());
+  }
+
+  function veces(costo, referencia) {
+    return referencia > 0 ? (Math.round(costo / referencia * 10) / 10).toFixed(1).replace('.', ',') + ' ×' : '–';
+  }
+
+  function ordenado() {
+    return ranking.slice().sort(function (a, b) { return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena; });
+  }
+
+  function vRanking() {
+    var ref1 = M.costoReferencia(config, 0), ref2 = dosRondas ? M.costoReferencia(config, 1) : 0;
+    var cab = '<tr><th>#</th><th>Cadena</th><th>' + config.rondas[0].nombre + '</th>' +
+      (dosRondas ? '<th>' + config.rondas[1].nombre + '</th><th>Total</th><th>Ronda 1 vs. referencia</th><th>Ronda 2 vs. referencia</th>' : '') + '<th></th></tr>';
+    var filas = ordenado().map(function (r, k) {
+      return '<tr' + (k === 0 ? ' class="primero"' : '') + '><td>' + (k + 1) + '</td><td>Cadena ' + r.cadena + '</td><td>' + M.pesos(r.costo1) + '</td>' +
+        (dosRondas ? '<td>' + M.pesos(r.costo2) + '</td><td>' + M.pesos(r.costo1 + r.costo2) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + veces(r.costo2, ref2) + '</td>' : '') +
+        '<td><button class="x" data-a="quitar" data-n="' + r.cadena + '" aria-label="Quitar cadena ' + r.cadena + '">quitar</button></td></tr>';
+    }).join('');
+    var ref = '<tr class="ref"><td></td><td>Referencia: pedir lo mismo que te piden</td><td>' + M.pesos(ref1) + '</td>' +
+      (dosRondas ? '<td>' + M.pesos(ref2) + '</td><td>' + M.pesos(ref1 + ref2) + '</td><td>1,0 ×</td><td>1,0 ×</td>' : '') + '<td></td></tr>';
+    var resumen = '';
+    if (dosRondas && ranking.length) {
+      var a = 0, b = 0;
+      ranking.forEach(function (r) { a += r.costo1; b += r.costo2; });
+      a /= ranking.length; b /= ranking.length;
+      resumen = '<p>Promedio del curso: <b>' + veces(a, ref1) + '</b> la referencia a ciegas y <b>' + veces(b, ref2) + '</b> con información compartida.</p>' +
+        '<p class="suave" style="font-size:.75em">Las rondas duran distinto, así que cada una se compara con su propia referencia.</p>';
+    }
+    return '<h1>Ranking</h1>' +
+      '<div class="ingreso"><label for="cod">Código de la cadena</label><input id="cod" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX">' +
+      '<button class="btn" data-a="agregar">Agregar</button>' +
+      (ranking.length ? '<button class="btn claro" data-a="vaciar">Vaciar ranking</button>' : '') + '</div>' +
+      '<p class="msj ' + mensaje.clase + '" id="msj">' + mensaje.texto + '</p>' +
+      '<div class="tarjeta"><table>' + cab + filas + ref + '</table></div>' + resumen;
+  }
+
+  function vCierre() {
+    var r = config.rondas[0];
+    var W = 520, H = 170, izq = 34, aba = 26, arr = 12, n = r.semanas;
+    function X(k) { return izq + k * (W - izq - 10) / (n - 1); }
+    function Y(v) { return arr + (12 - v) * (H - arr - aba) / 12; }
+    var d = '';
+    for (var k = 0; k < n; k++) d += (k ? 'L' : 'M') + X(k).toFixed(1) + ' ' + Y(M.demanda(r, k + 1)).toFixed(1);
+    var ejes = [0, 4, 8, 12].map(function (v) {
+      return '<line x1="' + izq + '" x2="' + (W - 10) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#E4DACB"/><text x="' + (izq - 6) + '" y="' + (Y(v) + 5) + '" text-anchor="end" font-size="13" fill="#6B6257">' + v + '</text>';
+    }).join('');
+    var sem = [1, r.semanaSalto, n].map(function (s) {
+      var ancla = s === 1 ? 'start' : (s === n ? 'end' : 'middle');
+      return '<text x="' + X(s - 1) + '" y="' + (H - 6) + '" text-anchor="' + ancla + '" font-size="13" fill="#6B6257">sem ' + s + '</text>';
+    }).join('');
+    return '<h1>¿Qué pasó en la cadena?</h1><div class="dos"><div>' +
+      '<div class="tarjeta"><b>Lo único que cambió: las ventas a clientes</b>' +
+      '<svg class="graf" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Ventas a clientes por semana">' + ejes + sem +
+      '<path d="' + d + '" fill="none" stroke="#1F1B16" stroke-width="4" stroke-linejoin="round"/></svg>' +
+      '<p class="suave" style="font-size:.8em">De ' + r.demandaBase + ' a ' + r.demandaNueva + ' cajas en la semana ' + r.semanaSalto + ', y nada más.</p></div>' +
+      '<h2>Ticket de salida</h2><p>En una frase: ¿qué harías distinto como gerente de esta cadena?</p>' +
+      '</div><div><ol>' +
+      '<li>¿Quién tuvo la culpa: una persona o el diseño de la cadena? <span class="ref-libro">Enfoque de sistemas, Lamb p. 449</span></li>' +
+      '<li>¿Qué cambió cuando todos vieron la demanda? <span class="ref-libro">Integración de tecnología y planeación, p. 451; EDI, p. 466</span></li>' +
+      '<li>¿Jugaron a empujar o a jalar? <span class="ref-libro">p. 447</span></li>' +
+      '<li>¿Por qué cuesta más deber que guardar, y qué decisiones provocó eso? <span class="ref-libro">Control de inventarios, p. 466</span></li>' +
+      '<li>¿Qué empresa real enfrentó esto y cómo lo resolvió? <span class="ref-libro">IKEA, pp. 456–457</span></li>' +
+      '</ol></div></div>';
+  }
+
+  var VISTAS = { inicio: vInicio, reglas: vReglas, ronda1: vRonda1, pausa: vPausa, ronda2: vRonda2, ranking: vRanking, cierre: vCierre };
+
+  // ---------- Reloj ----------
+  function pintarReloj() {
+    var el = document.getElementById('reloj'), b = document.getElementById('relojIr');
+    if (!el) return;
+    var s = Math.max(0, Math.ceil(reloj.queda / 1000));
+    el.textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+    el.className = 'reloj' + (s === 0 ? ' fin' : '');
+    if (b) b.textContent = reloj.corre ? 'Pausar' : (s === 0 ? 'Tiempo' : 'Iniciar');
+  }
+  function pararReloj() { if (reloj.id) clearInterval(reloj.id); reloj.id = null; reloj.corre = false; }
+  function prepararReloj() {
+    pararReloj();
+    reloj.queda = (pasos[actual].minutos || 0) * 60000;
+    pintarReloj();
+  }
+  function alternarReloj() {
+    if (reloj.corre) { reloj.queda = reloj.hasta - Date.now(); pararReloj(); pintarReloj(); return; }
+    if (reloj.queda <= 0) return;
+    reloj.hasta = Date.now() + reloj.queda;
+    reloj.corre = true;
+    reloj.id = setInterval(function () {
+      reloj.queda = reloj.hasta - Date.now();
+      if (reloj.queda <= 0) { reloj.queda = 0; pararReloj(); }
+      pintarReloj();
+    }, 250);
+    pintarReloj();
+  }
+  function ajustarReloj(ms) {
+    reloj.queda = Math.max(0, (reloj.corre ? reloj.hasta - Date.now() : reloj.queda) + ms);
+    if (reloj.corre) reloj.hasta = Date.now() + reloj.queda;
+    pintarReloj();
+  }
+
+  // ---------- Pintado y eventos ----------
+  function pintar() {
+    document.getElementById('nav').innerHTML = pasos.map(function (p, k) {
+      return '<button data-ir="' + k + '"' + (k === actual ? ' class="sel"' : '') + '>' + (k + 1) + '. ' + p.nombre + '</button>';
+    }).join('');
+    document.getElementById('app').innerHTML = VISTAS[pasos[actual].id]();
+    document.getElementById('app').setAttribute('data-paso', pasos[actual].id);
+    if (pasos[actual].minutos) prepararReloj(); else pararReloj();
+    var cod = document.getElementById('cod');
+    if (cod) cod.focus();
+  }
+  function ir(k) { actual = Math.max(0, Math.min(pasos.length - 1, k)); mensaje = { texto: '', clase: '' }; pintar(); }
+
+  function agregar() {
+    var cod = document.getElementById('cod');
+    var d = M.decodificar(cod.value);
+    if (!d.ok) { mensaje = { texto: d.error, clase: 'mal' }; }
+    else {
+      var reemplaza = ranking.some(function (r) { return r.cadena === d.cadena; });
+      ranking = ranking.filter(function (r) { return r.cadena !== d.cadena; });
+      ranking.push({ cadena: d.cadena, costo1: d.costo1, costo2: d.costo2 });
+      grabar();
+      mensaje = { texto: 'Cadena ' + d.cadena + (reemplaza ? ' actualizada' : ' agregada') + ': ' + M.pesos(d.costo1 + d.costo2), clase: 'bien' };
+    }
+    pintar();
+  }
+
+  document.getElementById('nav').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-ir]');
+    if (b) ir(parseInt(b.getAttribute('data-ir'), 10));
+  });
+  document.getElementById('app').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]');
+    if (!b) return;
+    var a = b.getAttribute('data-a');
+    if (a === 'relojIr') alternarReloj();
+    else if (a === 'relojMas') ajustarReloj(60000);
+    else if (a === 'relojMenos') ajustarReloj(-60000);
+    else if (a === 'relojReset') prepararReloj();
+    else if (a === 'agregar') agregar();
+    else if (a === 'quitar') { var n = parseInt(b.getAttribute('data-n'), 10); ranking = ranking.filter(function (r) { return r.cadena !== n; }); grabar(); mensaje = { texto: '', clase: '' }; pintar(); }
+    else if (a === 'vaciar') {
+      if (b.getAttribute('data-ok')) { ranking = []; grabar(); mensaje = { texto: '', clase: '' }; pintar(); }
+      else { b.setAttribute('data-ok', '1'); b.textContent = 'Toca otra vez para vaciar'; }
+    }
+  });
+  document.addEventListener('keydown', function (ev) {
+    var enCampo = ev.target && ev.target.id === 'cod';
+    if (enCampo && ev.key === 'Enter') { agregar(); return; }
+    if (enCampo) return;
+    if (ev.key === 'ArrowRight') ir(actual + 1);
+    else if (ev.key === 'ArrowLeft') ir(actual - 1);
+  });
+
+  pintar();
+})();
+</script>
+</body>
+</html>
