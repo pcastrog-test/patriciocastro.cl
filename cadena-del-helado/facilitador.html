@@ -6,53 +6,92 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <title>La Cadena del Helado · Facilitador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --fondo: #FBF6EE; --tarjeta: #FFFFFF; --tinta: #1F1B16; --suave: #6B6257; --linea: #E4DACB; --alerta: #B3261E; --ok: #0E7C66; }
+  :root { --fondo: #F4F5F7; --tarjeta: #FFFFFF; --tinta: #111827; --suave: #6B7280; --tenue: #9CA3AF; --linea: #E5E7EB; --acento: #4F6BED; --acento-suave: #EEF1FE; --alerta: #DC2626; --ok: #16A34A;
+    --sombra: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.07); }
   * { box-sizing: border-box; }
   html, body { margin: 0; min-height: 100%; }
-  body { background: var(--fondo); color: var(--tinta); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: clamp(18px, 1.55vw, 30px); line-height: 1.35; }
-  nav { display: flex; flex-wrap: wrap; gap: .35em; padding: .6em 1em; border-bottom: 1px solid var(--linea); background: var(--tarjeta); position: sticky; top: 0; }
-  nav button { font: inherit; font-size: .72em; padding: .45em .9em; border-radius: 99px; border: 1.5px solid var(--linea); background: transparent; color: var(--suave); cursor: pointer; }
-  nav button.sel { background: var(--tinta); color: #fff; border-color: var(--tinta); }
-  main { max-width: 1500px; margin: 0 auto; padding: 1.2em 1.6em 2em; }
-  h1 { font-size: 2.1em; line-height: 1.1; margin: .2em 0 .35em; }
-  h2 { font-size: 1.15em; margin: 1em 0 .3em; }
+  body { background: var(--fondo); color: var(--tinta); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: clamp(16px, 1.3vw, 28px); line-height: 1.4; font-feature-settings: "tnum" 1, "cv11" 1; }
+  .marco { display: grid; grid-template-columns: 12.5em 1fr; min-height: 100vh; }
+  aside { background: var(--tarjeta); border-right: 1px solid var(--linea); padding: 1.3em .8em; position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+  .marca { font-size: .62em; font-weight: 800; letter-spacing: .2em; white-space: nowrap; color: var(--acento); text-transform: uppercase; padding: 0 .9em 1.6em; line-height: 1.5; }
+  .marca i { display: inline-block; width: .7em; height: .7em; border-radius: .18em; background: var(--acento); margin-right: .6em; }
+  .seccion { font-size: .62em; font-weight: 600; color: var(--tenue); text-transform: uppercase; letter-spacing: .08em; padding: 1.4em 1.2em .5em; }
+  aside button, aside a { display: flex; align-items: center; gap: .65em; width: 100%; font: inherit; font-size: .74em; font-weight: 500; color: var(--suave); background: none; border: 0; border-radius: .55em; padding: .6em .8em; cursor: pointer; text-align: left; text-decoration: none; }
+  aside button:hover, aside a:hover { background: var(--fondo); color: var(--tinta); }
+  aside button.sel { background: var(--acento-suave); color: var(--acento); font-weight: 600; }
+  aside svg { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  aside .num { margin-left: auto; font-size: .85em; color: var(--tenue); }
+  .contenido { min-width: 0; }
+  header.cab { display: flex; align-items: center; justify-content: space-between; gap: 1em; padding: .9em 1.6em; background: var(--tarjeta); border-bottom: 1px solid var(--linea); position: sticky; top: 0; z-index: 2; }
+  header.cab h1 { font-size: 1.15em; font-weight: 700; margin: 0; }
+  header.cab .paso { font-size: .68em; color: var(--suave); font-weight: 500; }
+  header.cab .flechas { display: flex; gap: .4em; }
+  main { max-width: 1600px; padding: 1.3em 1.6em 2em; }
+  h1.hero { font-size: 2.1em; font-weight: 800; line-height: 1.1; margin: .1em 0 .3em; letter-spacing: -.02em; }
+  h2 { font-size: .95em; font-weight: 700; margin: 0 0 .5em; }
   p { margin: .4em 0; }
   .suave { color: var(--suave); }
-  .dos { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2em; align-items: start; }
-  @media (max-width: 800px) { .dos { grid-template-columns: 1fr; } }
-  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: .7em; padding: .8em 1em; }
-  ul, ol { padding-left: 1.1em; margin: .3em 0; }
-  li { margin: .38em 0; }
-  .qr { background: #fff; border: 1px solid var(--linea); border-radius: .7em; padding: .6em; text-align: center; }
+  .dos { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1em; align-items: start; }
+  .rejilla { display: grid; gap: 1em; }
+  @media (max-width: 800px) { .dos { grid-template-columns: 1fr; } .marco { grid-template-columns: 1fr; } aside { position: static; height: auto; flex-direction: row; flex-wrap: wrap; } .seccion, .marca { display: none; } aside button, aside a { width: auto; } }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: .75em; padding: 1em 1.15em; box-shadow: var(--sombra); }
+  .tarjeta-cab { display: flex; justify-content: space-between; align-items: center; gap: .6em; margin-bottom: .6em; }
+  .tarjeta-cab b { font-size: .8em; font-weight: 600; }
+  .pildora { font-size: .6em; font-weight: 600; color: var(--acento); background: var(--acento-suave); border-radius: 99px; padding: .2em .75em; white-space: nowrap; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(9em, 1fr)); gap: .8em; margin-bottom: 1em; }
+  .kpi { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: .75em; padding: .75em 1em; box-shadow: var(--sombra); }
+  .kpi span { display: block; font-size: .64em; font-weight: 500; color: var(--suave); }
+  .kpi b { display: block; font-size: 1.55em; font-weight: 700; letter-spacing: -.01em; margin-top: .15em; }
+  .kpi b small { font-size: .45em; color: var(--tenue); font-weight: 500; margin-left: .2em; }
+  ul.lista, ol.lista { padding: 0; margin: 0; list-style: none; counter-reset: n; }
+  .lista li { position: relative; padding: .6em 0 .6em 1.2em; border-bottom: 1px solid var(--linea); }
+  ol.lista li { padding-left: 1.9em; }
+  .lista li:last-child { border-bottom: 0; }
+  ul.lista li::before { content: ""; position: absolute; left: .1em; top: 1.15em; width: .4em; height: .4em; border-radius: .12em; background: var(--acento); }
+  ol.lista li::before { counter-increment: n; content: counter(n); position: absolute; left: 0; top: .95em; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--acento-suave); color: var(--acento); font-size: .7em; font-weight: 700; display: grid; place-items: center; }
+  .qr { text-align: center; }
   .qr svg { width: 100%; height: auto; max-width: 420px; }
-  .url { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8em; word-break: break-all; }
-  .reloj { font-size: 6.2em; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -.02em; }
+  .url { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .7em; word-break: break-all; color: var(--suave); text-align: center; }
+  .reloj { font-size: 5.6em; font-weight: 800; line-height: 1; letter-spacing: -.03em; padding: .1em 0 .15em; }
   .reloj.fin { color: var(--alerta); }
-  .controles { display: flex; flex-wrap: wrap; gap: .4em; margin-top: .6em; }
-  .btn { font: inherit; font-size: .8em; font-weight: 650; padding: .5em 1em; border-radius: .6em; border: 1.5px solid var(--tinta); background: var(--tinta); color: #fff; cursor: pointer; }
-  .btn.claro { background: transparent; color: var(--tinta); }
-  .puestos { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4em; margin-top: .5em; }
-  .puestos div { color: #fff; border-radius: .5em; padding: .45em .3em; text-align: center; font-weight: 650; font-size: .82em; }
-  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  th, td { text-align: right; padding: .38em .5em; border-bottom: 1px solid var(--linea); }
-  th { font-size: .66em; color: var(--suave); font-weight: 600; }
+  .riel-reloj { height: .45em; background: var(--fondo); border-radius: 99px; overflow: hidden; }
+  .riel-reloj i { display: block; height: 100%; background: var(--acento); border-radius: 99px; transform-origin: left; }
+  .controles { display: flex; flex-wrap: wrap; gap: .4em; margin-top: .9em; }
+  .btn { font: inherit; font-size: .72em; font-weight: 600; padding: .55em 1em; border-radius: .55em; border: 1px solid var(--acento); background: var(--acento); color: #fff; cursor: pointer; box-shadow: var(--sombra); }
+  .btn.claro { background: var(--tarjeta); color: var(--tinta); border-color: var(--linea); }
+  .puestos { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6em; margin-top: 1em; }
+  .puestos div { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: .65em; padding: .55em .7em; font-weight: 600; font-size: .78em; display: flex; align-items: center; gap: .55em; box-shadow: var(--sombra); }
+  .puestos i { width: 1.6em; height: 1.6em; border-radius: .4em; color: #fff; font-style: normal; font-size: .85em; display: grid; place-items: center; flex: none; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: right; padding: .55em .5em; border-bottom: 1px solid var(--linea); font-size: .82em; }
+  th { font-size: .6em; color: var(--suave); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
   th:nth-child(2), td:nth-child(2) { text-align: left; }
-  tr.primero td { font-weight: 750; background: #FFF3C4; }
-  tr.ref td { color: var(--suave); font-style: italic; }
-  td .x { font: inherit; font-size: .7em; border: 0; background: none; color: var(--suave); cursor: pointer; }
-  .ingreso { display: flex; gap: .5em; align-items: center; flex-wrap: wrap; }
-  .ingreso input { font: inherit; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.2em; padding: .3em .5em; width: 9.5em; border: 2px solid var(--tinta); border-radius: .5em; text-transform: uppercase; letter-spacing: .06em; }
-  .msj { font-size: .8em; min-height: 1.4em; }
+  td:first-child { width: 2.4em; }
+  td { white-space: nowrap; }
+  .dos.ancha { grid-template-columns: 1.6fr 1fr; }
+  .rango { display: inline-grid; place-items: center; width: 1.7em; height: 1.7em; border-radius: 50%; background: var(--fondo); font-weight: 700; font-size: .85em; }
+  tr.primero .rango { background: #FEF3C7; color: #B45309; }
+  tr.primero td { font-weight: 700; }
+  tr.ref td { color: var(--suave); font-style: italic; border-bottom: 0; }
+  td .x { font: inherit; font-size: .8em; border: 0; background: none; color: var(--tenue); cursor: pointer; }
+  .ingreso { display: flex; gap: .6em; align-items: center; flex-wrap: wrap; }
+  .ingreso label { font-size: .75em; font-weight: 600; color: var(--suave); }
+  .ingreso input { font: inherit; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1em; padding: .35em .6em; width: 9.5em; border: 1px solid var(--linea); border-radius: .55em; text-transform: uppercase; letter-spacing: .06em; background: var(--fondo); }
+  .ingreso input:focus { outline: 2px solid var(--acento); outline-offset: 1px; background: #fff; }
+  .msj { font-size: .72em; min-height: 1.3em; margin: .5em 0 0; }
   .msj.mal { color: var(--alerta); }
   .msj.bien { color: var(--ok); }
-  .ref-libro { font-size: .7em; color: var(--suave); }
-  svg.graf { width: 100%; height: auto; }
+  .ref-libro { display: block; font-size: .7em; color: var(--suave); margin-top: .15em; }
+  svg.graf { width: 100%; height: auto; display: block; }
+  .vacio { color: var(--tenue); font-size: .8em; text-align: center; padding: 2.5em 0; }
 </style>
 </head>
 <body>
-<nav id="nav"></nav>
-<main id="app"></main>
+<div class="marco"><aside id="nav"></aside><div class="contenido"><header class="cab" id="cab"></header><main id="app"></main></div></div>
 <script src="motor.js"></script>
 <script src="qr.js"></script>
 <script>
@@ -64,20 +103,37 @@
   var original = q.get('modo') === 'original';
   var config = M.copiar(original ? M.CONFIG_ORIGINAL : M.CONFIG_CLASE);
   var dosRondas = config.rondas.length > 1;
-  var COLORES = ['#0E7C66', '#6B4FBB', '#B4530B', '#1D5FA8'];
+  var COLORES = ['#4F6BED', '#7C3AED', '#C2410C', '#0F766E'];
   var NOMBRES = ['Heladería', 'Mayorista', 'Distribuidor', 'Fábrica'];
 
   var pasos = [
-    { id: 'inicio', nombre: 'Inicio' },
-    { id: 'reglas', nombre: 'Reglas' },
-    { id: 'ronda1', nombre: config.rondas[0].nombre, minutos: original ? 45 : 21 }
+    { id: 'inicio', nombre: 'Inicio', icono: 'inicio' },
+    { id: 'reglas', nombre: 'Reglas', icono: 'reglas' },
+    { id: 'ronda1', nombre: config.rondas[0].nombre, minutos: original ? 45 : 21, icono: 'ronda' }
   ];
   if (dosRondas) {
-    pasos.push({ id: 'pausa', nombre: 'Pausa', minutos: 4 });
-    pasos.push({ id: 'ronda2', nombre: config.rondas[1].nombre, minutos: 10 });
+    pasos.push({ id: 'pausa', nombre: 'Pausa', minutos: 4, icono: 'pausa' });
+    pasos.push({ id: 'ronda2', nombre: config.rondas[1].nombre, minutos: 10, icono: 'ronda' });
   }
-  pasos.push({ id: 'ranking', nombre: 'Ranking' });
-  pasos.push({ id: 'cierre', nombre: 'Cierre' });
+  pasos.push({ id: 'ranking', nombre: 'Ranking', icono: 'ranking' });
+  pasos.push({ id: 'cierre', nombre: 'Cierre', icono: 'cierre' });
+
+  var ICONOS = {
+    inicio: '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    reglas: '<path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+    ronda: '<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+    pausa: '<path d="M9 5v14M15 5v14"/>',
+    ranking: '<path d="M5 20V11M12 20V4M19 20v-6"/>',
+    cierre: '<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    juego: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>',
+    modo: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
+    pantalla: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'
+  };
+  function icono(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONOS[n] + '</svg>'; }
+  function cabTarjeta(titulo, pildora) {
+    return '<div class="tarjeta-cab"><b>' + titulo + '</b>' + (pildora ? '<span class="pildora">' + pildora + '</span>' : '') + '</div>';
+  }
+  function kpi(etiqueta, valor, extra) { return '<div class="kpi"><span>' + etiqueta + '</span><b>' + valor + (extra ? '<small>' + extra + '</small>' : '') + '</b></div>'; }
 
   var actual = 0;
   var reloj = { id: null, queda: 0, corre: false, hasta: 0 };
@@ -97,7 +153,7 @@
   }
 
   function puestosHTML() {
-    return '<div class="puestos">' + NOMBRES.map(function (n, i) { return '<div style="background:' + COLORES[i] + '">' + n + '</div>'; }).join('') + '</div>';
+    return '<div class="puestos">' + NOMBRES.map(function (n, i) { return '<div><i style="background:' + COLORES[i] + '">' + n.charAt(0) + '</i>' + n + '</div>'; }).join('') + '</div>';
   }
 
   // ---------- Pasos ----------
@@ -106,25 +162,28 @@
     var svg = '';
     try { var c = qrcode(0, 'M'); c.addData(url); c.make(); svg = c.createSvgTag({ cellSize: 8, margin: 2, scalable: true }); } catch (e) { svg = ''; }
     return '<div class="dos"><div>' +
-      '<h1>La Cadena del Helado</h1>' +
+      '<h1 class="hero">La Cadena del Helado</h1>' +
       '<p class="suave">Una cadena de suministro, cuatro puestos y un celular.</p>' +
-      '<h2>Para partir</h2><ol>' +
+      '<div class="kpis" style="margin-top:1em">' + kpi('Puestos por cadena', '4') + kpi('Personas por puesto', '2') + kpi('Celulares por cadena', '1') + '</div>' +
+      '<div class="tarjeta">' + cabTarjeta('Para partir', '2 minutos') + '<ol class="lista">' +
       '<li>Formen cadenas de 8: <b>dos personas por puesto</b>, sentadas en fila.</li>' +
       '<li>Un celular por cadena abre el código QR.</li>' +
       '<li>Elijan el número de cadena que les asigné.</li>' +
-      '<li>Lean las reglas y esperen la señal.</li></ol>' +
+      '<li>Lean las reglas y esperen la señal.</li></ol></div>' +
       puestosHTML() +
-      '</div><div><div class="qr">' + svg + '</div><p class="url">' + url + '</p></div></div>';
+      '</div><div class="tarjeta qr">' + cabTarjeta('Abran el juego', 'QR') + svg + '<p class="url">' + url + '</p></div></div>';
   }
 
   function vReglas() {
     var plazo = config.retrasoPedido + config.retrasoDespacho;
-    return '<h1>Reglas</h1><div class="dos"><div><ul>' +
+    return '<div class="kpis">' + kpi('Inventario inicial', '12', 'cajas') + kpi('Guardar una caja', M.pesos(config.costoInventario), '/ semana') +
+      kpi('Deber una caja', M.pesos(config.costoDeuda), '/ semana') + kpi('Plazo de entrega', plazo, 'semanas') + '</div>' +
+      '<div class="dos"><div class="tarjeta">' + cabTarjeta('La decisión', 'Cada semana') + '<ul class="lista">' +
       '<li>Cada semana, cada puesto decide una sola cosa: <b>cuántas cajas pedir</b>.</li>' +
       '<li>Guardar una caja cuesta <b>' + M.pesos(config.costoInventario) + '</b> por semana.</li>' +
       '<li>Deber una caja cuesta <b>' + M.pesos(config.costoDeuda) + '</b> por semana.</li>' +
       '<li>Lo que piden tarda <b>' + plazo + ' semanas</b> en llegar. La fábrica produce en ' + config.retrasoProduccion + '.</li>' +
-      '</ul></div><div><ul>' +
+      '</ul></div><div class="tarjeta">' + cabTarjeta('Cómo se juega', 'En silencio') + '<ul class="lista">' +
       '<li><b>No se habla</b> entre puestos. Nadie mira el turno de otro.</li>' +
       '<li>Cada turno dura <b>' + config.segundosTurno + ' segundos</b>. Si se acaba, se repite el último pedido.</li>' +
       '<li>La partida dura ' + config.rondas[0].semanasAnunciadas + ' semanas.</li>' +
@@ -132,9 +191,11 @@
       '</ul></div></div>' + puestosHTML();
   }
 
-  function vReloj(titulo, cuerpo) {
-    return '<div class="dos"><div><h1>' + titulo + '</h1>' + cuerpo + '</div><div class="tarjeta">' +
-      '<div class="reloj" id="reloj"></div>' +
+  function vReloj(kpis, titulo, cuerpo) {
+    return (kpis ? '<div class="kpis">' + kpis + '</div>' : '') +
+      '<div class="dos"><div class="tarjeta">' + cabTarjeta(titulo, 'Instrucciones') + cuerpo + '</div><div class="tarjeta">' +
+      cabTarjeta('Tiempo del bloque', (pasos[actual].minutos || 0) + ' min') +
+      '<div class="reloj" id="reloj"></div><div class="riel-reloj"><i id="rielReloj"></i></div>' +
       '<div class="controles">' +
       '<button class="btn" data-a="relojIr" id="relojIr"></button>' +
       '<button class="btn claro" data-a="relojMas">+1 min</button>' +
@@ -143,8 +204,13 @@
       '</div></div></div>';
   }
 
+  function kpisRonda(r) {
+    return kpi('Semanas', r.semanasAnunciadas) + kpi('Segundos por turno', config.segundosTurno, config.segundosTurnoInicial !== config.segundosTurno ? '(' + config.segundosTurnoInicial + ' al inicio)' : '') +
+      kpi('Ventas a clientes', r.demandaVisible ? 'Visibles' : 'Ocultas') + kpi('Conversación', r.demandaVisible ? 'Permitida' : 'Prohibida');
+  }
+
   function vRonda1() {
-    return vReloj(config.rondas[0].nombre, '<ul>' +
+    return vReloj(kpisRonda(config.rondas[0]), config.rondas[0].nombre, '<ul class="lista">' +
       '<li><b>En silencio.</b> Solo viajan los pedidos y las cajas.</li>' +
       '<li>Pasen el celular en orden: heladería, mayorista, distribuidor, fábrica.</li>' +
       '<li>Si un turno se queda sin tiempo, se repite el último pedido.</li>' +
@@ -152,15 +218,15 @@
   }
 
   function vPausa() {
-    return vReloj('Pausa', '<h2>Torres LEGO</h2><p>Cada puesto arma la torre que indica su celular: 1 pieza por cada 4 cajas de inventario final.</p>' +
-      '<h2>Conversen en la cadena</h2><ul>' +
+    return vReloj('', 'Torres LEGO y conversación', '<p>Cada puesto arma la torre que indica su celular: <b>1 pieza por cada 4 cajas</b> de inventario final.</p>' +
+      '<ol class="lista">' +
       '<li>¿Qué supuso cada uno sobre su vecino al pedir?</li>' +
       '<li>¿Qué puesto gastó más y por qué?</li>' +
-      '<li>¿Qué harían distinto si pudieran hablar?</li></ul>');
+      '<li>¿Qué harían distinto si pudieran hablar?</li></ol>');
   }
 
   function vRonda2() {
-    return vReloj(config.rondas[1].nombre, '<ul>' +
+    return vReloj(kpisRonda(config.rondas[1]), config.rondas[1].nombre, '<ul class="lista">' +
       '<li>Ahora <b>toda la cadena ve las ventas</b> a clientes.</li>' +
       '<li><b>Pueden conversar</b> y acordar una política de pedidos.</li>' +
       '<li>Dura menos semanas. Al final, el celular muestra un código.</li>' +
@@ -175,59 +241,80 @@
     return ranking.slice().sort(function (a, b) { return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena; });
   }
 
+  // Gráfico de barras azules al estilo de la plantilla. valores: números; etiquetas: textos bajo cada barra.
+  function barras(valores, etiquetas, opciones) {
+    opciones = opciones || {};
+    var W = 560, H = 230, izq = 52, der = 8, arr = 12, aba = 26;
+    var max = Math.max.apply(null, valores.concat([opciones.referencia || 0, 1]));
+    var escalon = opciones.escalon || Math.pow(10, Math.floor(Math.log10(max)));
+    max = Math.ceil(max * 1.08 / escalon) * escalon;
+    var n = valores.length, paso = (W - izq - der) / n, ancho = Math.min(34, paso * 0.5);
+    function Y(v) { return arr + (max - v) * (H - arr - aba) / max; }
+    var g = '';
+    for (var t = 0; t <= 4; t++) {
+      var v = max * t / 4;
+      g += '<line x1="' + izq + '" x2="' + (W - der) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#EEF0F3"/>' +
+        '<text x="' + (izq - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end" font-size="11" fill="#9CA3AF">' + (opciones.formato ? opciones.formato(v) : Math.round(v)) + '</text>';
+    }
+    valores.forEach(function (v, k) {
+      var x = izq + paso * k + (paso - ancho) / 2;
+      g += '<rect x="' + x.toFixed(1) + '" y="' + Y(v).toFixed(1) + '" width="' + ancho.toFixed(1) + '" height="' + (Y(0) - Y(v)).toFixed(1) + '" rx="4" fill="' + (opciones.colores ? opciones.colores[k] : '#4F6BED') + '"/>' +
+        '<text x="' + (x + ancho / 2).toFixed(1) + '" y="' + (H - 7) + '" text-anchor="middle" font-size="11" fill="#9CA3AF">' + etiquetas[k] + '</text>';
+    });
+    if (opciones.referencia) {
+      g += '<line x1="' + izq + '" x2="' + (W - der) + '" y1="' + Y(opciones.referencia) + '" y2="' + Y(opciones.referencia) + '" stroke="#16A34A" stroke-width="1.6" stroke-dasharray="5 4"/>';
+    }
+    return '<svg class="graf" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opciones.titulo || '') + '">' + g + '</svg>';
+  }
+  function milesCortos(v) { return v >= 1000000 ? (Math.round(v / 100000) / 10 + ' M').replace('.', ',') : (v >= 1000 ? Math.round(v / 1000) + ' mil' : Math.round(v)); }
+
   function vRanking() {
     var ref1 = M.costoReferencia(config, 0), ref2 = dosRondas ? M.costoReferencia(config, 1) : 0;
+    var lista = ordenado();
     var cab = '<tr><th>#</th><th>Cadena</th><th>' + config.rondas[0].nombre + '</th>' +
-      (dosRondas ? '<th>' + config.rondas[1].nombre + '</th><th>Total</th><th>Ronda 1 vs. referencia</th><th>Ronda 2 vs. referencia</th>' : '') + '<th></th></tr>';
-    var filas = ordenado().map(function (r, k) {
-      return '<tr' + (k === 0 ? ' class="primero"' : '') + '><td>' + (k + 1) + '</td><td>Cadena ' + r.cadena + '</td><td>' + M.pesos(r.costo1) + '</td>' +
+      (dosRondas ? '<th>' + config.rondas[1].nombre + '</th><th>Total</th><th>R1 vs. ref.</th><th>R2 vs. ref.</th>' : '') + '<th></th></tr>';
+    var filas = lista.map(function (r, k) {
+      return '<tr' + (k === 0 ? ' class="primero"' : '') + '><td><span class="rango">' + (k + 1) + '</span></td><td>Cadena ' + r.cadena + '</td><td>' + M.pesos(r.costo1) + '</td>' +
         (dosRondas ? '<td>' + M.pesos(r.costo2) + '</td><td>' + M.pesos(r.costo1 + r.costo2) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + veces(r.costo2, ref2) + '</td>' : '') +
         '<td><button class="x" data-a="quitar" data-n="' + r.cadena + '" aria-label="Quitar cadena ' + r.cadena + '">quitar</button></td></tr>';
     }).join('');
-    var ref = '<tr class="ref"><td></td><td>Referencia: pedir lo mismo que te piden</td><td>' + M.pesos(ref1) + '</td>' +
+    var ref = '<tr class="ref"><td></td><td>Referencia</td><td>' + M.pesos(ref1) + '</td>' +
       (dosRondas ? '<td>' + M.pesos(ref2) + '</td><td>' + M.pesos(ref1 + ref2) + '</td><td>1,0 ×</td><td>1,0 ×</td>' : '') + '<td></td></tr>';
-    var resumen = '';
-    if (dosRondas && ranking.length) {
-      var a = 0, b = 0;
-      ranking.forEach(function (r) { a += r.costo1; b += r.costo2; });
-      a /= ranking.length; b /= ranking.length;
-      resumen = '<p>Promedio del curso: <b>' + veces(a, ref1) + '</b> la referencia a ciegas y <b>' + veces(b, ref2) + '</b> con información compartida.</p>' +
-        '<p class="suave" style="font-size:.75em">Las rondas duran distinto, así que cada una se compara con su propia referencia.</p>';
-    }
-    return '<h1>Ranking</h1>' +
-      '<div class="ingreso"><label for="cod">Código de la cadena</label><input id="cod" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX">' +
+    var a = 0, b = 0;
+    ranking.forEach(function (r) { a += r.costo1; b += r.costo2; });
+    if (ranking.length) { a /= ranking.length; b /= ranking.length; }
+    var kpis = kpi('Cadenas registradas', ranking.length) +
+      kpi('Mejor cadena', lista.length ? 'Cadena ' + lista[0].cadena : '–') +
+      kpi(dosRondas ? 'Promedio ronda 1' : 'Promedio', ranking.length ? veces(a, ref1) : '–', ranking.length ? 'la referencia' : '') +
+      (dosRondas ? kpi('Promedio ronda 2', ranking.length ? veces(b, ref2) : '–', ranking.length ? 'la referencia' : '') : '');
+    var grafico = lista.length
+      ? barras(lista.map(function (r) { return r.costo1 + r.costo2; }), lista.map(function (r) { return 'C' + r.cadena; }),
+          { referencia: ref1 + ref2, formato: milesCortos, titulo: 'Costo total por cadena' }) +
+        '<p class="suave" style="font-size:.66em;margin-top:.6em">Línea verde punteada: la referencia, una cadena que pide lo mismo que le piden. Las rondas duran distinto, así que cada una se compara con su propia referencia.</p>'
+      : '<div class="vacio">Aún no hay códigos ingresados.</div>';
+    return '<div class="tarjeta" style="margin-bottom:1em"><div class="ingreso"><label for="cod">Código de la cadena</label><input id="cod" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX">' +
       '<button class="btn" data-a="agregar">Agregar</button>' +
       (ranking.length ? '<button class="btn claro" data-a="vaciar">Vaciar ranking</button>' : '') + '</div>' +
-      '<p class="msj ' + mensaje.clase + '" id="msj">' + mensaje.texto + '</p>' +
-      '<div class="tarjeta"><table>' + cab + filas + ref + '</table></div>' + resumen;
+      '<p class="msj ' + mensaje.clase + '" id="msj">' + mensaje.texto + '</p></div>' +
+      '<div class="kpis">' + kpis + '</div>' +
+      '<div class="dos ancha"><div class="tarjeta">' + cabTarjeta('Tabla de posiciones', 'Menor costo gana') + '<table>' + cab + filas + ref + '</table></div>' +
+      '<div class="tarjeta">' + cabTarjeta('Costo total por cadena', dosRondas ? 'Ambas rondas' : '') + grafico + '</div></div>';
   }
 
   function vCierre() {
     var r = config.rondas[0];
-    var W = 520, H = 170, izq = 34, aba = 26, arr = 12, n = r.semanas;
-    function X(k) { return izq + k * (W - izq - 10) / (n - 1); }
-    function Y(v) { return arr + (12 - v) * (H - arr - aba) / 12; }
-    var d = '';
-    for (var k = 0; k < n; k++) d += (k ? 'L' : 'M') + X(k).toFixed(1) + ' ' + Y(M.demanda(r, k + 1)).toFixed(1);
-    var ejes = [0, 4, 8, 12].map(function (v) {
-      return '<line x1="' + izq + '" x2="' + (W - 10) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#E4DACB"/><text x="' + (izq - 6) + '" y="' + (Y(v) + 5) + '" text-anchor="end" font-size="13" fill="#6B6257">' + v + '</text>';
-    }).join('');
-    var sem = [1, r.semanaSalto, n].map(function (s) {
-      var ancla = s === 1 ? 'start' : (s === n ? 'end' : 'middle');
-      return '<text x="' + X(s - 1) + '" y="' + (H - 6) + '" text-anchor="' + ancla + '" font-size="13" fill="#6B6257">sem ' + s + '</text>';
-    }).join('');
-    return '<h1>¿Qué pasó en la cadena?</h1><div class="dos"><div>' +
-      '<div class="tarjeta"><b>Lo único que cambió: las ventas a clientes</b>' +
-      '<svg class="graf" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Ventas a clientes por semana">' + ejes + sem +
-      '<path d="' + d + '" fill="none" stroke="#1F1B16" stroke-width="4" stroke-linejoin="round"/></svg>' +
-      '<p class="suave" style="font-size:.8em">De ' + r.demandaBase + ' a ' + r.demandaNueva + ' cajas en la semana ' + r.semanaSalto + ', y nada más.</p></div>' +
-      '<h2>Ticket de salida</h2><p>En una frase: ¿qué harías distinto como gerente de esta cadena?</p>' +
-      '</div><div><ol>' +
-      '<li>¿Quién tuvo la culpa: una persona o el diseño de la cadena? <span class="ref-libro">Enfoque de sistemas, Lamb p. 449</span></li>' +
-      '<li>¿Qué cambió cuando todos vieron la demanda? <span class="ref-libro">Integración de tecnología y planeación, p. 451; EDI, p. 466</span></li>' +
-      '<li>¿Jugaron a empujar o a jalar? <span class="ref-libro">p. 447</span></li>' +
-      '<li>¿Por qué cuesta más deber que guardar, y qué decisiones provocó eso? <span class="ref-libro">Control de inventarios, p. 466</span></li>' +
-      '<li>¿Qué empresa real enfrentó esto y cómo lo resolvió? <span class="ref-libro">IKEA, pp. 456–457</span></li>' +
+    var vals = [], ets = [];
+    for (var k = 1; k <= r.semanas; k++) { vals.push(M.demanda(r, k)); ets.push(k === 1 || k === r.semanaSalto || k === r.semanas || k % 4 === 0 ? 's' + k : ''); }
+    return '<div class="dos"><div class="rejilla"><div class="tarjeta">' + cabTarjeta('Lo único que cambió: las ventas a clientes', r.nombre) +
+      barras(vals, ets, { escalon: 4, titulo: 'Ventas a clientes por semana' }) +
+      '<p class="suave" style="font-size:.72em">De ' + r.demandaBase + ' a ' + r.demandaNueva + ' cajas en la semana ' + r.semanaSalto + ', y nada más.</p></div>' +
+      '<div class="tarjeta">' + cabTarjeta('Ticket de salida', '1 frase') + '<p>¿Qué harías distinto como gerente de esta cadena?</p></div>' +
+      '</div><div class="tarjeta">' + cabTarjeta('¿Qué pasó en la cadena?', 'Lamb, cap. 13 y 14') + '<ol class="lista">' +
+      '<li><span>¿Quién tuvo la culpa: una persona o el diseño de la cadena? <span class="ref-libro">Enfoque de sistemas, Lamb p. 449</span></span></li>' +
+      '<li><span>¿Qué cambió cuando todos vieron la demanda? <span class="ref-libro">Integración de tecnología y planeación, p. 451; EDI, p. 466</span></span></li>' +
+      '<li><span>¿Jugaron a empujar o a jalar? <span class="ref-libro">p. 447</span></span></li>' +
+      '<li><span>¿Por qué cuesta más deber que guardar, y qué decisiones provocó eso? <span class="ref-libro">Control de inventarios, p. 466</span></span></li>' +
+      '<li><span>¿Qué empresa real enfrentó esto y cómo lo resolvió? <span class="ref-libro">IKEA, pp. 456–457</span></span></li>' +
       '</ol></div></div>';
   }
 
@@ -241,6 +328,8 @@
     el.textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
     el.className = 'reloj' + (s === 0 ? ' fin' : '');
     if (b) b.textContent = reloj.corre ? 'Pausar' : (s === 0 ? 'Tiempo' : 'Iniciar');
+    var riel = document.getElementById('rielReloj'), total = (pasos[actual].minutos || 0) * 60000;
+    if (riel) riel.style.transform = 'scaleX(' + (total ? Math.min(1, reloj.queda / total) : 0) + ')';
   }
   function pararReloj() { if (reloj.id) clearInterval(reloj.id); reloj.id = null; reloj.corre = false; }
   function prepararReloj() {
@@ -268,9 +357,19 @@
 
   // ---------- Pintado y eventos ----------
   function pintar() {
-    document.getElementById('nav').innerHTML = pasos.map(function (p, k) {
-      return '<button data-ir="' + k + '"' + (k === actual ? ' class="sel"' : '') + '>' + (k + 1) + '. ' + p.nombre + '</button>';
-    }).join('');
+    var otroModo = new URL(location.href);
+    if (original) otroModo.searchParams.delete('modo'); else otroModo.searchParams.set('modo', 'original');
+    document.getElementById('nav').innerHTML = '<div class="marca"><i></i>Cadena del Helado</div>' +
+      pasos.map(function (p, k) {
+        return '<button data-ir="' + k + '"' + (k === actual ? ' class="sel"' : '') + '>' + icono(p.icono) + p.nombre + (p.minutos ? '<span class="num">' + p.minutos + '′</span>' : '') + '</button>';
+      }).join('') +
+      '<div class="seccion">Apoyo</div>' +
+      '<a href="' + urlJuego() + '" target="_blank" rel="noopener">' + icono('juego') + 'Abrir el juego</a>' +
+      '<a href="' + otroModo.href + '">' + icono('modo') + (original ? 'Reglas de la clase' : 'Reglas originales') + '</a>' +
+      '<button data-pantalla="1">' + icono('pantalla') + 'Pantalla completa</button>';
+    document.getElementById('cab').innerHTML = '<div><h1>' + pasos[actual].nombre + '</h1><div class="paso">Paso ' + (actual + 1) + ' de ' + pasos.length + (original ? ' · reglas originales' : '') + '</div></div>' +
+      '<div class="flechas"><button class="btn claro" data-ir="' + (actual - 1) + '"' + (actual === 0 ? ' disabled' : '') + '>← Anterior</button>' +
+      '<button class="btn" data-ir="' + (actual + 1) + '"' + (actual === pasos.length - 1 ? ' disabled' : '') + '>Siguiente →</button></div>';
     document.getElementById('app').innerHTML = VISTAS[pasos[actual].id]();
     document.getElementById('app').setAttribute('data-paso', pasos[actual].id);
     if (pasos[actual].minutos) prepararReloj(); else pararReloj();
@@ -293,10 +392,15 @@
     pintar();
   }
 
-  document.getElementById('nav').addEventListener('click', function (ev) {
+  function clicNav(ev) {
     var b = ev.target.closest('[data-ir]');
-    if (b) ir(parseInt(b.getAttribute('data-ir'), 10));
-  });
+    if (b && !b.disabled) { ir(parseInt(b.getAttribute('data-ir'), 10)); return; }
+    if (ev.target.closest('[data-pantalla]')) {
+      try { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); } catch (e) { /* no disponible */ }
+    }
+  }
+  document.getElementById('nav').addEventListener('click', clicNav);
+  document.getElementById('cab').addEventListener('click', clicNav);
   document.getElementById('app').addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-a]');
     if (!b) return;
