@@ -8,11 +8,11 @@
 <title>La Cadena del Helado · Para imprimir</title>
 <style>
   @page { size: letter; margin: 10mm; }
-  :root { --tinta: #1F1B16; --suave: #5F574D; --linea: #CFC4B2; --fondo: #FBF6EE;
-    --heladeria: #0E7C66; --mayorista: #6B4FBB; --distribuidor: #B4530B; --fabrica: #1D5FA8; }
+  :root { --tinta: #111827; --suave: #4B5563; --linea: #D1D5DB; --fondo: #F4F5F7;
+    --heladeria: #4F6BED; --mayorista: #7C3AED; --distribuidor: #C2410C; --fabrica: #0F766E; }
   * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html, body { margin: 0; }
-  body { background: #E9E2D6; color: var(--tinta); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11.5pt; line-height: 1.35; }
+  body { background: #E5E7EB; color: var(--tinta); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11.5pt; line-height: 1.35; }
   .barra { position: sticky; top: 0; z-index: 2; background: var(--tinta); color: #fff; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 14px; }
   .barra b { font-size: 16px; }
   .barra button { font: inherit; font-weight: 650; padding: 8px 16px; border-radius: 8px; border: 0; background: #fff; color: var(--tinta); cursor: pointer; }
@@ -46,7 +46,7 @@
 
   /* ---------- Tarjetas de puesto ---------- */
   .tarjetas { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; }
-  .tarjeta { border: 1pt dashed #9C9284; padding: 5mm; display: flex; flex-direction: column; }
+  .tarjeta { border: 1pt dashed #9CA3AF; padding: 5mm; display: flex; flex-direction: column; }
   .banda { color: #fff; border-radius: 3mm; padding: 5mm 5mm 4.5mm; }
   .banda .turno { font-size: 10pt; letter-spacing: .04em; text-transform: uppercase; opacity: .92; }
   .banda .nombre { font-size: 30pt; font-weight: 750; line-height: 1.05; margin-top: 1mm; }
@@ -60,7 +60,7 @@
 
   /* ---------- Tickets de salida ---------- */
   .tickets { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); height: 100%; }
-  .ticket { border: 1pt dashed #9C9284; padding: 4.5mm 5mm; display: flex; flex-direction: column; }
+  .ticket { border: 1pt dashed #9CA3AF; padding: 4.5mm 5mm; display: flex; flex-direction: column; }
   .ticket .t { font-size: 9pt; letter-spacing: .05em; text-transform: uppercase; color: var(--suave); display: flex; justify-content: space-between; }
   .ticket .q { font-size: 12pt; font-weight: 650; margin-top: 2.5mm; line-height: 1.25; }
   .ticket .datos { font-size: 10pt; margin-top: 2.5mm; color: var(--suave); }
@@ -95,20 +95,20 @@
     <div class="cadena">
       <svg viewBox="0 0 760 150" role="img" aria-label="La cadena: fábrica, distribuidor, mayorista, heladería y clientes. Las cajas avanzan hacia los clientes y los pedidos retroceden hacia la fábrica.">
         <defs>
-          <marker id="punta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1F1B16"/></marker>
+          <marker id="punta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker>
         </defs>
-        <text x="0" y="22" font-size="15" font-weight="700" fill="#1F1B16">Las cajas de helado avanzan →</text>
-        <text x="760" y="142" font-size="15" font-weight="700" fill="#1F1B16" text-anchor="end">← Los pedidos retroceden</text>
+        <text x="0" y="22" font-size="15" font-weight="700" fill="#111827">Las cajas de helado avanzan →</text>
+        <text x="760" y="142" font-size="15" font-weight="700" fill="#111827" text-anchor="end">← Los pedidos retroceden</text>
         <g font-size="17" font-weight="700" fill="#fff" text-anchor="middle">
-          <rect x="0" y="40" width="128" height="62" rx="9" fill="#1D5FA8"/><text x="64" y="68">Fábrica</text><text x="64" y="89" font-size="12" font-weight="500">4.º turno</text>
-          <rect x="158" y="40" width="128" height="62" rx="9" fill="#B4530B"/><text x="222" y="68">Distribuidor</text><text x="222" y="89" font-size="12" font-weight="500">3.er turno</text>
-          <rect x="316" y="40" width="128" height="62" rx="9" fill="#6B4FBB"/><text x="380" y="68">Mayorista</text><text x="380" y="89" font-size="12" font-weight="500">2.º turno</text>
-          <rect x="474" y="40" width="128" height="62" rx="9" fill="#0E7C66"/><text x="538" y="68">Heladería</text><text x="538" y="89" font-size="12" font-weight="500">1.er turno</text>
+          <rect x="0" y="40" width="128" height="62" rx="9" fill="#0F766E"/><text x="64" y="68">Fábrica</text><text x="64" y="89" font-size="12" font-weight="500">4.º turno</text>
+          <rect x="158" y="40" width="128" height="62" rx="9" fill="#C2410C"/><text x="222" y="68">Distribuidor</text><text x="222" y="89" font-size="12" font-weight="500">3.er turno</text>
+          <rect x="316" y="40" width="128" height="62" rx="9" fill="#7C3AED"/><text x="380" y="68">Mayorista</text><text x="380" y="89" font-size="12" font-weight="500">2.º turno</text>
+          <rect x="474" y="40" width="128" height="62" rx="9" fill="#4F6BED"/><text x="538" y="68">Heladería</text><text x="538" y="89" font-size="12" font-weight="500">1.er turno</text>
         </g>
-        <rect x="632" y="40" width="127" height="62" rx="9" fill="none" stroke="#5F574D" stroke-width="1.5" stroke-dasharray="5 4"/>
-        <text x="695.5" y="68" font-size="17" font-weight="700" fill="#1F1B16" text-anchor="middle">Clientes</text>
-        <text x="695.5" y="89" font-size="12" fill="#5F574D" text-anchor="middle">compran helado</text>
-        <g stroke="#1F1B16" stroke-width="2" fill="none">
+        <rect x="632" y="40" width="127" height="62" rx="9" fill="none" stroke="#4B5563" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="695.5" y="68" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Clientes</text>
+        <text x="695.5" y="89" font-size="12" fill="#4B5563" text-anchor="middle">compran helado</text>
+        <g stroke="#111827" stroke-width="2" fill="none">
           <path d="M131 60H154" marker-end="url(#punta)"/><path d="M289 60H312" marker-end="url(#punta)"/><path d="M447 60H470" marker-end="url(#punta)"/><path d="M605 60H628" marker-end="url(#punta)"/>
           <g stroke-dasharray="4 3"><path d="M155 84H132" marker-end="url(#punta)"/><path d="M313 84H290" marker-end="url(#punta)"/><path d="M471 84H448" marker-end="url(#punta)"/><path d="M629 84H606" marker-end="url(#punta)"/></g>
         </g>
