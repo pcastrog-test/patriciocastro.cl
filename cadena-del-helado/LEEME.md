@@ -8,6 +8,7 @@ No usa servidor ni cuentas y no guarda datos personales.
 
 - Juego (alumnos): `https://patriciocastro.cl/cadena-del-helado/`
 - Facilitador (proyector): `https://patriciocastro.cl/cadena-del-helado/facilitador.html`
+- Para imprimir (profesor): `https://patriciocastro.cl/cadena-del-helado/imprimibles.html`
 
 El sitio se publica solo al hacer push a `main` (workflow `.github/workflows/quartz.yml`).
 Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sitemap.
@@ -18,6 +19,7 @@ Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sit
 | --- | --- |
 | `index.html` | Página del juego: número de cadena, reglas, traspaso, turno con temporizador, dos rondas, resultados y código |
 | `facilitador.html` | Página del proyector: QR, reglas, cuenta regresiva por bloque, ranking por códigos y preguntas de cierre |
+| `imprimibles.html` | Para imprimir en carta: hoja de reglas, tarjetas de puesto y tickets de salida |
 | `motor.js` | Motor de simulación y código de resultado. Sin interfaz; lo usan ambas páginas y las pruebas |
 | `qr.js` | Generador de códigos QR de Kazuhiko Arase (licencia MIT, encabezado incluido) |
 | `pruebas/motor.test.js` | Pruebas del motor |

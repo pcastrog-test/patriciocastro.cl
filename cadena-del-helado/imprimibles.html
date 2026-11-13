@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>La Cadena del Helado · Para imprimir</title>
+<style>
+  @page { size: letter; margin: 10mm; }
+  :root { --tinta: #111827; --suave: #4B5563; --linea: #D1D5DB; --fondo: #F4F5F7;
+    --heladeria: #4F6BED; --mayorista: #7C3AED; --distribuidor: #C2410C; --fabrica: #0F766E; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; }
+  body { background: #E5E7EB; color: var(--tinta); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11.5pt; line-height: 1.35; }
+  .barra { position: sticky; top: 0; z-index: 2; background: var(--tinta); color: #fff; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 14px; }
+  .barra b { font-size: 16px; }
+  .barra button { font: inherit; font-weight: 650; padding: 8px 16px; border-radius: 8px; border: 0; background: #fff; color: var(--tinta); cursor: pointer; }
+  .barra span { opacity: .85; }
+  .hoja { width: 195.9mm; height: 259.4mm; margin: 14px auto; background: #fff; padding: 0; overflow: hidden; position: relative; }
+  .rotulo { max-width: 195.9mm; margin: 18px auto -6px; font-size: 13px; color: var(--suave); }
+  h1 { font-size: 24pt; line-height: 1.05; margin: 0; }
+  h2 { font-size: 12.5pt; margin: 0 0 3pt; }
+  p { margin: 0 0 4pt; }
+  .suave { color: var(--suave); }
+
+  /* ---------- Hoja de reglas ---------- */
+  .reglas { padding: 2mm 3mm 0; display: flex; flex-direction: column; height: 100%; font-size: 10.4pt; }
+  .reglas h2 { font-size: 11.5pt; }
+  .cabeza { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2.5pt solid var(--tinta); padding-bottom: 3mm; }
+  .cabeza .sub { font-size: 10.5pt; color: var(--suave); text-align: right; }
+  .cadena { margin: 3mm 0 0; }
+  .cadena svg { width: 100%; height: auto; display: block; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 3mm; }
+  .caja { border: 1pt solid var(--linea); border-radius: 3mm; padding: 3mm 3.5mm; }
+  .costo { display: flex; align-items: baseline; gap: 3mm; }
+  .costo b { font-size: 19pt; line-height: 1; font-variant-numeric: tabular-nums; }
+  .objetivo { background: var(--fondo); border: 1pt solid var(--linea); border-radius: 3mm; padding: 3mm 3.5mm; margin-top: 3mm; font-size: 12pt; }
+  ol, ul { margin: 0; padding-left: 5.5mm; }
+  li { margin: 0 0 2.6pt; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2pt 4mm; }
+  dl.pal { grid-template-columns: auto 1fr auto 1fr; gap: 3pt 3mm; }
+  dt { font-weight: 700; }
+  dd { margin: 0; }
+  .pie { margin-top: auto; padding: 3mm 0 1mm; border-top: 1pt solid var(--linea); font-size: 9pt; color: var(--suave); display: flex; justify-content: space-between; gap: 6mm; }
+
+  /* ---------- Tarjetas de puesto ---------- */
+  .tarjetas { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; }
+  .tarjeta { border: 1pt dashed #9CA3AF; padding: 5mm; display: flex; flex-direction: column; }
+  .banda { color: #fff; border-radius: 3mm; padding: 5mm 5mm 4.5mm; }
+  .banda .turno { font-size: 10pt; letter-spacing: .04em; text-transform: uppercase; opacity: .92; }
+  .banda .nombre { font-size: 30pt; font-weight: 750; line-height: 1.05; margin-top: 1mm; }
+  .banda .que { font-size: 11.5pt; margin-top: 1mm; opacity: .95; }
+  .tarjeta dl { margin-top: 6mm; grid-template-columns: 31mm 1fr; gap: 4.5mm 3mm; font-size: 13pt; }
+  .pareja { margin-top: 6mm; font-size: 11pt; color: var(--suave); }
+  .tarjeta dt { font-weight: 500; color: var(--suave); }
+  .tarjeta dd { font-weight: 650; }
+  .decision { margin-top: auto; border-top: 1pt solid var(--linea); padding-top: 3.5mm; font-size: 11pt; }
+  .decision b { display: block; font-size: 12.5pt; margin-bottom: 1mm; }
+
+  /* ---------- Tickets de salida ---------- */
+  .tickets { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); height: 100%; }
+  .ticket { border: 1pt dashed #9CA3AF; padding: 4.5mm 5mm; display: flex; flex-direction: column; }
+  .ticket .t { font-size: 9pt; letter-spacing: .05em; text-transform: uppercase; color: var(--suave); display: flex; justify-content: space-between; }
+  .ticket .q { font-size: 12pt; font-weight: 650; margin-top: 2.5mm; line-height: 1.25; }
+  .ticket .datos { font-size: 10pt; margin-top: 2.5mm; color: var(--suave); }
+  .ticket .datos i { display: inline-block; border-bottom: 1pt solid var(--tinta); width: 12mm; margin: 0 3mm 0 1mm; }
+  .ticket .datos i.largo { width: 30mm; }
+  .ticket .lineas { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-top: 1mm; }
+  .ticket .lineas i { display: block; border-bottom: 1pt solid var(--linea); }
+
+  @media print {
+    body { background: #fff; }
+    .barra, .rotulo { display: none; }
+    .hoja { margin: 0; break-after: page; page-break-after: always; }
+    .hoja:last-of-type { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="barra">
+  <b>La Cadena del Helado · Para imprimir</b>
+  <button onclick="window.print()">Imprimir</button>
+  <span>Tamaño carta, sin escalar. Para 8 cadenas: 8 copias de las páginas 1 y 2, y 9 copias de la página 3.</span>
+</div>
+
+<p class="rotulo">Página 1 · Hoja de reglas, una por cadena</p>
+<section class="hoja">
+  <div class="reglas">
+    <div class="cabeza">
+      <h1>La Cadena del Helado</h1>
+      <div class="sub">Hoja de reglas<br>Cadena n.º ______</div>
+    </div>
+
+    <div class="cadena">
+      <svg viewBox="0 0 760 150" role="img" aria-label="La cadena: fábrica, distribuidor, mayorista, heladería y clientes. Las cajas avanzan hacia los clientes y los pedidos retroceden hacia la fábrica.">
+        <defs>
+          <marker id="punta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker>
+        </defs>
+        <text x="0" y="22" font-size="15" font-weight="700" fill="#111827">Las cajas de helado avanzan →</text>
+        <text x="760" y="142" font-size="15" font-weight="700" fill="#111827" text-anchor="end">← Los pedidos retroceden</text>
+        <g font-size="17" font-weight="700" fill="#fff" text-anchor="middle">
+          <rect x="0" y="40" width="128" height="62" rx="9" fill="#0F766E"/><text x="64" y="68">Fábrica</text><text x="64" y="89" font-size="12" font-weight="500">4.º turno</text>
+          <rect x="158" y="40" width="128" height="62" rx="9" fill="#C2410C"/><text x="222" y="68">Distribuidor</text><text x="222" y="89" font-size="12" font-weight="500">3.er turno</text>
+          <rect x="316" y="40" width="128" height="62" rx="9" fill="#7C3AED"/><text x="380" y="68">Mayorista</text><text x="380" y="89" font-size="12" font-weight="500">2.º turno</text>
+          <rect x="474" y="40" width="128" height="62" rx="9" fill="#4F6BED"/><text x="538" y="68">Heladería</text><text x="538" y="89" font-size="12" font-weight="500">1.er turno</text>
+        </g>
+        <rect x="632" y="40" width="127" height="62" rx="9" fill="none" stroke="#4B5563" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="695.5" y="68" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Clientes</text>
+        <text x="695.5" y="89" font-size="12" fill="#4B5563" text-anchor="middle">compran helado</text>
+        <g stroke="#111827" stroke-width="2" fill="none">
+          <path d="M131 60H154" marker-end="url(#punta)"/><path d="M289 60H312" marker-end="url(#punta)"/><path d="M447 60H470" marker-end="url(#punta)"/><path d="M605 60H628" marker-end="url(#punta)"/>
+          <g stroke-dasharray="4 3"><path d="M155 84H132" marker-end="url(#punta)"/><path d="M313 84H290" marker-end="url(#punta)"/><path d="M471 84H448" marker-end="url(#punta)"/><path d="M629 84H606" marker-end="url(#punta)"/></g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="objetivo"><b>Objetivo:</b> que la cadena completa gaste lo menos posible. No gana un puesto: gana la cadena con menor costo total.</div>
+
+    <div class="dos">
+      <div class="caja"><h2>Guardar cuesta</h2><div class="costo"><b data-v="costoInventario">$500</b><span>por cada caja en tu inventario, cada semana.</span></div></div>
+      <div class="caja"><h2>Deber cuesta más</h2><div class="costo"><b data-v="costoDeuda">$1.000</b><span>por cada caja que te pidieron y no pudiste despachar, cada semana.</span></div></div>
+    </div>
+
+    <div class="dos">
+      <div class="caja">
+        <h2>En tu turno</h2>
+        <ol>
+          <li>Recibe el celular y toca <b>“ver mi turno”</b>.</li>
+          <li>Mira qué te llegó, cuánto te pidieron, tu inventario y tu deuda.</li>
+          <li>Decide <b>cuántas cajas pedir</b>. Es tu única decisión.</li>
+          <li>Confirma y pasa el celular al puesto siguiente.</li>
+        </ol>
+      </div>
+      <div class="caja">
+        <h2>Reglas</h2>
+        <ul>
+          <li><b>No se habla</b> entre puestos y nadie mira el turno de otro.</li>
+          <li>Cada turno dura <b><span data-v="segundosTurno">15</span> segundos</b> (<span data-v="segundosTurnoInicial">30</span> en las primeras <span data-v="semanasLentas">2</span> semanas).</li>
+          <li>Si se acaba el tiempo, vale lo que escribiste o se repite tu último pedido.</li>
+          <li>Lo que pides tarda <b><span data-v="plazo">2</span> semanas</b> en llegar, si tu proveedor tiene cajas. La fábrica produce en <span data-v="retrasoProduccion">2</span>.</li>
+          <li>La partida dura <span data-v="semanasAnunciadas">20</span> semanas.</li>
+          <li>Son dos por puesto: decidan en voz baja. Una persona digita y la otra revisa.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="caja" style="margin-top:3mm">
+      <h2>Palabras de la pantalla</h2>
+      <dl class="pal">
+        <dt>Te llegaron</dt><dd>Cajas que entraron a tu bodega esta semana.</dd>
+        <dt>Te pidieron</dt><dd>Lo que tu cliente quiere esta semana.</dd>
+        <dt>Despachaste</dt><dd>Lo que alcanzaste a entregar con las cajas que tenías.</dd>
+        <dt>Inventario</dt><dd>Cajas que quedaron en tu bodega.</dd>
+        <dt>Deuda</dt><dd>Cajas pedidas que no pudiste entregar. Las sigues debiendo hasta despacharlas.</dd>
+        <dt>En camino</dt><dd>Cajas ya despachadas hacia ti que todavía no llegan.</dd>
+      </dl>
+    </div>
+
+    <div class="pie"><span>Al terminar, el celular muestra un código. Díctenlo al profesor cuando lo pida.</span><span>Adaptación del Beer Distribution Game (MIT).</span></div>
+  </div>
+</section>
+
+<p class="rotulo">Página 2 · Tarjetas de puesto, un juego por cadena (recortar por la línea punteada)</p>
+<section class="hoja">
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <div class="banda" style="background:var(--heladeria)"><div class="turno">1.er turno de cada semana</div><div class="nombre">Heladería</div><div class="que">Vendes helado a los clientes</div></div>
+      <dl><dt>Te compran</dt><dd>Los clientes</dd><dt>Le pides a</dt><dd>El mayorista</dd><dt>Pasas el celular a</dt><dd>El mayorista</dd></dl>
+      <p class="pareja">Son dos en este puesto: decidan en voz baja; una persona digita y la otra revisa.</p>
+      <div class="decision"><b>Tu decisión: cuántas cajas pedir al mayorista.</b>Eres el único puesto que ve cuánto compran los clientes.</div>
+    </div>
+    <div class="tarjeta">
+      <div class="banda" style="background:var(--mayorista)"><div class="turno">2.º turno de cada semana</div><div class="nombre">Mayorista</div><div class="que">Abasteces a la heladería</div></div>
+      <dl><dt>Te pide</dt><dd>La heladería</dd><dt>Le pides a</dt><dd>El distribuidor</dd><dt>Pasas el celular a</dt><dd>El distribuidor</dd></dl>
+      <p class="pareja">Son dos en este puesto: decidan en voz baja; una persona digita y la otra revisa.</p>
+      <div class="decision"><b>Tu decisión: cuántas cajas pedir al distribuidor.</b>Solo ves los pedidos de la heladería, no las ventas a clientes.</div>
+    </div>
+    <div class="tarjeta">
+      <div class="banda" style="background:var(--distribuidor)"><div class="turno">3.er turno de cada semana</div><div class="nombre">Distribuidor</div><div class="que">Abasteces al mayorista</div></div>
+      <dl><dt>Te pide</dt><dd>El mayorista</dd><dt>Le pides a</dt><dd>La fábrica</dd><dt>Pasas el celular a</dt><dd>La fábrica</dd></dl>
+      <p class="pareja">Son dos en este puesto: decidan en voz baja; una persona digita y la otra revisa.</p>
+      <div class="decision"><b>Tu decisión: cuántas cajas pedir a la fábrica.</b>Solo ves los pedidos del mayorista, no las ventas a clientes.</div>
+    </div>
+    <div class="tarjeta">
+      <div class="banda" style="background:var(--fabrica)"><div class="turno">4.º turno de cada semana</div><div class="nombre">Fábrica</div><div class="que">Produces el helado</div></div>
+      <dl><dt>Te pide</dt><dd>El distribuidor</dd><dt>Le pides a</dt><dd>Nadie: tú produces</dd><dt>Pasas el celular a</dt><dd>La heladería</dd></dl>
+      <p class="pareja">Son dos en este puesto: decidan en voz baja; una persona digita y la otra revisa.</p>
+      <div class="decision"><b>Tu decisión: cuántas cajas producir.</b>No le pides a nadie: lo que pongas a producir queda listo en <span data-v="retrasoProduccion">2</span> semanas. Solo ves los pedidos del distribuidor.</div>
+    </div>
+  </div>
+</section>
+
+<p class="rotulo">Página 3 · Tickets de salida, 8 por hoja (recortar por la línea punteada)</p>
+<section class="hoja">
+  <div class="tickets" id="tickets"></div>
+</section>
+
+<script src="motor.js"></script>
+<script>
+(function () {
+  'use strict';
+  // Ocho tickets iguales.
+  var ticket = '<div class="ticket"><div class="t"><span>Ticket de salida</span><span>La Cadena del Helado</span></div>' +
+    '<div class="q">En una frase: ¿qué harías distinto como gerente de esta cadena?</div>' +
+    '<div class="datos">Cadena n.º<i></i>Puesto<i class="largo"></i></div>' +
+    '<div class="lineas"><i></i><i></i><i></i></div></div>';
+  var caja = document.getElementById('tickets');
+  var html = '';
+  for (var k = 0; k < 8; k++) html += ticket;
+  caja.innerHTML = html;
+
+  // Los números de la hoja de reglas salen de la misma configuración que usa el juego.
+  var M = window.Motor;
+  if (!M) return;
+  var c = M.CONFIG_CLASE;
+  var valores = {
+    costoInventario: M.pesos(c.costoInventario),
+    costoDeuda: M.pesos(c.costoDeuda),
+    segundosTurno: c.segundosTurno,
+    segundosTurnoInicial: c.segundosTurnoInicial,
+    semanasLentas: c.semanasLentas,
+    plazo: c.retrasoPedido + c.retrasoDespacho,
+    retrasoProduccion: c.retrasoProduccion,
+    semanasAnunciadas: c.rondas[0].semanasAnunciadas
+  };
+  var nodos = document.querySelectorAll('[data-v]');
+  for (var i = 0; i < nodos.length; i++) {
+    var clave = nodos[i].getAttribute('data-v');
+    if (valores[clave] !== undefined) nodos[i].textContent = valores[clave];
+  }
+})();
+</script>
+</body>
+</html>
