@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FBF6EE">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>La Cadena del Helado</title>
+<style>
+  :root {
+    --fondo: #FBF6EE; --tarjeta: #FFFFFF; --tinta: #1F1B16; --suave: #6B6257; --linea: #E4DACB;
+    --alerta: #B3261E; --ok: #0E7C66; --rol: #1F1B16;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--fondo); color: var(--tinta);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px; line-height: 1.35; -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+  main { max-width: 460px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; padding: 12px 14px calc(14px + env(safe-area-inset-bottom)); }
+  h1 { font-size: 26px; line-height: 1.15; margin: 8px 0 6px; }
+  h2 { font-size: 19px; margin: 18px 0 8px; }
+  p { margin: 6px 0; }
+  .suave { color: var(--suave); }
+  .chico { font-size: 13.5px; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 12px; }
+  .btn { display: block; width: 100%; padding: 15px 16px; font-size: 18px; font-weight: 650; background: var(--tinta); color: #fff; margin-top: 12px; }
+  .btn.rol { background: var(--rol); }
+  .btn.claro { background: transparent; color: var(--tinta); border: 1.5px solid var(--tinta); }
+  .btn:disabled { opacity: .35; }
+  .empuja { flex: 1; }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; margin-top: 10px; }
+  ul.reglas { padding-left: 20px; margin: 8px 0; }
+  ul.reglas li { margin: 7px 0; }
+
+  .cadenas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+  .cadenas button { padding: 14px 0; font-size: 20px; font-weight: 650; background: var(--tarjeta); border: 1.5px solid var(--linea); }
+  .cadenas button.sel { background: var(--tinta); color: #fff; border-color: var(--tinta); }
+
+  .traspaso { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; background: var(--rol); color: #fff; border-radius: 20px; padding: 24px 18px; margin-top: 4px; }
+  .traspaso .semana { font-size: 15px; opacity: .9; letter-spacing: .02em; }
+  .traspaso .pasa { font-size: 20px; margin-top: 18px; }
+  .traspaso .quien { font-size: 44px; font-weight: 750; line-height: 1.05; margin: 6px 0 4px; }
+  .traspaso .sub { font-size: 15px; opacity: .9; }
+  .traspaso .aviso { margin-top: 18px; font-size: 14.5px; background: rgba(255,255,255,.18); border-radius: 10px; padding: 8px 10px; }
+  .traspaso .btn { background: #fff; color: var(--rol); margin-top: 26px; }
+
+  .cabecera { background: var(--rol); color: #fff; border-radius: 14px 14px 0 0; padding: 9px 14px; display: flex; justify-content: space-between; align-items: baseline; }
+  .cabecera b { font-size: 19px; }
+  .reloj { height: 8px; background: var(--linea); border-radius: 0 0 8px 8px; overflow: hidden; }
+  .reloj i { display: block; height: 100%; width: 100%; background: var(--rol); transform-origin: left; }
+  .reloj.apuro i { background: var(--alerta); }
+  .datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 9px; }
+  .dato { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 11px; padding: 6px 8px 7px; }
+  .dato span { display: block; font-size: 12px; color: var(--suave); line-height: 1.15; min-height: 28px; }
+  .dato b { font-size: 23px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .dato.mal b { color: var(--alerta); }
+  .dato.fuerte { border-color: var(--rol); border-width: 1.5px; }
+  .linea { font-size: 13.5px; margin-top: 7px; color: var(--suave); }
+  .linea b { color: var(--tinta); font-variant-numeric: tabular-nums; }
+  .pregunta { margin-top: 10px; font-weight: 650; font-size: 16px; }
+  .visor { display: flex; align-items: center; gap: 10px; background: var(--tarjeta); border: 2px solid var(--rol); border-radius: 12px; padding: 2px 6px 2px 14px; margin-top: 6px; }
+  .visor b { font-size: 34px; font-variant-numeric: tabular-nums; min-height: 44px; line-height: 44px; }
+  .visor span { font-size: 13px; color: var(--suave); flex: 1; text-align: right; }
+  .visor button { font-size: 22px; padding: 8px 14px; background: var(--fondo); border: 1px solid var(--linea); }
+  .teclado { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 7px; }
+  .teclado button { padding: 13px 0; font-size: 23px; font-weight: 600; background: var(--tarjeta); border: 1px solid var(--linea); }
+  .teclado button:active, .visor button:active { background: var(--linea); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 6px 4px; border-bottom: 1px solid var(--linea); }
+  th:first-child, td:first-child { text-align: left; }
+  th { font-weight: 600; color: var(--suave); font-size: 12.5px; }
+  .total td { font-weight: 700; border-bottom: 0; }
+  .grande { font-size: 34px; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .codigo { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 38px; font-weight: 700; letter-spacing: .06em; text-align: center; padding: 10px 0 4px; }
+  .leyenda { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; margin-top: 4px; }
+  .leyenda span { display: inline-flex; align-items: center; gap: 5px; }
+  svg.graf { width: 100%; height: auto; display: block; margin-top: 6px; }
+  .torres { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-top: 8px; }
+  .torres div { border: 1px solid var(--linea); border-radius: 10px; padding: 6px 2px; background: var(--tarjeta); }
+  .torres b { display: block; font-size: 24px; }
+  .torres span { font-size: 12px; color: var(--suave); }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script src="motor.js"></script>
+<script>
+(function () {
+  'use strict';
+  var M = window.Motor;
+  var CLAVE = 'cadena-del-helado-v1';
+  var PIEZA_CAJAS = 4;
+  var PIEZAS_MAX = 9;
+
+  var ROLES = [
+    { nombre: 'Heladería', sub: 'minorista', cliente: 'Tus clientes compraron', proveedor: 'al mayorista', enCamino: 'En camino hacia ti', color: '#0E7C66', trazo: '' },
+    { nombre: 'Mayorista', sub: 'abastece a la heladería', cliente: 'La heladería te pidió', proveedor: 'al distribuidor', enCamino: 'En camino hacia ti', color: '#6B4FBB', trazo: '7 4' },
+    { nombre: 'Distribuidor', sub: 'abastece al mayorista', cliente: 'El mayorista te pidió', proveedor: 'a la fábrica', enCamino: 'En camino hacia ti', color: '#B4530B', trazo: '2 4' },
+    { nombre: 'Fábrica', sub: 'produce el helado', cliente: 'El distribuidor te pidió', proveedor: 'a tu línea de producción', enCamino: 'En producción', color: '#1D5FA8', trazo: '9 3 2 3' }
+  ];
+
+  var raiz = document.getElementById('app');
+  var app = null;
+  var reloj = { id: null, fin: 0, total: 0 };
+  var bloqueoPantalla = null;
+
+  // ---------- Estado y guardado ----------
+  function configDesdeURL() {
+    var q = new URLSearchParams(location.search);
+    var c = M.copiar(q.get('modo') === 'original' ? M.CONFIG_ORIGINAL : M.CONFIG_CLASE);
+    if (q.has('turno')) {
+      var t = parseInt(q.get('turno'), 10);
+      if (t >= 0 && t <= 300) { c.segundosTurno = t; c.segundosTurnoInicial = t === 0 ? 0 : Math.max(t, c.segundosTurnoInicial); }
+    }
+    return c;
+  }
+  function nuevoApp() {
+    return { v: 1, pantalla: 'inicio', cadena: null, config: configDesdeURL(), rondaIdx: 0, estado: null, turno: 0, digitado: '', aviso: '', resultados: [], confirma: '' };
+  }
+  function guardar() {
+    try { localStorage.setItem(CLAVE, JSON.stringify(app)); } catch (e) { /* sin almacenamiento: la partida sigue en memoria */ }
+  }
+  function cargar() {
+    try {
+      var t = localStorage.getItem(CLAVE);
+      if (!t) return null;
+      var a = JSON.parse(t);
+      return a && a.v === 1 ? a : null;
+    } catch (e) { return null; }
+  }
+  function borrarGuardado() { try { localStorage.removeItem(CLAVE); } catch (e) { /* nada */ } }
+
+  function ronda() { return app.config.rondas[app.rondaIdx]; }
+  function plazo() { return app.config.retrasoPedido + app.config.retrasoDespacho; }
+  function segundosDeTurno() {
+    var c = app.config;
+    if (!c.segundosTurno) return 0;
+    return app.rondaIdx === 0 && app.estado.semana <= c.semanasLentas ? c.segundosTurnoInicial : c.segundosTurno;
+  }
+
+  // ---------- Flujo ----------
+  function ir(pantalla) { app.pantalla = pantalla; app.confirma = ''; guardar(); pintar(); }
+
+  function comenzarRonda(indice) {
+    app.rondaIdx = indice;
+    app.estado = M.crearRonda(app.config, indice);
+    M.iniciarSemana(app.config, app.estado);
+    app.turno = 0; app.digitado = ''; app.aviso = '';
+    ir('traspaso');
+  }
+
+  function confirmarPedido(cantidad, porTiempo) {
+    pararReloj();
+    M.registrarPedido(app.estado, app.turno, cantidad);
+    app.aviso = porTiempo ? 'Se acabó el tiempo de ' + ROLES[app.turno].nombre.toLowerCase() + ': se pidieron ' + cantidad + ' cajas.' : '';
+    app.digitado = '';
+    if (app.turno < 3) { app.turno += 1; ir('traspaso'); return; }
+    M.cerrarSemana(app.config, app.estado);
+    if (app.estado.terminada) {
+      app.resultados[app.rondaIdx] = resumenRonda(app.estado);
+      app.aviso = '';
+      ir(app.rondaIdx < app.config.rondas.length - 1 ? 'finRonda' : 'final');
+      return;
+    }
+    M.iniciarSemana(app.config, app.estado);
+    app.turno = 0;
+    ir('traspaso');
+  }
+
+  function resumenRonda(estado) {
+    return {
+      costo: M.costoTotal(estado),
+      semanas: estado.semana,
+      referencia: M.costoReferencia(app.config, estado.ronda),
+      demandas: estado.demandas.slice(),
+      puestos: estado.puestos.map(function (p) {
+        return { costo: p.costo, inventario: p.inventario, deuda: p.deuda, historial: p.historial };
+      })
+    };
+  }
+
+  // ---------- Temporizador ----------
+  function pararReloj() { if (reloj.id) { clearInterval(reloj.id); reloj.id = null; } }
+  function arrancarReloj() {
+    pararReloj();
+    var s = segundosDeTurno();
+    if (!s) return;
+    reloj.total = s * 1000;
+    reloj.fin = Date.now() + reloj.total;
+    reloj.id = setInterval(tic, 200);
+    tic();
+  }
+  function tic() {
+    var queda = reloj.fin - Date.now();
+    var barra = document.getElementById('barra');
+    var cuenta = document.getElementById('cuenta');
+    if (barra) {
+      barra.style.transform = 'scaleX(' + Math.max(0, queda / reloj.total) + ')';
+      barra.parentNode.className = 'reloj' + (queda < 5000 ? ' apuro' : '');
+    }
+    if (cuenta) cuenta.textContent = Math.max(0, Math.ceil(queda / 1000)) + ' s';
+    if (queda <= 0) {
+      var p = app.estado.puestos[app.turno];
+      var cantidad = app.digitado === '' ? p.ultimoPedido : parseInt(app.digitado, 10);
+      confirmarPedido(cantidad, true);
+    }
+  }
+
+  // ---------- Pantallas ----------
+  function pInicio() {
+    var guardada = cargar();
+    var retomar = '';
+    if (guardada && guardada.pantalla !== 'inicio' && guardada.pantalla !== 'reglas') {
+      var donde = guardada.estado ? guardada.config.rondas[guardada.rondaIdx].nombre + ', semana ' + guardada.estado.semana : '';
+      retomar = '<div class="tarjeta"><b>Hay una partida guardada</b><p class="chico suave">Cadena ' + guardada.cadena + (donde ? ' · ' + donde : '') + '</p>' +
+        '<button class="btn" data-a="retomar">Retomar la partida</button></div>';
+    }
+    var botones = '';
+    for (var n = 1; n <= 12; n++) botones += '<button data-a="cadena" data-n="' + n + '"' + (app.cadena === n ? ' class="sel"' : '') + '>' + n + '</button>';
+    return '<h1>La Cadena del Helado</h1>' +
+      '<p class="suave">Cuatro puestos, un celular y una sola decisión por semana: cuántas cajas pedir.</p>' + retomar +
+      '<h2>¿Qué número de cadena son?</h2><p class="chico suave">El profesor asigna el número.</p>' +
+      '<div class="cadenas">' + botones + '</div>' +
+      '<div class="empuja"></div>' +
+      '<button class="btn" data-a="aReglas"' + (app.cadena ? '' : ' disabled') + '>Siguiente</button>';
+  }
+
+  function pReglas() {
+    var c = app.config;
+    var dos = c.rondas.length > 1;
+    var tiempo = c.segundosTurno
+      ? '<li>Cada turno dura <b>' + c.segundosTurno + ' segundos</b> (' + c.segundosTurnoInicial + ' en las primeras ' + c.semanasLentas + ' semanas). Si se acaba el tiempo, se repite el último pedido.</li>'
+      : '';
+    return '<h1>Reglas</h1><p class="suave">Cadena ' + app.cadena + '</p>' +
+      '<div class="tarjeta"><ul class="reglas">' +
+      '<li>Son una cadena de 4 puestos: <b>heladería, mayorista, distribuidor y fábrica</b>. Todos parten con 12 cajas.</li>' +
+      '<li>Cada semana, cada puesto decide una sola cosa: <b>cuántas cajas pedir</b>.</li>' +
+      '<li>Guardar una caja cuesta <b>' + M.pesos(c.costoInventario) + '</b> por semana. Deber una caja cuesta <b>' + M.pesos(c.costoDeuda) + '</b> por semana.</li>' +
+      '<li>Lo que pides tarda <b>' + plazo() + ' semanas</b> en llegar, si tu proveedor tiene stock. La fábrica produce en ' + c.retrasoProduccion + '.</li>' +
+      '<li><b>No se habla</b> entre puestos y nadie mira el turno de otro. El celular pasa de mano en mano.</li>' +
+      tiempo +
+      '<li>Gana la cadena con <b>menor costo total</b>' + (dos ? ' entre las dos rondas' : '') + '.</li>' +
+      '</ul></div>' +
+      '<div class="empuja"></div>' +
+      '<button class="btn" data-a="comenzar">Comenzar ' + c.rondas[0].nombre.toLowerCase() + '</button>' +
+      '<button class="btn claro" data-a="volverInicio">Volver</button>';
+  }
+
+  function pTraspaso() {
+    var r = ROLES[app.turno];
+    return '<div class="traspaso">' +
+      '<div class="semana">' + ronda().nombre + ' · Semana ' + app.estado.semana + ' de ' + ronda().semanasAnunciadas + '</div>' +
+      '<div class="pasa">Pasa el celular a</div>' +
+      '<div class="quien">' + r.nombre + '</div><div class="sub">' + r.sub + '</div>' +
+      (app.aviso ? '<div class="aviso">' + app.aviso + '</div>' : '') +
+      '<button class="btn" data-a="verTurno">Soy ' + r.nombre.toLowerCase() + ': ver mi turno</button>' +
+      '</div>';
+  }
+
+  function dato(etiqueta, valor, clase) {
+    return '<div class="dato' + (clase ? ' ' + clase : '') + '"><span>' + etiqueta + '</span><b>' + valor + '</b></div>';
+  }
+
+  function pTurno() {
+    var i = app.turno, r = ROLES[i], e = app.estado, p = e.puestos[i], s = e.semanaActual[i], c = app.config;
+    var camino = p.enCamino.map(function (x, k) {
+      return (k === 0 ? 'próxima semana ' : 'en ' + (k + 1) + ' semanas ') + '<b>' + x + '</b>';
+    }).join(' · ');
+    var previos = p.historial.slice(-4).map(function (h) { return h.pedidoHecho; });
+    var lineaDemanda = '';
+    if (ronda().demandaVisible) {
+      lineaDemanda = '<div class="linea">Ventas a clientes, visibles para toda la cadena: <b>' + e.demandas.join(' · ') + '</b></div>';
+    }
+    var hayReloj = segundosDeTurno() > 0;
+    return '<div class="cabecera"><b>' + r.nombre + '</b><span>Semana ' + e.semana + ' de ' + ronda().semanasAnunciadas + (hayReloj ? ' · <span id="cuenta"></span>' : '') + '</span></div>' +
+      '<div class="reloj">' + (hayReloj ? '<i id="barra"></i>' : '') + '</div>' +
+      '<div class="datos">' +
+        dato('Te llegaron', s.recibido) +
+        dato(r.cliente, s.pedido, 'fuerte') +
+        dato('Despachaste', s.despachado) +
+        dato('Inventario', s.inventario) +
+        dato('Deuda (cajas que debes)', s.deuda, s.deuda > 0 ? 'mal' : '') +
+        dato('Costo de la semana', M.pesos(s.costoSemana)) +
+      '</div>' +
+      '<div class="linea">' + r.enCamino + ': ' + camino + '</div>' +
+      '<div class="linea">Tus pedidos anteriores: <b>' + (previos.length ? previos.join(' · ') : c.flujoInicial + ' por semana') + '</b> · Costo acumulado: <b>' + M.pesos(p.costo) + '</b></div>' +
+      lineaDemanda +
+      '<div class="pregunta">¿Cuántas cajas pides ' + r.proveedor + '?</div>' +
+      '<div class="visor"><b id="visor">' + (app.digitado === '' ? '–' : app.digitado) + '</b><span>último pedido: ' + p.ultimoPedido + '</span><button data-a="borrar" aria-label="Borrar">⌫</button></div>' +
+      '<div class="teclado">' +
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (n) { return '<button data-a="tecla" data-n="' + n + '">' + n + '</button>'; }).join('') +
+      '</div>' +
+      '<button class="btn rol" id="pedir" data-a="pedir"' + (app.digitado === '' ? ' disabled' : '') + '>' + textoPedir() + '</button>';
+  }
+  function textoPedir() {
+    return app.digitado === '' ? 'Escribe tu pedido' : 'Pedir ' + parseInt(app.digitado, 10) + ' cajas';
+  }
+
+  function veces(costo, referencia) {
+    return referencia > 0 ? (Math.round(costo / referencia * 10) / 10).toFixed(1).replace('.', ',') : '–';
+  }
+
+  function grafico(titulo, series, demandas, minimo) {
+    var W = 340, H = 190, izq = 30, der = 8, arr = 10, aba = 22;
+    var n = series[0].length;
+    var max = 8, min = minimo || 0;
+    series.forEach(function (s) { s.forEach(function (v) { if (v > max) max = v; if (v < min) min = v; }); });
+    max = Math.ceil(max / 4) * 4; min = Math.floor(min / 4) * 4;
+    function X(k) { return izq + (n === 1 ? 0 : k * (W - izq - der) / (n - 1)); }
+    function Y(v) { return arr + (max - v) * (H - arr - aba) / (max - min); }
+    var g = '';
+    [max, (max + min) / 2, min].forEach(function (v) {
+      g += '<line x1="' + izq + '" x2="' + (W - der) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="#E4DACB"/>' +
+        '<text x="' + (izq - 5) + '" y="' + (Y(v) + 4) + '" text-anchor="end" font-size="11" fill="#6B6257">' + Math.round(v) + '</text>';
+    });
+    if (min < 0) g += '<line x1="' + izq + '" x2="' + (W - der) + '" y1="' + Y(0) + '" y2="' + Y(0) + '" stroke="#6B6257"/>';
+    [1, Math.ceil(n / 2), n].forEach(function (sem) {
+      var ancla = sem === 1 ? 'start' : (sem === n ? 'end' : 'middle');
+      g += '<text x="' + X(sem - 1) + '" y="' + (H - 6) + '" text-anchor="' + ancla + '" font-size="11" fill="#6B6257">sem ' + sem + '</text>';
+    });
+    function linea(vals) { return vals.map(function (v, k) { return (k ? 'L' : 'M') + X(k).toFixed(1) + ' ' + Y(v).toFixed(1); }).join(''); }
+    if (demandas) g += '<path d="' + linea(demandas) + '" fill="none" stroke="#1F1B16" stroke-width="4" stroke-opacity=".28" stroke-linejoin="round"/>';
+    series.forEach(function (s, i) {
+      g += '<path d="' + linea(s) + '" fill="none" stroke="' + ROLES[i].color + '" stroke-width="2.2" stroke-linejoin="round"' + (ROLES[i].trazo ? ' stroke-dasharray="' + ROLES[i].trazo + '"' : '') + '/>';
+    });
+    var ley = ROLES.map(function (r) {
+      return '<span><svg width="26" height="8"><line x1="0" x2="26" y1="4" y2="4" stroke="' + r.color + '" stroke-width="2.2"' + (r.trazo ? ' stroke-dasharray="' + r.trazo + '"' : '') + '/></svg>' + r.nombre + '</span>';
+    }).join('');
+    if (demandas) ley += '<span><svg width="26" height="8"><line x1="0" x2="26" y1="4" y2="4" stroke="#1F1B16" stroke-opacity=".28" stroke-width="4"/></svg>Clientes</span>';
+    return '<div class="tarjeta"><b>' + titulo + '</b>' +
+      '<svg class="graf" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + titulo + '">' + g + '</svg>' +
+      '<div class="leyenda">' + ley + '</div></div>';
+  }
+
+  function bloqueRonda(indice) {
+    var res = app.resultados[indice], cfg = app.config.rondas[indice];
+    var filas = res.puestos.map(function (p, i) {
+      var maximo = Math.max.apply(null, p.historial.map(function (h) { return h.pedidoHecho; }));
+      return '<tr><td>' + ROLES[i].nombre + '</td><td>' + maximo + '</td><td>' + M.pesos(p.costo) + '</td></tr>';
+    }).join('');
+    var pedidos = res.puestos.map(function (p) { return p.historial.map(function (h) { return h.pedidoHecho; }); });
+    var neto = res.puestos.map(function (p) { return p.historial.map(function (h) { return h.inventario - h.deuda; }); });
+    return '<h2>' + cfg.nombre + '</h2>' +
+      '<div class="tarjeta"><span class="suave chico">Costo de la cadena en ' + res.semanas + ' semanas</span>' +
+      '<div class="grande">' + M.pesos(res.costo) + '</div>' +
+      '<p class="chico suave">Es <b>' + veces(res.costo, res.referencia) + ' veces</b> la referencia: una cadena que siempre pide lo mismo que le piden habría gastado ' + M.pesos(res.referencia) + '.</p>' +
+      '<table><tr><th>Puesto</th><th>Pedido máximo</th><th>Costo</th></tr>' + filas + '</table></div>' +
+      grafico('Pedidos por semana', pedidos, res.demandas) +
+      '<p class="chico suave">La franja gris es lo que compraron los clientes: ' + cfg.demandaBase + ' cajas por semana y ' + cfg.demandaNueva + ' desde la semana ' + cfg.semanaSalto + '. Nunca cambió más que eso.</p>' +
+      grafico('Inventario menos deuda', neto, null, -4);
+  }
+
+  function pFinRonda() {
+    var res = app.resultados[app.rondaIdx];
+    var torres = res.puestos.map(function (p, i) {
+      var piezas = Math.min(PIEZAS_MAX, Math.round(p.inventario / PIEZA_CAJAS));
+      return '<div><span>' + ROLES[i].nombre + '</span><b>' + piezas + '</b><span>' + p.inventario + ' cajas</span></div>';
+    }).join('');
+    var sig = app.config.rondas[app.rondaIdx + 1];
+    return '<h1>Fin de la ' + ronda().nombre.toLowerCase() + '</h1><p class="suave">Cadena ' + app.cadena + ' · Ya pueden conversar.</p>' +
+      '<div class="tarjeta"><b>Torres LEGO</b><p class="chico suave">Cada puesto arma una torre con su inventario final: 1 pieza por cada ' + PIEZA_CAJAS + ' cajas, máximo ' + PIEZAS_MAX + '.</p>' +
+      '<div class="torres">' + torres + '</div></div>' +
+      bloqueRonda(app.rondaIdx) +
+      '<div class="tarjeta"><b>' + sig.nombre + '</b><p class="chico">Ahora toda la cadena ve las ventas a clientes y pueden conversar antes de cada pedido. Dura menos semanas. Esperen la señal del profesor.</p></div>' +
+      '<button class="btn" data-a="siguienteRonda">' + (app.confirma === 'ronda' ? 'Toca otra vez para comenzar' : 'Comenzar ' + sig.nombre.toLowerCase()) + '</button>';
+  }
+
+  function pFinal() {
+    var rs = app.resultados;
+    var total = rs.reduce(function (a, r) { return a + r.costo; }, 0);
+    var codigo = M.codificar({ cadena: app.cadena, costo1: rs[0].costo, costo2: rs[1] ? rs[1].costo : 0 });
+    var compara = '';
+    if (rs.length > 1) {
+      compara = '<p class="chico">Frente a la referencia de cada ronda: <b>' + veces(rs[0].costo, rs[0].referencia) + ' veces</b> a ciegas y <b>' + veces(rs[1].costo, rs[1].referencia) + ' veces</b> con información compartida.</p>';
+    }
+    var bloques = '';
+    for (var i = 0; i < rs.length; i++) bloques += bloqueRonda(i);
+    return '<h1>Resultado final</h1><p class="suave">Cadena ' + app.cadena + '</p>' +
+      '<div class="tarjeta"><span class="suave chico">Código para el profesor</span><div class="codigo" id="codigo">' + codigo + '</div>' +
+      '<p class="chico suave" style="text-align:center">Díctenlo o muéstrenlo cuando lo pidan.</p></div>' +
+      '<div class="tarjeta"><span class="suave chico">Costo total de la cadena</span><div class="grande">' + M.pesos(total) + '</div>' + compara + '</div>' +
+      bloques +
+      '<button class="btn claro" data-a="csv">Descargar los datos (CSV)</button>' +
+      '<button class="btn claro" data-a="nueva">' + (app.confirma === 'nueva' ? 'Toca otra vez: se borra esta partida' : 'Nueva partida') + '</button>';
+  }
+
+  function csv() {
+    var filas = ['cadena,ronda,semana,puesto,recibido,pedido_recibido,despachado,inventario,deuda,pedido_hecho,costo_semana'];
+    app.resultados.forEach(function (res, r) {
+      res.puestos.forEach(function (p, i) {
+        p.historial.forEach(function (h) {
+          filas.push([app.cadena, r + 1, h.semana, ROLES[i].nombre, h.recibido, h.pedido, h.despachado, h.inventario, h.deuda, h.pedidoHecho, h.costoSemana].join(','));
+        });
+      });
+    });
+    var blob = new Blob(['﻿' + filas.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'cadena-' + app.cadena + '-helado.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  var PANTALLAS = { inicio: pInicio, reglas: pReglas, traspaso: pTraspaso, turno: pTurno, finRonda: pFinRonda, final: pFinal };
+
+  function pintar() {
+    pararReloj();
+    var rol = app.pantalla === 'traspaso' || app.pantalla === 'turno' ? ROLES[app.turno].color : '#1F1B16';
+    document.documentElement.style.setProperty('--rol', rol);
+    raiz.innerHTML = PANTALLAS[app.pantalla]();
+    raiz.setAttribute('data-pantalla', app.pantalla);
+    window.scrollTo(0, 0);
+    if (app.pantalla === 'turno') arrancarReloj();
+  }
+
+  function refrescarVisor() {
+    var v = document.getElementById('visor'), b = document.getElementById('pedir');
+    if (v) v.textContent = app.digitado === '' ? '–' : app.digitado;
+    if (b) { b.disabled = app.digitado === ''; b.textContent = textoPedir(); }
+  }
+
+  function mantenerPantalla() {
+    try {
+      if (navigator.wakeLock && !bloqueoPantalla) {
+        navigator.wakeLock.request('screen').then(function (l) {
+          bloqueoPantalla = l;
+          l.addEventListener('release', function () { bloqueoPantalla = null; });
+        }).catch(function () { /* no disponible */ });
+      }
+    } catch (e) { /* no disponible */ }
+  }
+
+  // ---------- Eventos ----------
+  raiz.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]');
+    if (!b || b.disabled) return;
+    var a = b.getAttribute('data-a');
+    mantenerPantalla();
+    if (a === 'cadena') { app.cadena = parseInt(b.getAttribute('data-n'), 10); pintar(); }
+    else if (a === 'aReglas') ir('reglas');
+    else if (a === 'volverInicio') ir('inicio');
+    else if (a === 'retomar') { var g = cargar(); if (g) { app = g; app.digitado = ''; pintar(); } }
+    else if (a === 'comenzar') comenzarRonda(0);
+    else if (a === 'verTurno') { app.digitado = ''; ir('turno'); }
+    else if (a === 'tecla') {
+      var n = b.getAttribute('data-n');
+      if (app.digitado.length < 3) app.digitado = app.digitado === '0' ? n : app.digitado + n;
+      refrescarVisor();
+    }
+    else if (a === 'borrar') { app.digitado = app.digitado.slice(0, -1); refrescarVisor(); }
+    else if (a === 'pedir') { if (app.digitado !== '') confirmarPedido(parseInt(app.digitado, 10), false); }
+    else if (a === 'siguienteRonda') {
+      if (app.confirma === 'ronda') comenzarRonda(app.rondaIdx + 1);
+      else { app.confirma = 'ronda'; pintar(); }
+    }
+    else if (a === 'csv') csv();
+    else if (a === 'nueva') {
+      if (app.confirma === 'nueva') { borrarGuardado(); app = nuevoApp(); pintar(); }
+      else { app.confirma = 'nueva'; pintar(); }
+    }
+  });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) mantenerPantalla(); });
+
+  app = nuevoApp();
+  pintar();
+})();
+</script>
+</body>
+</html>
