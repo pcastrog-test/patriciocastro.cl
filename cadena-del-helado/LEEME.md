@@ -35,6 +35,16 @@ Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sit
 - Gana la cadena con menor costo total entre las dos rondas.
 - Al final de la ronda 1 aparece un código de respaldo. Si una cadena no alcanza la ronda 2, el ranking la muestra después de las completas, ordenada solo por la ronda 1.
 
+## Pantalla del turno
+
+- Mapa de la cadena en el mismo orden que los imprimibles (fábrica a la izquierda, clientes a la derecha),
+  con el puesto de turno destacado, a quién le pide y a quién le envía.
+- Dos cuentas en orden de flujo: pedidos (te pidieron + debías − enviaste = debes) y cajas
+  (tenías + llegaron − enviaste = te quedan).
+- La fábrica tiene textos propios: no le pide a nadie, decide cuántas cajas producir ("Producir N cajas").
+- Arranque guiado: en las primeras 3 semanas de la ronda 1 aparecen ayudas breves bajo cada bloque.
+  Explican la interfaz y los costos, no la estrategia. Desaparecen desde la semana 4, antes del salto de demanda.
+
 Los valores están en `CONFIG_CLASE`, al inicio de `motor.js`.
 
 ## Opciones por dirección
@@ -42,6 +52,7 @@ Los valores están en `CONFIG_CLASE`, al inicio de `motor.js`.
 - `?modo=original`: reglas del tablero original (retrasos de 2 + 2 semanas, 3 en la fábrica, 36 semanas, una ronda).
   Sirve en el juego y en el facilitador; el QR del facilitador conserva el modo.
 - `?turno=N`: segundos por turno. `?turno=0` quita el temporizador.
+- `?guia=N`: semanas de la ronda 1 con ayudas en pantalla (3 por defecto). `?guia=0` las quita.
 
 ## Pruebas
 
