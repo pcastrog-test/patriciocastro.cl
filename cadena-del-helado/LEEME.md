@@ -31,6 +31,7 @@ Ambas páginas llevan `noindex`, así que no aparecen en buscadores ni en el sit
 - Ronda 2: 8 semanas (se anuncian 10), con las ventas visibles para toda la cadena. El salto ocurre en la semana 3.
 - Turnos de 15 segundos (30 en las dos primeras semanas). Si se acaba el tiempo, vale lo escrito o se repite el último pedido.
 - Gana la cadena con menor costo total entre las dos rondas.
+- Al final de la ronda 1 aparece un código de respaldo. Si una cadena no alcanza la ronda 2, el ranking la muestra después de las completas, ordenada solo por la ronda 1.
 
 Los valores están en `CONFIG_CLASE`, al inicio de `motor.js`.
 
