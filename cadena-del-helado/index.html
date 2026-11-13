@@ -95,6 +95,39 @@
   .lista b { font-weight: 600; text-align: right; }
   svg.barritas { width: 100%; height: 44px; display: block; margin-top: 4px; }
 
+  /* Mapa de la cadena: fábrica a la izquierda, clientes a la derecha (igual que los imprimibles). */
+  .mapa { padding: 10px 12px; margin-top: 8px; }
+  .tramo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .tramo span { min-width: 0; text-align: center; font-size: 11px; font-weight: 600; color: var(--suave); background: var(--fondo); border-radius: 7px; border-top: 3px solid var(--c); padding: 5px 2px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tramo span.tu { background: var(--c); color: #fff; }
+  .sentidos { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--tenue); font-weight: 600; margin-top: 4px; }
+  .vecinos { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; padding-top: 7px; border-top: 1px solid var(--linea); }
+  .vecinos div { min-width: 0; }
+  .vecinos div.der { text-align: right; }
+  .vecinos small { display: block; font-size: 11px; color: var(--suave); }
+  .vecinos b { font-size: 13.5px; font-weight: 700; }
+  .nota-fabrica { margin-top: 7px; font-size: 12.5px; font-weight: 600; color: var(--rol); background: var(--fondo); border-radius: 8px; padding: 6px 9px; }
+
+  /* Ecuaciones de flujo del turno. */
+  .flujo { padding: 10px 12px; margin-top: 8px; }
+  .flujo .titulo { font-size: 12px; font-weight: 600; color: var(--suave); margin: 2px 0 5px; }
+  .flujo .titulo + .ecuacion { margin-bottom: 4px; }
+  .ecuacion { display: grid; grid-template-columns: 1fr 12px 1fr 12px 1fr 12px 1fr; align-items: center; }
+  .ecuacion .op { text-align: center; font-size: 15px; font-weight: 700; color: var(--tenue); }
+  .celda { min-width: 0; background: var(--fondo); border: 1px solid transparent; border-radius: 9px; padding: 5px 6px 6px; }
+  .celda span { display: block; font-size: 10.5px; font-weight: 500; color: var(--suave); line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .celda b { font-size: 19px; font-weight: 700; line-height: 1.15; }
+  .celda.fuerte { background: var(--tarjeta); border-color: var(--rol); box-shadow: inset 0 0 0 1px var(--rol); }
+  .celda.resultado { background: var(--tarjeta); border-color: var(--linea); }
+  .celda.mal b { color: var(--alerta); }
+  .flujo .separa { height: 1px; background: var(--linea); margin: 8px 0 2px; }
+
+  /* Ayudas del arranque guiado. */
+  .ayuda { display: flex; gap: 7px; font-size: 12.5px; line-height: 1.35; color: #1E2A78; background: var(--acento-suave); border-radius: 8px; padding: 6px 9px; margin-top: 6px; }
+  .ayuda::before { content: "?"; flex: none; width: 16px; height: 16px; border-radius: 99px; background: var(--acento); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+  .ayuda b { font-weight: 700; }
+  .cabecera .pildora.guia { font-size: 11px; font-weight: 600; color: var(--acento); margin-left: 2px; }
+
   .pregunta { margin-top: 12px; font-weight: 600; font-size: 15px; }
   .visor { display: flex; align-items: center; gap: 10px; background: var(--tarjeta); border: 1.5px solid var(--rol); border-radius: 12px; padding: 2px 6px 2px 14px; margin-top: 6px; box-shadow: var(--sombra); }
   .visor b { font-size: 32px; font-weight: 700; min-height: 44px; line-height: 44px; }
@@ -137,12 +170,16 @@
   var PIEZA_CAJAS = 4;
   var PIEZAS_MAX = 9;
 
+  // pidesA y despachasA alimentan el mapa de la cadena del turno.
+  // La fábrica no le pide a nadie: decide cuánto producir (fabrica: true cambia sus textos).
   var ROLES = [
-    { nombre: 'Heladería', sub: 'minorista', cliente: 'Tus clientes compraron', proveedor: 'al mayorista', enCamino: 'En camino hacia ti', color: '#4F6BED', trazo: '' },
-    { nombre: 'Mayorista', sub: 'abastece a la heladería', cliente: 'La heladería te pidió', proveedor: 'al distribuidor', enCamino: 'En camino hacia ti', color: '#7C3AED', trazo: '7 4' },
-    { nombre: 'Distribuidor', sub: 'abastece al mayorista', cliente: 'El mayorista te pidió', proveedor: 'a la fábrica', enCamino: 'En camino hacia ti', color: '#C2410C', trazo: '2 4' },
-    { nombre: 'Fábrica', sub: 'produce el helado', cliente: 'El distribuidor te pidió', proveedor: 'a tu línea de producción', enCamino: 'En producción', color: '#0F766E', trazo: '9 3 2 3' }
+    { nombre: 'Heladería', sub: 'minorista', piden: 'Compraron', deQuien: 'De tus clientes', proveedor: 'al mayorista', pidesA: 'El mayorista', despachasA: 'Los clientes', enCamino: 'En camino hacia ti', color: '#4F6BED', trazo: '' },
+    { nombre: 'Mayorista', sub: 'abastece a la heladería', piden: 'Te pidieron', deQuien: 'De la heladería', proveedor: 'al distribuidor', pidesA: 'El distribuidor', despachasA: 'La heladería', enCamino: 'En camino hacia ti', color: '#7C3AED', trazo: '7 4' },
+    { nombre: 'Distribuidor', sub: 'abastece al mayorista', piden: 'Te pidieron', deQuien: 'Del mayorista', proveedor: 'a la fábrica', pidesA: 'La fábrica', despachasA: 'El mayorista', enCamino: 'En camino hacia ti', color: '#C2410C', trazo: '2 4' },
+    { nombre: 'Fábrica', sub: 'produce el helado', piden: 'Te pidieron', deQuien: 'Del distribuidor', proveedor: '', pidesA: 'Nadie: tú produces', despachasA: 'El distribuidor', enCamino: 'En producción', color: '#0F766E', trazo: '9 3 2 3', fabrica: true }
   ];
+  // Semanas de la ronda 1 con ayudas en pantalla. ?guia=N lo cambia; ?guia=0 las quita.
+  var SEMANAS_GUIADAS = 3;
 
   var raiz = document.getElementById('app');
   var app = null;
@@ -156,6 +193,11 @@
     if (q.has('turno')) {
       var t = parseInt(q.get('turno'), 10);
       if (t >= 0 && t <= 300) { c.segundosTurno = t; c.segundosTurnoInicial = t === 0 ? 0 : Math.max(t, c.segundosTurnoInicial); }
+    }
+    c.semanasGuiadas = SEMANAS_GUIADAS;
+    if (q.has('guia')) {
+      var g = parseInt(q.get('guia'), 10);
+      if (g >= 0 && g <= 20) c.semanasGuiadas = g;
     }
     return c;
   }
@@ -182,6 +224,12 @@
     if (!c.segundosTurno) return 0;
     return app.rondaIdx === 0 && app.estado.semana <= c.semanasLentas ? c.segundosTurnoInicial : c.segundosTurno;
   }
+  // Partidas guardadas antes de esta versión no traen semanasGuiadas: usan el valor por defecto.
+  function semanasGuiadas() {
+    var g = app.config.semanasGuiadas;
+    return typeof g === 'number' ? g : SEMANAS_GUIADAS;
+  }
+  function esGuiada() { return app.rondaIdx === 0 && app.estado.semana <= semanasGuiadas(); }
 
   // ---------- Flujo ----------
   function ir(pantalla) { app.pantalla = pantalla; app.confirma = ''; guardar(); pintar(); }
@@ -197,7 +245,8 @@
   function confirmarPedido(cantidad, porTiempo) {
     pararReloj();
     M.registrarPedido(app.estado, app.turno, cantidad);
-    app.aviso = porTiempo ? 'Se acabó el tiempo de ' + ROLES[app.turno].nombre.toLowerCase() + ': se pidieron ' + cantidad + ' cajas.' : '';
+    app.aviso = porTiempo ? 'Se acabó el tiempo de ' + ROLES[app.turno].nombre.toLowerCase() + ': ' +
+      (ROLES[app.turno].fabrica ? 'se pusieron a producir ' : 'se pidieron ') + cantidad + ' cajas.' : '';
     app.digitado = '';
     if (app.turno < 3) { app.turno += 1; ir('traspaso'); return; }
     M.cerrarSemana(app.config, app.estado);
@@ -290,7 +339,9 @@
       '<li>Son una cadena de 4 puestos: <b>heladería, mayorista, distribuidor y fábrica</b>. Todos parten con 12 cajas.</li>' +
       '<li>Cada semana, cada puesto decide una sola cosa: <b>cuántas cajas pedir</b>.</li>' +
       '<li>Guardar una caja cuesta <b>' + M.pesos(c.costoInventario) + '</b> por semana. Deber una caja cuesta <b>' + M.pesos(c.costoDeuda) + '</b> por semana.</li>' +
-      '<li>Lo que pides tarda <b>' + plazo() + ' semanas</b> en llegar, si tu proveedor tiene stock. La fábrica produce en ' + c.retrasoProduccion + '.</li>' +
+      '<li>Lo que pides tarda <b>' + plazo() + ' semanas</b> en llegar, si tu proveedor tiene stock.</li>' +
+      '<li>La <b>fábrica no le pide a nadie</b>: decide cuántas cajas producir, y quedan listas en ' + c.retrasoProduccion + ' semanas.</li>' +
+      (semanasGuiadas() > 0 ? '<li>Las primeras ' + semanasGuiadas() + ' semanas traen <b>ayudas en pantalla</b> para entender el turno.</li>' : '') +
       '<li><b>No se habla</b> entre puestos y nadie mira el turno de otro. El celular pasa de mano en mano.</li>' +
       tiempo +
       '<li>Gana la cadena con <b>menor costo total</b>' + (dos ? ' entre las dos rondas' : '') + '.</li>' +
@@ -303,7 +354,7 @@
   function pTraspaso() {
     var r = ROLES[app.turno];
     return barra() + '<div class="traspaso">' +
-      '<div class="semana">' + ronda().nombre + ' · Semana ' + app.estado.semana + ' de ' + ronda().semanasAnunciadas + '</div>' +
+      '<div class="semana">' + ronda().nombre + ' · Semana ' + app.estado.semana + ' de ' + ronda().semanasAnunciadas + (esGuiada() ? ' · con ayudas' : '') + '</div>' +
       '<div class="pasa">Pasa el celular a</div>' +
       '<div class="quien">' + r.nombre + '</div><div class="sub">' + r.sub + '</div>' +
       (app.aviso ? '<div class="aviso">' + app.aviso + '</div>' : '') +
@@ -311,14 +362,39 @@
       '</div>';
   }
 
-  function dato(etiqueta, valor, clase) {
-    return '<div class="dato' + (clase ? ' ' + clase : '') + '"><span>' + etiqueta + '</span><b>' + valor + '</b></div>';
+  function ayuda(html) { return '<div class="ayuda"><span>' + html + '</span></div>'; }
+
+  // Mapa de la cadena: fábrica a la izquierda y clientes a la derecha, como en los imprimibles.
+  // Los pedidos van hacia la izquierda y las cajas hacia la derecha.
+  function mapaCadena(i) {
+    var r = ROLES[i];
+    var tramo = [3, 2, 1, 0].map(function (k) {
+      return '<span style="--c:' + ROLES[k].color + '"' + (k === i ? ' class="tu"' : '') + '>' + ROLES[k].nombre + '</span>';
+    }).join('');
+    return '<div class="tarjeta mapa">' +
+      '<div class="tramo">' + tramo + '</div>' +
+      '<div class="sentidos"><span>← pedidos</span><span>cajas →</span></div>' +
+      '<div class="vecinos">' +
+        '<div><small>← Le pides a</small><b>' + r.pidesA + '</b></div>' +
+        '<div class="der"><small>Le envías a →</small><b>' + r.despachasA + '</b></div>' +
+      '</div>' +
+      (r.fabrica ? '<div class="nota-fabrica">No le pides a nadie: decides cuántas cajas producir. Quedan listas en ' + app.config.retrasoProduccion + ' semanas.</div>' : '') +
+      '</div>';
   }
+
+  function celda(etiqueta, valor, clase) {
+    return '<div class="celda' + (clase ? ' ' + clase : '') + '"><span>' + etiqueta + '</span><b>' + valor + '</b></div>';
+  }
+  function op(signo) { return '<div class="op">' + signo + '</div>'; }
 
   function pTurno() {
     var i = app.turno, r = ROLES[i], e = app.estado, p = e.puestos[i], s = e.semanaActual[i], c = app.config;
+    var guiada = esGuiada();
+    // Lo que había antes de esta semana, a partir de lo que dejó el motor.
+    var tenias = s.inventario + s.despachado - s.recibido;
+    var debias = s.deuda + s.despachado - s.pedido;
     var camino = p.enCamino.map(function (x, k) {
-      return (k === 0 ? 'próx. semana ' : 'en ' + (k + 1) + ' sem. ') + x;
+      return (r.fabrica ? 'listas ' : '') + (k === 0 ? 'próx. semana ' : 'en ' + (k + 1) + ' sem. ') + x;
     }).join(' · ');
     var previos = p.historial.slice(-4).map(function (h) { return h.pedidoHecho; });
     var lineaDemanda = '';
@@ -327,31 +403,51 @@
         barritas(e.demandas) + '<div class="chico suave">' + e.demandas.join(' · ') + '</div></div>';
     }
     var hayReloj = segundosDeTurno() > 0;
-    return '<div style="height:12px"></div><div class="cabecera"><div class="fila"><b><i></i>' + r.nombre + '</b><span>Semana ' + e.semana + ' de ' + ronda().semanasAnunciadas + (hayReloj ? ' · <span id="cuenta"></span>' : '') + '</span></div>' +
+    var aviso = function (texto) { return guiada ? ayuda(texto) : ''; };
+    return '<div style="height:12px"></div><div class="cabecera"><div class="fila"><b><i></i>' + r.nombre + (guiada ? '<span class="pildora guia">Con ayudas</span>' : '') + '</b><span>Semana ' + e.semana + ' de ' + ronda().semanasAnunciadas + (hayReloj ? ' · <span id="cuenta"></span>' : '') + '</span></div>' +
       '<div class="reloj">' + (hayReloj ? '<i id="barra"></i>' : '') + '</div></div>' +
-      '<div class="kpis">' +
-        dato('Te llegaron', s.recibido) +
-        dato(r.cliente, s.pedido, 'fuerte') +
-        dato('Despachaste', s.despachado) +
-        dato('Inventario', s.inventario) +
-        dato('Deuda (cajas que debes)', s.deuda, s.deuda > 0 ? 'mal' : '') +
-        dato('Costo de la semana', M.pesos(s.costoSemana)) +
+      mapaCadena(i) +
+      aviso(r.fabrica
+        ? 'Eres el inicio de la cadena. Recibes pedidos del distribuidor y le envías cajas.'
+        : 'Los pedidos viajan hacia la fábrica y las cajas hacia los clientes. Tú estás en el puesto de color.') +
+      '<div class="tarjeta flujo">' +
+        '<div class="titulo">Pedidos · ' + r.deQuien.toLowerCase() + '</div>' +
+        '<div class="ecuacion">' +
+          celda(r.piden, s.pedido, 'fuerte') + op('+') + celda('Debías', debias) + op('−') +
+          celda('Enviaste', s.despachado) + op('=') + celda('Debes', s.deuda, 'resultado' + (s.deuda > 0 ? ' mal' : '')) +
+        '</div>' +
+        aviso('Envías todo lo que puedes. Lo que no alcanzas queda como deuda: cuesta <b>' + M.pesos(c.costoDeuda) + '</b> por caja cada semana.') +
+        '<div class="separa"></div>' +
+        '<div class="titulo">Cajas en tu bodega</div>' +
+        '<div class="ecuacion">' +
+          celda('Tenías', tenias) + op('+') + celda(r.fabrica ? 'Producidas' : 'Llegaron', s.recibido) + op('−') +
+          celda('Enviaste', s.despachado) + op('=') + celda('Te quedan', s.inventario, 'resultado') +
+        '</div>' +
+        aviso('Cada caja que te queda cuesta <b>' + M.pesos(c.costoInventario) + '</b> por semana.') +
       '</div>' +
       '<div class="tarjeta lista">' +
         '<div><span>' + r.enCamino + '</span><b>' + camino + '</b></div>' +
-        '<div><span>Tus pedidos anteriores</span><b>' + (previos.length ? previos.join(' · ') : c.flujoInicial + ' por semana') + '</b></div>' +
-        '<div><span>Costo acumulado</span><b>' + M.pesos(p.costo) + '</b></div>' +
+        '<div><span>' + (r.fabrica ? 'Tus producciones anteriores' : 'Tus pedidos anteriores') + '</span><b>' + (previos.length ? previos.join(' · ') : c.flujoInicial + ' por semana') + '</b></div>' +
+        '<div><span>Costo semana · total</span><b>' + M.pesos(s.costoSemana) + ' · ' + M.pesos(p.costo) + '</b></div>' +
       '</div>' +
+      aviso(r.fabrica
+        ? 'Lo que dice “En producción” ya lo decidiste en semanas anteriores: saldrá solo.'
+        : 'Lo que dice “En camino” ya lo pediste en semanas anteriores: llegará solo.') +
       lineaDemanda +
-      '<div class="pregunta">¿Cuántas cajas pides ' + r.proveedor + '?</div>' +
-      '<div class="visor"><b id="visor">' + (app.digitado === '' ? '–' : app.digitado) + '</b><span>último pedido: ' + p.ultimoPedido + '</span><button data-a="borrar" aria-label="Borrar">⌫</button></div>' +
+      '<div class="pregunta">' + (r.fabrica ? '¿Cuántas cajas pones a producir?' : '¿Cuántas cajas pides ' + r.proveedor + '?') + '</div>' +
+      aviso(r.fabrica
+        ? 'Tu decisión de hoy: lo que pongas a producir estará listo en <b>' + c.retrasoProduccion + ' semanas</b>.'
+        : 'Tu decisión de hoy: lo que pidas ' + r.proveedor + ' llega en <b>' + plazo() + ' semanas</b>, si tiene cajas.') +
+      '<div class="visor"><b id="visor">' + (app.digitado === '' ? '–' : app.digitado) + '</b><span>' + (r.fabrica ? 'última producción: ' : 'último pedido: ') + p.ultimoPedido + '</span><button data-a="borrar" aria-label="Borrar">⌫</button></div>' +
       '<div class="teclado">' +
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (n) { return '<button data-a="tecla" data-n="' + n + '">' + n + '</button>'; }).join('') +
       '</div>' +
       '<button class="btn rol" id="pedir" data-a="pedir"' + (app.digitado === '' ? ' disabled' : '') + '>' + textoPedir() + '</button>';
   }
   function textoPedir() {
-    return app.digitado === '' ? 'Escribe tu pedido' : 'Pedir ' + parseInt(app.digitado, 10) + ' cajas';
+    var fabrica = app.pantalla === 'turno' && ROLES[app.turno].fabrica;
+    if (app.digitado === '') return fabrica ? 'Escribe cuántas producir' : 'Escribe tu pedido';
+    return (fabrica ? 'Producir ' : 'Pedir ') + parseInt(app.digitado, 10) + ' cajas';
   }
 
   function veces(costo, referencia) {
