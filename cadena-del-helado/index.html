@@ -440,10 +440,14 @@
       return '<div><em style="background:' + ROLES[i].color + '"></em><span>' + ROLES[i].nombre + '</span><b>' + piezas + '</b><span>' + p.inventario + ' cajas</span></div>';
     }).join('');
     var sig = app.config.rondas[app.rondaIdx + 1];
+    // Código de respaldo: sirve si la cadena no alcanza a terminar la ronda siguiente.
+    var codigoParcial = M.codificar({ cadena: app.cadena, costo1: app.resultados[0].costo, costo2: 0 });
     return barra() + '<h1>Fin de la ' + ronda().nombre.toLowerCase() + '</h1><p class="suave">Ya pueden conversar.</p>' +
       '<div class="tarjeta">' + cabTarjeta('Torres LEGO', 'Pausa') + '<p class="chico suave">Cada puesto arma una torre con su inventario final: 1 pieza por cada ' + PIEZA_CAJAS + ' cajas, máximo ' + PIEZAS_MAX + '.</p>' +
       '<div class="torres">' + torres + '</div></div>' +
       bloqueRonda(app.rondaIdx) +
+      '<div class="tarjeta">' + cabTarjeta('Código de esta ronda', 'Respaldo') + '<div class="codigo" id="codigoParcial">' + codigoParcial + '</div>' +
+      '<p class="chico suave" style="text-align:center">Solo si el profesor lo pide. El código final aparece al terminar la ' + sig.nombre.toLowerCase() + '.</p></div>' +
       '<div class="tarjeta">' + cabTarjeta(sig.nombre, 'Siguiente') + '<p class="chico">Ahora toda la cadena ve las ventas a clientes y pueden conversar antes de cada pedido. Dura menos semanas. Esperen la señal del profesor.</p></div>' +
       '<button class="btn" data-a="siguienteRonda">' + (app.confirma === 'ronda' ? 'Toca otra vez para comenzar' : 'Comenzar ' + sig.nombre.toLowerCase()) + '</button>';
   }

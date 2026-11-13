@@ -237,8 +237,13 @@
     return referencia > 0 ? (Math.round(costo / referencia * 10) / 10).toFixed(1).replace('.', ',') + ' ×' : '–';
   }
 
+  // Una cadena que solo jugó la ronda 1 trae costo2 = 0: va después de las completas, ordenada por la ronda 1.
+  function incompleta(r) { return dosRondas && !r.costo2; }
   function ordenado() {
-    return ranking.slice().sort(function (a, b) { return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena; });
+    return ranking.slice().sort(function (a, b) {
+      if (incompleta(a) !== incompleta(b)) return incompleta(a) ? 1 : -1;
+      return (a.costo1 + a.costo2) - (b.costo1 + b.costo2) || a.cadena - b.cadena;
+    });
   }
 
   // Gráfico de barras azules al estilo de la plantilla. valores: números; etiquetas: textos bajo cada barra.
@@ -274,23 +279,32 @@
     var cab = '<tr><th>#</th><th>Cadena</th><th>' + config.rondas[0].nombre + '</th>' +
       (dosRondas ? '<th>' + config.rondas[1].nombre + '</th><th>Total</th><th>R1 vs. ref.</th><th>R2 vs. ref.</th>' : '') + '<th></th></tr>';
     var filas = lista.map(function (r, k) {
-      return '<tr' + (k === 0 ? ' class="primero"' : '') + '><td><span class="rango">' + (k + 1) + '</span></td><td>Cadena ' + r.cadena + '</td><td>' + M.pesos(r.costo1) + '</td>' +
-        (dosRondas ? '<td>' + M.pesos(r.costo2) + '</td><td>' + M.pesos(r.costo1 + r.costo2) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + veces(r.costo2, ref2) + '</td>' : '') +
+      var sin = incompleta(r);
+      return '<tr' + (k === 0 && !sin ? ' class="primero"' : '') + '><td><span class="rango">' + (k + 1) + '</span></td><td>Cadena ' + r.cadena + (sin ? ' <span class="suave" style="font-size:.72em">sin ronda 2</span>' : '') + '</td><td>' + M.pesos(r.costo1) + '</td>' +
+        (dosRondas ? '<td>' + (sin ? '–' : M.pesos(r.costo2)) + '</td><td>' + (sin ? '–' : M.pesos(r.costo1 + r.costo2)) + '</td><td>' + veces(r.costo1, ref1) + '</td><td>' + (sin ? '–' : veces(r.costo2, ref2)) + '</td>' : '') +
         '<td><button class="x" data-a="quitar" data-n="' + r.cadena + '" aria-label="Quitar cadena ' + r.cadena + '">quitar</button></td></tr>';
     }).join('');
     var ref = '<tr class="ref"><td></td><td>Referencia</td><td>' + M.pesos(ref1) + '</td>' +
       (dosRondas ? '<td>' + M.pesos(ref2) + '</td><td>' + M.pesos(ref1 + ref2) + '</td><td>1,0 ×</td><td>1,0 ×</td>' : '') + '<td></td></tr>';
     var a = 0, b = 0;
-    ranking.forEach(function (r) { a += r.costo1; b += r.costo2; });
-    if (ranking.length) { a /= ranking.length; b /= ranking.length; }
+    var completas = lista.filter(function (r) { return !incompleta(r); });
+    ranking.forEach(function (r) { a += r.costo1; });
+    completas.forEach(function (r) { b += r.costo2; });
+    if (ranking.length) a /= ranking.length;
+    if (completas.length) b /= completas.length;
     var kpis = kpi('Cadenas registradas', ranking.length) +
       kpi('Mejor cadena', lista.length ? 'Cadena ' + lista[0].cadena : '–') +
       kpi(dosRondas ? 'Promedio ronda 1' : 'Promedio', ranking.length ? veces(a, ref1) : '–', ranking.length ? 'la referencia' : '') +
-      (dosRondas ? kpi('Promedio ronda 2', ranking.length ? veces(b, ref2) : '–', ranking.length ? 'la referencia' : '') : '');
+      (dosRondas ? kpi('Promedio ronda 2', completas.length ? veces(b, ref2) : '–', completas.length ? 'la referencia' : '') : '');
+    // El gráfico compara totales; si ninguna cadena terminó la ronda 2, compara la ronda 1.
+    var soloRonda1 = lista.length > 0 && completas.length === 0;
+    var enGrafico = soloRonda1 ? lista : completas;
+    var faltan = lista.length - enGrafico.length;
     var grafico = lista.length
-      ? barras(lista.map(function (r) { return r.costo1 + r.costo2; }), lista.map(function (r) { return 'C' + r.cadena; }),
-          { referencia: ref1 + ref2, formato: milesCortos, titulo: 'Costo total por cadena' }) +
-        '<p class="suave" style="font-size:.66em;margin-top:.6em">Línea verde punteada: la referencia, una cadena que pide lo mismo que le piden. Las rondas duran distinto, así que cada una se compara con su propia referencia.</p>'
+      ? barras(enGrafico.map(function (r) { return r.costo1 + r.costo2; }), enGrafico.map(function (r) { return 'C' + r.cadena; }),
+          { referencia: soloRonda1 ? ref1 : ref1 + ref2, formato: milesCortos, titulo: soloRonda1 ? 'Costo de la ronda 1 por cadena' : 'Costo total por cadena' }) +
+        '<p class="suave" style="font-size:.66em;margin-top:.6em">Línea verde punteada: la referencia, una cadena que pide lo mismo que le piden. Las rondas duran distinto, así que cada una se compara con su propia referencia.' +
+        (faltan ? ' ' + (faltan === 1 ? 'Falta 1 cadena' : 'Faltan ' + faltan + ' cadenas') + ' en el gráfico por no tener ronda 2.' : '') + '</p>'
       : '<div class="vacio">Aún no hay códigos ingresados.</div>';
     return '<div class="tarjeta" style="margin-bottom:1em"><div class="ingreso"><label for="cod">Código de la cadena</label><input id="cod" maxlength="11" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX">' +
       '<button class="btn" data-a="agregar">Agregar</button>' +
@@ -298,7 +312,7 @@
       '<p class="msj ' + mensaje.clase + '" id="msj">' + mensaje.texto + '</p></div>' +
       '<div class="kpis">' + kpis + '</div>' +
       '<div class="dos ancha"><div class="tarjeta">' + cabTarjeta('Tabla de posiciones', 'Menor costo gana') + '<table>' + cab + filas + ref + '</table></div>' +
-      '<div class="tarjeta">' + cabTarjeta('Costo total por cadena', dosRondas ? 'Ambas rondas' : '') + grafico + '</div></div>';
+      '<div class="tarjeta">' + cabTarjeta(soloRonda1 ? 'Costo de la ronda 1 por cadena' : 'Costo total por cadena', dosRondas ? (soloRonda1 ? 'Solo ronda 1' : 'Ambas rondas') : '') + grafico + '</div></div>';
   }
 
   function vCierre() {
